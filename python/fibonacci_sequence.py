@@ -22,4 +22,10 @@ def sequence(index):
 
 	return fib_sequence
 
-print sequence(30)
+while True:
+	try:
+		index = int(raw_input('Enter the index for Fibonacci sequence or "quit" to quit: '))
+	except ValueError:
+		print 'Bye'
+		break
+	print sequence(index)
