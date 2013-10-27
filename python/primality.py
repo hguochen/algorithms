@@ -11,6 +11,9 @@
 
 import math
 import random
+import time, sys
+
+REPS = 1000
 
 def is_prime_test1(n):
 	"""Check if a number is prime using Trial division method"""
@@ -63,6 +66,7 @@ def is_prime_test3(n):
 	return prime
 
 def is_prime_test4(n):
+	"""Check if a number is prime using Murderous method"""
 	prime = False
 	value =  str(float(pow(n, 2) + 17) / 12)
 	if ".5" in value:
@@ -81,6 +85,13 @@ def prime_list(n):
 			prime_list.append(number)
 	return prime_list
 
+def execution_speed(func, *args):
+	"""Calulates the execution speed of a function in milliseconds"""
+	startTime = time.time()
+	for i in range(REPS):
+		func(*args)
+	elapsed = time.time() - startTime
+	return elapsed
 
 n = int(raw_input('Enter a positive integer: '))
 prime_test = []
@@ -95,6 +106,8 @@ test_type.append('Miller Rabin')
 prime_test.append(is_prime_test4(n))
 test_type.append('Murderous')
 
+test_funcs = [is_prime_test1, is_prime_test2, is_prime_test3, is_prime_test4]
+
 for index in range(len(prime_test)):
 	if prime_test[index]:
 		print '%d is a prime according to %s method.' % (n, test_type[index])
@@ -103,3 +116,6 @@ for index in range(len(prime_test)):
 
 print '\nAll prime integers between 0 to %d: ' % n
 print prime_list(n)
+
+for func in test_funcs:
+	print '%s execution speed is %.10f' % (str(func), float(execution_speed(func, n)) * 1000)
