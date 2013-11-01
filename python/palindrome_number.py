@@ -10,7 +10,9 @@
 
 def isPalindrome(a_list):
 	"""Returns True if a_list contains number digits that are palindrome"""
-	if palindromeRecur(a_list):
+	if len(a_list) == 1:
+		return True
+	elif palindromeRecur(a_list):
 		return True
 	else:
 		return False
@@ -48,13 +50,8 @@ if start > end:
 	print 'start must be equal or smaller than end'
 else:
 	for num in range(start, end+1):
-		if num < 10:
-			count += 1
-			continue
-		else:
 			start_list = toList(num)
 			if isPalindrome(start_list):
 				count += 1
-				print count
 			start_list = []
 	print 'Number of palindrome numbers =', count
