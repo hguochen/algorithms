@@ -19,12 +19,32 @@
 import math
 from bubble_sort import bubbleSort
 
+def computeDistance(a_list):
+	"""Computes the straight-line distance between (0,0) and (x,y) axis"""
+	coord_value = []
+	for x,y in a_list:
+		dist = math.sqrt(x*x + y*y)
+		coord_value.append(dist)
+	return coord_value
+
+def mapCoordValue(value_list, coord_list):
+	"""Dictionary maps the coordinate dist value as key and coordinates as value"""
+	coord_value_mapping = {}
+	for index in range(len(value_list)):
+		coord_value_mapping[value_list[index]] = coord_list[index]
+	return coord_value_mapping
+
+def toIntList(a_list):
+	"""Converts a list elements to int type"""
+	number_list = []
+	for char in char_list:
+		num = int(char)
+		number_list.append(num)
+	return number_list
+
 numbers = raw_input('Enter points in succession in (x1 y1 x2 y2 ...) order: ')
 char_list = list(numbers.split(' '))
-number_list = []
-for char in char_list:
-	num = int(char)
-	number_list.append(num)
+number_list = toIntList(char_list)
 
 coord = []
 coord_list = []
@@ -37,15 +57,9 @@ for num in number_list:
 		coord = []
 		count = 0
 
-coord_value = []
-for x,y in coord_list:
-	dist = math.sqrt(x*x + y*y)
-	coord_value.append(dist)
-
-coord_value_mapping = {}
-for index in range(len(coord_value)):
-	coord_value_mapping[coord_value[index]] = coord_list[index]
-
+coord_value = computeDistance(coord_list)
+coord_value_mapping = mapCoordValue(coord_value, coord_list)
 bubbleSort(coord_value)
+
 for value in coord_value:
 	print coord_value_mapping[value]
