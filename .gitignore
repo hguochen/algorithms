@@ -1,1 +1,5 @@
+// All java compiled class
 *.class
+
+// All python compiled files
+*.pyc
