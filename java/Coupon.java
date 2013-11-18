@@ -43,34 +43,34 @@ class Redeem {
 		//Declare a scanner object to read input
 		Scanner scan = new Scanner(System.in);
 		//Declare the necessary variables
-		double price, pay, rate; 
-		int num_coupon;
+		double price, rate, value_pay; 
+		int index=0, num_coupon;
 		String name;
-		
 		//Read input and process them accordingly
 		price = scan.nextDouble();
 		num_coupon = scan.nextInt();
+		Coupon[] coupon = new Coupon[num_coupon];
+		double[] pay = new double[num_coupon];
+		double[] theory_pay = new double[num_coupon];
 
-		for (int i=0; i < num_coupon; i++) {
+		for (int i=0; i < num_coupon; i++) {// Instantiate coupons
 			name = scan.next();
 			rate = scan.nextDouble();
-			Coupon[] coupon[i] = new Coupon(name, rate);
-			System.out.println(coupon[i].getName);
-			System.out.println(coupon[i].getRate);
+			coupon[i] = new Coupon(name, rate);
+			pay[i] = coupon[i].payment(price);
+			theory_pay[i] = Math.abs(pay[i]);
 		}
-		
-		//System.out.println(discount_coupon[0]);
-		//Ensure your output is in the right format
-	}
-
-	//Utility methods
-	public static double[] deleteFromArray(double[] array, int delete) {
-    	double[] x = new double[array.length-1];
-		int k = 0;
-   		for(int i = 0; i < array.length; i++) {
-        	if(i != delete)
-         		x[k++] = array[i];
-   		}
-   		return x;
+		value_pay = theory_pay[0];
+		for (int i=0; i < num_coupon; i++) {
+			if (theory_pay[i] < value_pay) {
+				value_pay = theory_pay[i];
+				index = i;
+			}
+		}
+		if (pay[index] < 0) {
+			value_pay = 0.0;
+		}
+		System.out.println("Best choice: " + coupon[index].getName());
+		System.out.println("You need to pay $" + value_pay);
 	}
 }
