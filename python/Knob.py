@@ -33,13 +33,13 @@
 # and the last line contains the total number of stops made to turn all the knobs. 
 class Knob:
 	"Knob class determines the characteristics of knobs"
+	position = ('up', 'right', 'down', 'left')
+	state = ('on', 'off')
 	def __init__(self, state, new_cur_pos, new_tgt_pos):
 		"Constructor"
 		self.isOn = state
 		self.cur_pos = new_cur_pos
 		self.tgt_pos = new_tgt_pos
-		self.position = ('up', 'right', 'down', 'left')
-		self.state = ('on', 'off')
 
 	# Accessors
 	def getState(self):
