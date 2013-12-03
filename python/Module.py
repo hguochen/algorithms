@@ -3,6 +3,7 @@
 ### Author: GuoChen Hou   ########
 ##################################
 
+# Task Statement at http://www.comp.nus.edu.sg/~cs1020/labs/12s2/lab2/ex2_Register/Register.pdf
 class Schedule:
 	def __init__(self, new_day, start_time, end_time):
 		self.day = new_day
