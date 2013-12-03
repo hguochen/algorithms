@@ -19,5 +19,5 @@ class _const:
 KMS_PER_MILE = 1.609
 miles = float(raw_input('Enter distance in miles: '))
 kilometre = KMS_PER_MILE * miles
-
+print _const.__setattr__
 print '%.3f miles equates to %.3f kilometre.' % (miles, kilometre)
