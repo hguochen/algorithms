@@ -21,7 +21,7 @@ class SGTime:
 		return self.minute
 
 class Airline:
-	"Stores cost, time and destination details of Airline"
+	"""Stores cost, time and destination details of Airline"""
 	def __init__(self, from_city, to_city, depart_time, arrival_day, arrival_time, cost):
 		self.from_city = from_city
 		self.to_city = to_city
@@ -49,7 +49,7 @@ class Airline:
 		return self.cost
 
 class Query:
-	"Stores a list of airlines served and implements methods to answer the types of queries"
+	"""Stores a list of airlines served and implements methods to answer the types of queries"""
 	def __init__(self):
 		self.airline = []
 
