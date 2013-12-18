@@ -40,6 +40,7 @@ class ControlTower:
 				self.fields[i].next = self.fields[i+1]
 
 	def heli_outgoing(self, index):
+		"""Vacate the 'index' helipad """
 		if index < self.field_count: # index is in airport
 			self.fields[index].set_helicopter(None)
 		return None
@@ -69,6 +70,7 @@ class ControlTower:
 			return -1
 
 	def print_status(self):
+		"""Print airport occupancy status"""
 		for pad in self.fields:
 			print "Field %d: occupied by helicopter: %s" % (pad.get_index(), pad.get_helicopter())
 
