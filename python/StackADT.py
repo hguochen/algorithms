@@ -17,7 +17,10 @@ class Stack:
 
 	def peek(self):
 		"""Return the topmost item from the stack"""
-		return self.items[len(self.items)-1]
+		if self.is_empty():
+			return None
+		else:
+			return self.items[len(self.items)-1]
 
 	def push(self, item):
 		self.items.append(item)
