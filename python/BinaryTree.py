@@ -44,8 +44,9 @@ class BinaryTree:
 				node.right = new_node
 				print "Node %d has been added as a right child of %d." % (data, node.data)
 
-tree = BinaryTree(5)
-tree.add(3, tree.get_root())
-tree.add(7, tree.get_root())
-tree.add(2, tree.get_root())
-tree.add(8, tree.get_root())
+if __name__ == "__main__":
+	tree = BinaryTree(5)
+	tree.add(3, tree.get_root())
+	tree.add(7, tree.get_root())
+	tree.add(2, tree.get_root())
+	tree.add(8, tree.get_root())
