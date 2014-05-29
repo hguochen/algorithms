@@ -154,6 +154,32 @@ public class BinaryTree {
 		return count;
 	}
 
+	public int countTerminalNodes(BinaryNode node) {
+		// Counts the number of terminal nodes in the binary tree starting with node and return the integer value
+		int count = 0;
+		if (node != null) {
+			if (node.leftChild == null && node.rightChild == null) {
+				count += 1;
+			}
+			count += countTerminalNodes(node.leftChild) + countTerminalNodes(node.rightChild);
+		}
+		return count;
+	}
+
+	public void swap(BinaryNode node) {
+		// Swaps the left and right child of every node starting from node
+		if(node != null) {
+			if (node.leftChild != null || node.rightChild != null) {
+				BinaryNode temp;
+				temp = node.leftChild;
+				node.leftChild = node.rightChild;
+				node.rightChild = temp;
+				swap(node.leftChild);
+				swap(node.rightChild);
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		BinaryTree tree = new BinaryTree(5);
 		tree.addNode(tree.root, 3);
@@ -163,12 +189,16 @@ public class BinaryTree {
 		tree.addNode(tree.root, 6);
 		tree.addNode(tree.root, 8);
 		tree.preorder(tree.root);
+		//tree.swap(tree.root);
+		//System.out.println();
+		//tree.preorder(tree.root);
 		System.out.println();
 		System.out.println("Total number of nodes: " + tree.countNodes(tree.root));
 		tree.inorder(tree.root);
 		System.out.println();
 		tree.postorder(tree.root);
 		System.out.println();
+		System.out.println(tree.countTerminalNodes(tree.root));
 		if (tree.find(tree.root, 3) != null) {
 			System.out.println("Node found.");
 		} else {
@@ -176,5 +206,6 @@ public class BinaryTree {
 		}
 		BinaryNode newRoot = tree.replace(tree.root, tree.find(tree.root, 4));
 		BinaryNode newRoot2 = tree.replace(tree.root, tree.find(tree.root, 7));
+		System.out.println(tree.countTerminalNodes(tree.root));
 	}
 }
