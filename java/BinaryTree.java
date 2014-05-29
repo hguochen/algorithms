@@ -37,6 +37,29 @@ public class BinaryTree {
 		}
 	}
 
+	public void replace(BinaryNode root, BinaryNode ref) {
+		// Replace function deleted the node referenced by ref from a binary search tree with root root.
+		// The node referenced by ref has 0 children or exactly 1 child. We assume that each node N in the 
+		// tree has a parent field, N.parent. If N is the root, N.parent is null. 
+		// Returns the root of the tree that results from deleting the node
+	}
+
+	public BinaryNode find(BinaryNode node, int value) {
+		// Finds the node that contains the value and returns a reference to the node.
+		// Returns null if value does not exist in the tree.				
+		if (node == null) return null;
+		if (node.data == value) {
+			return node;
+		} else {
+			BinaryNode left = find(node.leftChild, value);
+			BinaryNode right = find(node.rightChild, value);
+			if (left != null) {
+				return left;
+			}else {
+				return right;
+			}	
+		}
+	}
 	public void preorder(BinaryNode node) {
 		if (node != null) {
 			System.out.print(node.data + " ");
@@ -89,5 +112,10 @@ public class BinaryTree {
 		System.out.println();
 		tree.postorder(tree.root);
 		System.out.println();
+		if (tree.find(tree.root, 3) != null) {
+			System.out.println("Node found.");
+		} else {
+			System.out.println("Node NOT found.");
+		}
 	}
 }
