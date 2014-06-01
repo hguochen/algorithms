@@ -6,9 +6,7 @@
 # fibonacci sequence up to that number sequence
 
 def fibonacci_number(index):	
-	if index < 0:
-		return 0
-	elif index == 0:
+	if index <= 0:
 		return 0
 	elif index == 1:
 		return 1
