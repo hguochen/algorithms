@@ -2,7 +2,6 @@ import java.util.*;
 
 public class BinaryMaxHeap {
 	// BinaryMaxHeap class implements binary maxheap data structure represented using an array.
-	public static final int SIZE = 99;
 	ArrayList<Integer> heap;
 	
 	public BinaryMaxHeap() {
@@ -143,7 +142,7 @@ public class BinaryMaxHeap {
 		System.out.println(newHeap.heapify(unheap));
 
 		System.out.println("======");
-		
+
 		ArrayList<Integer> testingHeapSort = new ArrayList<Integer>();
 		testingHeapSort.add(4);
 		testingHeapSort.add(12);
