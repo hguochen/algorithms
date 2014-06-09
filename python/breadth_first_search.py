@@ -34,6 +34,19 @@ class LinkedList:
 		trav.next = new_node
 
 def breadth_first_search(adj, start_index):
+	"""
+	This function executes a breadth-first search beginning at vertex start_index in a graph with vertices 1, ... ,n and outputs the 
+	vertices in the order in which they are visited.
+	
+	The graph is represented using adjacency lists; adj[i] is a reference to the first node in a linked list of nodes representing the
+	vertices adjacent to vertex i. Each node has members ver, the vertex adjacent to i, and next, a reference to the next node in the linked list or
+	null, for the last node in the linked list.
+
+	To track visited vertices, the algorithm uses an array visit; visit[i] is set to true if vertex i has been visited or to false if vertex i
+	has not been visited.
+
+	The algorithm uses an initially empty queue to store pending curent vertices.
+	"""
 	current_queue = deque()
 	visit = [False] * len(adj) # initialize visit array to false
 	visit[start_index] = True
