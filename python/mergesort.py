@@ -85,11 +85,34 @@ def mergesort_v2(a_list):
 		left = mergesort_v2(left)
 		right = mergesort_v2(right)
 		return merge_v2(left, right)		
-		
+
+def join_sublists(a_list):
+	result = []
+	
+	for i in range(len(a_list)//2):
+		result.append(merge_v2(a_list[i*2], a_list[i*2+1]))		
+	if len(a_list) % 2 == 1: # odd number of elements
+		result.append(a_list[-1])	
+	return result
+
+def mergesort_v3(a_list):
+	"""
+	This function sorts the array a[i], ..., a[j] in nondecreasing order iteratively. It uses the merge_v2 algorithm
+	"""
+	if len(a_list) <= 1:
+		return a_list
+	a_list = [[element] for element in a_list]
+	
+	while len(a_list) > 1:
+		a_list = join_sublists(a_list)	
+	return a_list[0]
+
 
 if __name__ == "__main__":
 	num_list = [14,20,36,10,12,30,40,44]
+
 	print merge_v1(num_list, 0, 2, len(num_list)-1)
 	print mergesort_v1(num_list, 0, len(num_list)-1)
 	print merge_v2(num_list[:3], num_list[3:])	
 	print mergesort_v2(num_list)
+	print mergesort_v3(num_list)
