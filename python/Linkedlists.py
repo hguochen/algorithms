@@ -91,7 +91,7 @@ class LinkedList:
 			if data != None:
 				result += data
 			current_node = current_node.next
-			 i += 1
+			i += 1
 		result += "}"
 		return result
 
