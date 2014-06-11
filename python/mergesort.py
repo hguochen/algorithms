@@ -88,8 +88,8 @@ def mergesort_v2(a_list):
 
 def join_sublists(a_list):
 	result = []
-	
-	for i in range(len(a_list)//2):
+
+	for i in range(len(a_list)//2): # time complexity of O(n/2)
 		result.append(merge_v2(a_list[i*2], a_list[i*2+1]))		
 	if len(a_list) % 2 == 1: # odd number of elements
 		result.append(a_list[-1])	
@@ -98,12 +98,13 @@ def join_sublists(a_list):
 def mergesort_v3(a_list):
 	"""
 	This function sorts the array a[i], ..., a[j] in nondecreasing order iteratively. It uses the merge_v2 algorithm
+	Has a time complexity of O(nlg n)
 	"""
 	if len(a_list) <= 1:
 		return a_list
 	a_list = [[element] for element in a_list]
 	
-	while len(a_list) > 1:
+	while len(a_list) > 1: # time complexity of O(lg n)
 		a_list = join_sublists(a_list)	
 	return a_list[0]
 
