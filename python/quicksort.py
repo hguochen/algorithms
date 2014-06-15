@@ -26,10 +26,10 @@ def random_partition(a_list, start, end):
 	return partition(a_list,  start, end)
 
 def quicksort_recurs(a_list, start, end):
-	if start < end:
+	if start < end:		
 		partition_index = partition(a_list, start, end)
 		quicksort_recurs(a_list, start, partition_index-1)
-		quicksort_recurs(a_list, partition_index+1, end)
+		quicksort_recurs(a_list, partition_index+1, end)		
 	return a_list
 
 def random_quicksort_recurs(a_list, start, end):
