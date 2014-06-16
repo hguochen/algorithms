@@ -23,7 +23,7 @@ def partition(a_list, start, end):
 def random_partition(a_list, start, end):
 	k = randint(start, end)
 	a_list[start], a_list[k] = a_list[k], a_list[start]
-	return partition(a_list,  start, end)
+	return partition(a_list, start, end)
 
 def quicksort_recurs(a_list, start, end):
 	if start < end:		

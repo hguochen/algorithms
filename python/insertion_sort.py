@@ -7,6 +7,7 @@ def insertion_sort(a_list):
 			current -= 1
 		a_list[current+1] = temp
 	return a_list
+	
 
 if __name__ == "__main__":
 	apple = [36,14,27,40,31]
