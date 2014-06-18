@@ -7,7 +7,7 @@ class Node:
 	def __init__(self, vertex=None, weight=None, next=None):
 		self.vertex = vertex
 		self.weight = weight
-		self.next = next	
+		self.next = next
 
 class LinkedList:
 	"""
