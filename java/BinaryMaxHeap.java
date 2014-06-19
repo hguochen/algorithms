@@ -29,7 +29,13 @@ public class BinaryMaxHeap {
 		}		
 		while(value_index > 0 && value > this.heap.get(parent_index)) { // if value_index is not root AND value is bigger than its parent			
 			this.heap.set(value_index, this.heap.get(parent_index)); // move parent value to its newly added child position
-			value_index = parent_index;
+			if (value_index % 2 == 0) { //value added as a right child
+				value_index = (value_index - 1) / 2
+				parent_index = (value_index - 1) / 2;
+			} else { // value added as a left child
+				value_index = value_index / 2
+				parent_index = value_index / 2;
+			}
 		}
 		this.heap.set(value_index, value);
 		return heap;
