@@ -16,13 +16,14 @@ def decimal(binary_value):
 				result += binary_value[i] * multiplier
 				multiplier *= 2
 	5. return int(result)
+
+	Algorithm has time complexity O(n).
 	"""
 	if len(binary_value) == 0:
 		return
 	result = 0
 	multiplier = 1
 	for i in range(len(binary_value)-1, -1, -1):
-		print binary_value[i]
 		if binary_value[i] == "1":
 			result += multiplier
 		multiplier *= 2
@@ -42,16 +43,18 @@ def binary(decimal_value):
 			add the item with its multiplier to result
 			increment multiplier
 	4. return result
+
+	Algorithm has time complexity O(n). Where n is the smallest value that satisfies 2**n >= decimal_value:
 	"""
 	stack = Stack_linkedlist()
-	while decimal_value > 0:
+	while decimal_value > 0: # comlexity O(lg n)
 		remainder = decimal_value % 2
-		decimal_value /= 2			
+		decimal_value /= 2
 		stack.push(remainder)
 	result = 0
 	multiplier = 10**(stack.get_size() - 1)
 
-	while not stack.empty():
+	while not stack.empty(): # complexity O(n)
 		result += stack.pop() * multiplier
 		multiplier /= 10
 	return result

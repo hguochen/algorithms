@@ -3,19 +3,51 @@
 ### Author: GuoChen Hou   ########
 ##################################
 
-# This program is a recursive solution of the Tower of Hanoi problem
-# For a recursive solution, the algorithm is as follows:
-# if(n > 0)
-# 	move n-1 disks from the source peg to the temp peg using the dest peg
-# 	move disk n from the source peg to the dest peg
-# 	move n-1 disks from the temp peg to the dest peg using the source peg
+from ADT.Stack import Stack_array
 
-def solve_tower(source, temp, dest, number):
+def solve_tower_recurs(number, source, temp, dest):
+	"""
+	Recursive solution of the Tower of Hanoi problem.
+
+	if n > 0:
+		1. move n-1 disks from source to temp using dest
+		2. move 1 disk from source to dest using temp
+		3. move n-1 disks from temp to dest using source
+	"""
 	if number > 0:
-		solve_tower(source, dest, temp, number-1)
+		solve_tower_recurs(number-1, source, dest, temp)
 		print 'Move disk %d from peg %s to peg %s.' % (number, source, dest)
-		solve_tower(temp, source, dest, number-1)
+		solve_tower_recurs(number-1, temp, source, dest)
 
-num = int(raw_input('Number of disks: '))
+def solve_tower(number):
+	"""
+	Solve tower of hanoi problem using stack ADT and recursive solution.
 
-solve_tower('A', 'B', 'C', num)
+	Initialize 3 stacks to with each stack symbolise each of the peg.
+	"""
+	towers = []
+	# initialize a list reference each of the 3 towers stacks
+	for i in range(number):
+		stack = Stack_array()
+		towers.append(stack)
+	# put all pegs to starting tower
+	for i in range(number-1, -1, -1):
+		towers[0].push(i)
+	# recursive solution
+	solve_tower_stack(number, towers[0], towers[1], towers[2])
+
+def solve_tower_stack(number, source, temp, dest):
+	"""
+	Solve tower of hanoi problem using stack ADT and recursive solution.
+	"""
+	if number > 0:
+		solve_tower_stack(number-1, source, dest, temp)
+		move = source.pop()
+		dest.push(move)
+		solve_tower_stack(number-1, temp, source, dest)
+
+if __name__ == "__main__":
+	num = int(raw_input('Number of disks: '))
+
+	solve_tower_recurs(num, 'A', 'B', 'C')
+	solve_tower(num)
