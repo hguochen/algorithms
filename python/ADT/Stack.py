@@ -12,6 +12,7 @@
 # top(): return the item most recently added to the stack, but do not remove it.
 # is_empty(): check whether the stack is empty 
 
+# Array implementation of stack
 class Stack_array:
 	"""
 	Implementing a stack ADT using a list data structure.
@@ -58,6 +59,8 @@ class Stack_array:
 		"""
 		return len(self.stack)
 
+
+# Linked list implementation of stack
 class Node:
 	"""
 	Node structure for linked list.
@@ -120,7 +123,7 @@ class Stack_linkedlist:
 			return
 		return self.head.data
 
-	def size(self):
+	def get_size(self):
 		"""
 		Return the size of the stack.
 		"""
