@@ -58,7 +58,70 @@ class Stack_array:
 		"""
 		return len(self.stack)
 
+class Node:
+	"""
+	Node structure for linked list.
+	"""
+	def __init__(self, data=None):
+		self.data = data
+		self.next = None
+
 class Stack_linkedlist:
 	"""
 	Implementing a stack ADT using a list data structure.
 	"""
+	def __init__(self, data=None):
+		"""
+		Initialize a linked list node with data='data' when class instance is declared.
+		"""
+		self.head = Node(data)
+		self.size = 0
+
+	def empty(self):
+		"""
+		Return true if the stack is empty, else return false.
+		"""
+		if self.size == 0:
+			return True
+		return False
+
+	def push(self, value):
+		"""
+		Add the item 'value' to the stack and return a reference to the stack.
+
+		Add item 'value' to the front of the linked list. The previous top is then "next" from the item being added and the 
+		list's front pointer points to the new item.
+		"""
+		if self.empty():
+			self.head.data = value			
+		else:
+			new_node = Node(value)
+			new_node.next = self.head
+			self.head = new_node
+		self.size += 1
+		return self.head
+
+	def pop(self):
+		"""
+		Remove the item most recently added to the stack and return the removed value.
+		"""
+		if self.empty():
+			return
+		value = self.head.data
+		self.head = self.head.next
+		self.size -= 1
+		return value
+
+	def top(self):
+		"""
+		Return the item at the top of the stack but do not remove it.
+		"""
+		if self.empty():
+			return
+		return self.head.data
+
+	def size(self):
+		"""
+		Return the size of the stack.
+		"""
+		return self.size
