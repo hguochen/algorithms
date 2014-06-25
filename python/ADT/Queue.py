@@ -119,14 +119,10 @@ class Queue_linkedlist:
 		"""
 		Remove and return the least recently added item from the queue.
 		"""
-		if self.queue != None:
-			data = self.queue.data
-			self.queue = self.queue.next
-			return data
-		else:
-			return
-
-
+		data = self.front()
+		self.queue = self.queue.next
+		return data
+		
 	def print_queue(self):
 		"""
 		Print the queue in order from front to back.
@@ -136,7 +132,6 @@ class Queue_linkedlist:
 			print "%d " % trav.data, 
 			trav = trav.next
 		print "\n"
-
 """
 if __name__ == "__main__":
 	test = Queue_linkedlist()
@@ -149,5 +144,9 @@ if __name__ == "__main__":
 	test.dequeue()
 	test.print_queue()
 	test.dequeue()
+	test.print_queue()
+	test.dequeue()
+	test.print_queue()
+	test.enqueue(6)
 	test.print_queue()
 """
