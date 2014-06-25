@@ -16,7 +16,11 @@
 #		print(value=None): Print the data of the node with data=value and each subsequent node. If value is None, print data
 #							starting from the root node
 
+# Implementation of singly linked list with node structure
 class Node:
+	"""
+	Node structure for a singly linked list
+	"""
 	def __init__(self, data=None, next=None):
 		"""
 		Construct a new node.
@@ -76,6 +80,74 @@ class Linked_list:
 			trav = trav.next
 		print "\n"
 
+# Implementation of doubly linked list with node structure
+class Node2:
+	"""
+	Node structure for a doubly linked list	
+	"""
+	def __init__(self, data=None, prev=None, next=None):
+		self.data = data
+		self.prev = prev
+		self.next = next
+
+class Double_linked_list:
+	"""
+	A double linked list implementation using node structure.	
+	"""
+	def __init__(self):
+		self.head = None
+		self.size = 0
+
+	def insert(self, value):
+		"""
+		Insert item 'value' at the front of the list.
+		"""
+		new_node = Node2(value)
+		if self.head == None:
+			self.head = new_node
+		else:
+			self.head.prev = new_node
+			new_node.next = self.head
+			self.head = new_node
+		self.size += 1
+		return
+
+	def delete(self, value=None):
+		"""
+		Deletes the head node if value is None and return the new head ref. Otherwise search and delete the node with data==value.
+		If value not found, return None
+		"""
+		if value == None:
+			self.head = self.head.next
+			return self.head
+		else:
+			trav = self.head
+			while trav != None:
+				if trav.data == value: # value is found in list
+					if trav.prev == None: # data node is first node
+						self.head.next.prev = None
+						self.head = self.head.next
+						return self.head
+					else:
+						prev = trav.prev
+						trav.prev.next = trav.next
+						trav.next.prev = prev
+				trav = trav.next
+			return None
+
+		def print_list(self):
+			"""
+			Print the list in next traversal order
+			"""
+			trav = self.head
+			while trav != None:
+				print "%d" % trav.data,
+				trav = trav.next
+			print "\n"
+			return
+
+
+"""
 if __name__ == "__main__":
 	test = Linked_list()
 	test.insert(1)
@@ -84,3 +156,4 @@ if __name__ == "__main__":
 	test.print_list()
 	test.delete(0)
 	test.print_list()
+"""

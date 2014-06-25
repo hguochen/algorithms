@@ -63,7 +63,7 @@ class Stack_array:
 # Linked list implementation of stack
 class Node:
 	"""
-	Node structure for linked list.
+	Node structure for Stack_linkedlist class.
 	"""
 	def __init__(self, data=None):
 		self.data = data
@@ -71,7 +71,7 @@ class Node:
 
 class Stack_linkedlist:
 	"""
-	Implementing a stack ADT using a list data structure.
+	Implementing a stack ADT using a linked list data structure.
 	"""
 	def __init__(self, data=None):
 		"""

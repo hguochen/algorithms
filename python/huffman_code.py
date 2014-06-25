@@ -26,6 +26,7 @@ class HuffmanTree:
 		elif node_ref.right.freq == root.freq, node_ref.right = root.freq. Set ref point to node_ref.
 		else add node_ref to queue
 		"""
+		pass
 
 	def construct_tree(self):
 		"""
