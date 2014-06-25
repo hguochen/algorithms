@@ -1,19 +1,19 @@
-class LinkedListNode:
-	def __init__(self, inData=None, inNext=None):
+class Node:
+	def __init__(self, data=None, next=None):
 		"""Construct a new linked List Node"""
-		self.data = inData
-		self.next = inNext
+		self.data = data
+		self.next = next
 
 class LinkedList:
 	def __init__(self):
 		"""Construct a new LinkedList. The first node and last node are the same. Size is 0"""
-		self.firstnode = LinkedListNode()
+		self.firstnode = Node()
 		self.lastnode = self.firstnode
 		self.size = 0
 
 	def add(self, data):
 		"""Add a node to the list"""
-		node = LinkedListNode(data, None)
+		node = Node(data, None)
 		node.data = data
 
 		if self.firstnode.data == None:
@@ -41,7 +41,7 @@ class LinkedList:
 		if data == current_node.data:
 			# Case where we have only one node in the list
 			if current_node.next == None:
-				self.firstnode = LinkedListNode()
+				self.firstnode = Node()
 				self.lastnode = self.firstnode
 				self.size -= 1
 				return None
