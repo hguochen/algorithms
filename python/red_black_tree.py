@@ -2,88 +2,24 @@
 # -*- coding: utf-8 -*-
 
 ##################################
-### Title: Tree           ########
+### Title: Red black tree ########
 ### Author: GuoChen Hou   ########
 ##################################
 
-# Operations:
+# Implementation of a red black tree with node data structure
+#
+# Public operations:
 # __init__(): Initializes the data members
-# add_node(): Create a new node and return the node reference
-# insert(root, data): Inserts a new node with data with root as its parent
-# lookup(target): Looks for a value in the tree
-# min(): Returns the min data value in the tree
-# max_depth(): Return the height of the tree
+# insert(): Insert a new node with data into the tree
+# delete(data): Removes a node with its data value 'data'
+# find(): Find a value in the tree, return none if value is not found
 # size(): Return the total number of nodes in the tree
+# max_depth(): Return the height of the tree
 # print_tree(): Prints the tree path by in-order traversal
+#
+# Private operations:
+# ...
 
-# Implementation of basic Binary Tree with list data structure
-
-
-class Binary_tree:
-
-    """
-    Implementing a binary tree using a list data structure
-    """
-
-    def __init__(self, tree_height, root_value):
-        """
-        Upon class instance declaration, the maximum height of the tree must be defined.
-        Tree root has value 'root_value', with left and right child initialized to 1 & 2 respectively.
-        """
-
-        self.tree = [None] * (2 ** tree_height - 1)
-        self.tree[0] = [root_value, 1, 2]
-        self.height = tree_height
-        print self.tree
-
-    def __str__(self):
-        return 'Binary_tree'
-
-    def add_node(self, data, pos):
-        """
-        Add a node with 'data' value to position 'pos'
-        """
-
-        try:
-            if pos % 2 == 0:  # right child
-                parent = (pos - 1) // 2
-            else:
-                parent = pos // 2
-            if self.tree[parent] == None:
-                return 'Parent not found.'
-
-            # determine child index
-
-            left_child = pos * 2 + 1
-            right_child = pos * 2 + 2
-            if left_child >= 2 ** self.height - 1:
-                left_child = None
-                right_child = None
-
-            # append new node into tree
-
-            self.tree[pos] = [data, left_child, right_child]
-        except IndexError:
-            print 'Maximum height reached.'
-        return self.tree
-
-    def del_node(self, pos):
-        """
-        """
-
-        if self.tree[pos][1] == None and self.tree[pos][2] == None:
-            self.tree[pos] = None
-        else:
-            if self.tree[pos][1] != None:
-                self.tree[pos] = self.tree[self.tree[pos][1]]
-                self.tree[self.tree[pos][1]] = None
-            elif self.tree[pos][2] != None:
-                self.tree[pos] = self.tree[self.tree[pos][2]]
-                self.tree[self.tree[pos][2]] = None
-        return self.tree
-
-
-# Implementation of ordered Binary Tree with node structure
 
 class Node:
     """
