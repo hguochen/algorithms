@@ -26,7 +26,7 @@ class Node:
     Node data structure for a red black tree.
     """
 
-    def __init__(self, data=None, left=None, right=None):
+    def __init__(self, data=None, left=None, right=None, parent=None):
         """
         Initialize data members: data, left, right.
         """
@@ -34,6 +34,7 @@ class Node:
         self.data = data
         self.left = left
         self.right = right
+        self.parent = parent
 
 
 class RedBlackTree:
@@ -175,13 +176,43 @@ class RedBlackTree:
         if node.data < root.data:
             if root.left is None:
                 root.left = node
+                node.parent = root
             else:
                 self._insert(root.left, node)
         else:
             if root.right is None:
                 root.right = node
+                node.parent = root
             else:
                 self._insert(root.right, node)
+
+    def _delete(self, root, node):
+        """
+        Deletes the node referenced by node from a tree with root 'root'. The node referenced by 'node' has 0 or 1 child.
+        Returns the root of the tree that results from deleting the node.
+        """
+
+        # Set child to ref's child, or null if no child.
+        if node.left is None:
+            child = node.right
+        else:
+            child = node.left
+
+        # if root node is to be deleted, set its child as the new root
+        if node is root:
+            if child is not None:
+                child.parent = None                
+                return child
+
+        # if node has a parent and a child, set child's parent as its grandparent and vice versa
+        if node.parent.left is node:  # node is a left child
+            node.parent.left = child
+        else:
+            node.parent.right = child
+        if child is not None:
+            child.parent = node.parent
+        return root
+        
 
 if __name__ == "__main__":
     test = RedBlackTree()
