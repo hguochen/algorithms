@@ -75,26 +75,42 @@ class RedBlackTree:
         If data is not present, return None.
         """
 
-        if not self.find(root, data):
+        if not self.has_value(root, data):
             return None
         else:  # data value is found in tree
-            pass
+            
+            node = self.find(root, data)
+            # case 1: node has 2 child nodes
+            if node.left is not None and node.right is not None:                
+                return self._remove(root, node)
+            # case 2: node has 0 or 1 child node
+            else:
+                return self._replace(root, node)
 
     def find(self, root, data):
         """
-        Find the value 'data' in the tree. Return none if value is not found.
+        Find the value 'data' in the tree. Return the data node reference if found, else return None
         """
 
         if root is None:
-            return False
+            return None
         else:
             if data is root.data:
-                return True
+                return root
             else:
                 if data < root.data:
                     return self.find(root.left, data)
                 else:
                     return self.find(root.right, data)
+
+    def has_value(self, root, data):
+        """
+        Find the value 'data' in the tree. Return true if value is found, false otherwise.
+        """
+
+        if self.find(root, data):
+            return True
+        return False
 
     def min(self, root):
         """
@@ -168,6 +184,24 @@ class RedBlackTree:
 
 # PRIVATE METHODS
 
+    def _min_node(self, node):
+        """
+        Return the node with minimum value in the tree.
+        """
+
+        while node.left is not None:
+            node = node.left
+        return node
+
+    def _max_node(self, node):
+        """
+        Return the node with minimum value in the tree.
+        """
+
+        while node.right is not None:
+            node = node.right
+        return node
+
     def _insert(self, root, node):
         """
         Recursively add the node into tree with root 'root'.
@@ -186,9 +220,10 @@ class RedBlackTree:
             else:
                 self._insert(root.right, node)
 
-    def _delete(self, root, node):
+    def _replace(self, root, node):
         """
-        Deletes the node referenced by node from a tree with root 'root'. The node referenced by 'node' has 0 or 1 child.
+        Replaces the node referenced by node with its child from a tree with 
+        root 'root'. The node referenced by 'node' has 0 or 1 child.
         Returns the root of the tree that results from deleting the node.
         """
 
@@ -213,6 +248,23 @@ class RedBlackTree:
             child.parent = node.parent
         return root
         
+    def _remove(self, root, node):
+        """
+        Removes the node referenced by node with its smaller data value child 
+        from a tree with root 'root'. The node referenced by 'node' has 2 child.
+        Returns the root of the tree tat results from deleting the node.
+        """
+
+        # find successor node in the right tree of node containing a minimum data
+        successor = self._min_node(node)
+        while successor.left is not None:
+            successor = successor.left
+
+        # 'move' successor data to node, thus achieving deletion of node
+        node.data = successor.data
+
+        # successor has 0 or 1 child, remove with _replace method
+        return self._replace(root, successor)
 
 if __name__ == "__main__":
     test = RedBlackTree()
@@ -230,11 +282,9 @@ if __name__ == "__main__":
     test.print_tree_preorder(test.root)
     print "--"
     test.print_tree_postorder(test.root)
-
-    if test.find(test.root, 13):
-        print "Found"
-    if not test.find(test.root, 2):
-        print "2 not found."
-
+    print "--"
+    test.delete(test.root, 3)
+    print "--"
+    test.print_tree_inorder(test.root)
     print test.size(test.root)
     print test.max_depth(test.root)
