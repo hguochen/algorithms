@@ -113,7 +113,7 @@ class BinaryMaxHeap(object):
         Rearranges the data in heap, so it represents a heap structure.
         """
 
-        last_index = len(heap_list) - 1
+        last_index = len(self.heap) - 1
         if last_index % 2 is 0:  # last element is a right child
             parent_index = (last_index - 1) / 2
         else:  # last element is left child
