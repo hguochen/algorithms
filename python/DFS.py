@@ -1,4 +1,4 @@
-from ADT.Linked_list import Linked_list
+from ADT.LinkedList import LinkedList
 
 visit = [False] * 5
 
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 	
 	# setup adjaceny list
 	for i in range(len(adj_instance)):
-		adj_instance[i] = Linked_list()
+		adj_instance[i] = LinkedList()
 	
 	adj_instance[0].insert(1)
 	adj_instance[0].insert(2)

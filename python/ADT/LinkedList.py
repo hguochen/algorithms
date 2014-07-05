@@ -17,6 +17,8 @@
 #							starting from the root node
 
 # Implementation of singly linked list with node structure
+
+
 class Node:
 	"""
 	Node structure for a singly linked list
@@ -28,7 +30,7 @@ class Node:
 		self.data = data
 		self.next = next
 
-class Linked_list:
+class LinkedList:
 	def __init__(self):
 		"""
 		Construct a new linked list. The head node references the first node in list. Size is list is 0.
