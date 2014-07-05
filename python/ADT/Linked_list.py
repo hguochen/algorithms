@@ -36,16 +36,25 @@ class Linked_list:
 		self.head = None
 		self.size = 0	
 
+	def get_head(self):
+		"""
+		Return a reference to the head of list.
+		"""
+
+		return self.head
+
 	def insert(self, value):
 		"""
 		Inserts the value to the head of the list.
 		"""
 		new_node = Node(value)
-		if self.head == None:
+		if self.head is None:
 			self.head = new_node
 		else:
-			new_node.next = self.head
-			self.head = new_node
+			trav = self.head
+			while trav.next is not None:
+				trav = trav.next
+			trav.next = new_node
 		self.size += 1
 		return
 
