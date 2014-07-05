@@ -19,7 +19,7 @@
 # Implementation of basic Binary Tree with list data structure
 
 
-class Binary_tree:
+class Binary_tree(object):
 
     """
     Implementing a binary tree using a list data structure
@@ -27,8 +27,9 @@ class Binary_tree:
 
     def __init__(self, tree_height, root_value):
         """
-        Upon class instance declaration, the maximum height of the tree must be defined.
-        Tree root has value 'root_value', with left and right child initialized to 1 & 2 respectively.
+        Upon class instance declaration, the maximum height of the tree must be
+        defined. Tree root has value 'root_value', with left and right child
+        initialized to 1 & 2 respectively.
         """
 
         self.tree = [None] * (2 ** tree_height - 1)
@@ -49,7 +50,7 @@ class Binary_tree:
                 parent = (pos - 1) // 2
             else:
                 parent = pos // 2
-            if self.tree[parent] == None:
+            if self.tree[parent] is None:
                 return 'Parent not found.'
 
             # determine child index
@@ -71,21 +72,39 @@ class Binary_tree:
         """
         """
 
-        if self.tree[pos][1] == None and self.tree[pos][2] == None:
+        if self.tree[pos][1] is None and self.tree[pos][2] is None:
             self.tree[pos] = None
         else:
-            if self.tree[pos][1] != None:
+            if self.tree[pos][1] is not None:
                 self.tree[pos] = self.tree[self.tree[pos][1]]
                 self.tree[self.tree[pos][1]] = None
-            elif self.tree[pos][2] != None:
+            elif self.tree[pos][2] is not None:
                 self.tree[pos] = self.tree[self.tree[pos][2]]
                 self.tree[self.tree[pos][2]] = None
         return self.tree
 
 
-# Implementation of ordered Binary Tree with node structure
+# Implementation of BinarySearchTree with node structure
+#
+# BinarySearchTree Operations
+#
+# Public operations:
+# __init__(): Initializes the data members
+# insert(data): Insert a new node with data into the tree
+# delete(root, data): Removes a node with its data value 'data'
+# find(root, data): Find a value in the tree, return none if value is not found
+# size(root): Return the total number of nodes in the tree
+# max_depth(root): Return the height of the tree
+# min(root): Finds the minimum value in the tree
+# max(root): Finds the maximum value in the tree
+# has_value(root, data): Find the value 'data' in the tree. Return true if
+#                       value is found false otherwise.
+# print_tree_inorder(): Prints the tree path by in-order traversal
+# print_tree_preorder(): Prints the tree path by preorder traversal
+# print_tree_postorder(): Prints the tree path by postorder traversal
 
-class Node:
+
+class Node(object):
     """
     Node data structure for a red black tree.
     """
@@ -101,7 +120,7 @@ class Node:
         self.parent = parent
 
 
-class RedBlackTree:
+class BinarySearchTree(object):
     """
     A red-black binary balanced tree that uses Node structure.
     """
@@ -142,10 +161,10 @@ class RedBlackTree:
         if not self.has_value(root, data):
             return None
         else:  # data value is found in tree
-            
+
             node = self.find(root, data)
             # case 1: node has 2 child nodes
-            if node.left is not None and node.right is not None:                
+            if node.left is not None and node.right is not None:
                 return self._remove(root, node)
             # case 2: node has 0 or 1 child node
             else:
@@ -153,7 +172,8 @@ class RedBlackTree:
 
     def find(self, root, data):
         """
-        Find the value 'data' in the tree. Return the data node reference if found, else return None
+        Find the value 'data' in the tree. Return the data node reference if
+        found, else return None
         """
 
         if root is None:
@@ -169,7 +189,8 @@ class RedBlackTree:
 
     def has_value(self, root, data):
         """
-        Find the value 'data' in the tree. Return true if value is found, false otherwise.
+        Find the value 'data' in the tree. Return true if value is found,
+        false otherwise.
         """
 
         if self.find(root, data):
@@ -286,7 +307,7 @@ class RedBlackTree:
 
     def _replace(self, root, node):
         """
-        Replaces the node referenced by node with its child from a tree with 
+        Replaces the node referenced by node with its child from a tree with
         root 'root'. The node referenced by 'node' has 0 or 1 child.
         Returns the root of the tree that results from deleting the node.
         """
@@ -300,10 +321,11 @@ class RedBlackTree:
         # if root node is to be deleted, set its child as the new root
         if node is root:
             if child is not None:
-                child.parent = None                
+                child.parent = None
                 return child
 
-        # if node has a parent and a child, set child's parent as its grandparent and vice versa
+        # if node has a parent and a child, set child's parent as its
+        # grandparent and vice versa
         if node.parent.left is node:  # node is a left child
             node.parent.left = child
         else:
@@ -311,15 +333,17 @@ class RedBlackTree:
         if child is not None:
             child.parent = node.parent
         return root
-        
+
     def _remove(self, root, node):
         """
-        Removes the node referenced by node with its smaller data value child 
-        from a tree with root 'root'. The node referenced by 'node' has 2 child.
+        Removes the node referenced by node with its smaller data value child
+        from a tree with root 'root'. The node referenced by 'node' has
+        2 child.
         Returns the root of the tree tat results from deleting the node.
         """
 
-        # find successor node in the right tree of node containing a minimum data
+        # find successor node in the right tree of node containing a minimum
+        # data
         successor = self._min_node(node)
         while successor.left is not None:
             successor = successor.left
@@ -331,7 +355,7 @@ class RedBlackTree:
         return self._replace(root, successor)
 
 if __name__ == "__main__":
-    test = RedBlackTree()
+    test = BinarySearchTree()
     test.insert(8)
     test.insert(3)
     test.insert(10)
