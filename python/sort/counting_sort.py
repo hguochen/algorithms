@@ -2,6 +2,7 @@ def counting_sort(a_list, limit):
 	"""
 	Sorts the array a_list, with values ranging from 0 to range inclusive, using counting sort method.
 	"""
+    # limit is the highest number that appears in the list
 	limit += 1 # account for 0 index issue
 	result = [None] * len(a_list)
 	freq = [0] * limit
