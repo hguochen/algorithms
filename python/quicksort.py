@@ -1,5 +1,11 @@
 from random import randint
 
+"""
+This is a recursive solution.
+For iterative solution, refer to:
+http://stackoverflow.com/questions/12553238/quicksort-iterative-or-recursive
+"""
+
 def partition(a_list, start, end):
 	"""
 	Partitions the list by inserting a_list[partition_index] at index h where it should be if the array was sorted.
@@ -51,10 +57,10 @@ def random_quicksort(a_list):
 	Improves the time complexity of quicksort function from O(n2) to O(n lg n)
 	"""
 	return random_quicksort_recurs(a_list, 0, len(a_list)-1)
-	
+
 
 if __name__ == "__main__":
-	test_list = [12,30,21,8,6,9,1,7]
-	partition(test_list, 0, len(test_list)-1)
-	print quicksort(test_list)
-	print random_quicksort(test_list)
+    test_list = [12,30,21,8,6,9,1,7]
+    partition(test_list, 0, len(test_list)-1)
+    print quicksort(test_list)
+    print random_quicksort(test_list)
