@@ -83,6 +83,29 @@ class DoublyLinkedList(object):
         print "Data not found."
         return
 
+    def remove_duplicates(self):
+        """
+        Remove duplicate nodes from the doubly linked list.
+        """
+
+        histogram = dict()
+
+        # traverse the list
+        trav = self.head
+        while trav is not None:
+            if trav.data not in histogram.keys():
+                histogram[trav.data] = 1
+            else:
+                histogram[trav.data] += 1
+            trav = trav.next
+
+        for key, value in histogram.items():
+            if value is not 1:
+                # preserve 1 value and delete the rest
+                for i in range(value-1):
+                    self.delete(key)
+        return self.head
+
     def print_list(self):
         """
         Prints the list by list order.
@@ -96,7 +119,12 @@ class DoublyLinkedList(object):
 if __name__ == "__main__":
     test_linked_list = DoublyLinkedList()
     test_linked_list.insert(1)
+    test_linked_list.insert(1)
+    test_linked_list.insert(2)
+    test_linked_list.insert(2)
     test_linked_list.insert(2)
     test_linked_list.insert(3)
-    test_linked_list.delete(3)
+    test_linked_list.insert(3)
+    test_linked_list.delete(2)
+    test_linked_list.remove_duplicates()
     test_linked_list.print_list()
