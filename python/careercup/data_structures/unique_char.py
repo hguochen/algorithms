@@ -65,11 +65,12 @@ def is_unique3(a_string):
     charset = [False] * 256
 
     for char in a_string:
+        print char
         if charset[ord(char)]:
             return False
         charset[ord(char)] = True
     return True
 
 if __name__ == "__main__":
-    test_string = "john@gMail.com"
+    test_string = "john@gMail.cOm"
     print is_unique3(test_string)
