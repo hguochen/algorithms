@@ -20,76 +20,83 @@
 
 
 class Node:
-	"""
-	Node structure for a singly linked list
-	"""
-	def __init__(self, data=None, next=None):
-		"""
-		Construct a new node.
-		"""
-		self.data = data
-		self.next = next
+    """
+    Node structure for a singly linked list
+    """
+    def __init__(self, data=None, next=None):
+        """
+        Construct a new node.
+        """
+        self.data = data
+        self.next = next
 
 class LinkedList:
-	def __init__(self):
-		"""
-		Construct a new linked list. The head node references the first node in list. Size is list is 0.
-		"""
-		self.head = None
-		self.size = 0	
+    def __init__(self):
+        """
+        Construct a new linked list. The head node references the first node in list. Size is list is 0.
+        """
+        self.head = None
+        self.size = 0	
 
-	def get_head(self):
-		"""
-		Return a reference to the head of list.
-		"""
+    def get_head(self):
+        """
+        Return a reference to the head of list.
+        """
 
-		return self.head
+        return self.head
 
-	def insert(self, value):
-		"""
-		Inserts the value to the head of the list.
-		"""
-		new_node = Node(value)
-		if self.head is None:
-			self.head = new_node
-		else:
-			trav = self.head
-			while trav.next is not None:
-				trav = trav.next
-			trav.next = new_node
-		self.size += 1
-		return
+    def get_size(self):
+        """
+        Return a reference to the size of the list.
+        """
 
-	def delete(self, value=None):
-		"""
-		Deletes the head node if value is None and return the new head ref. Otherwise search and delete the node with data==value.
-		If value not found, return None
-		"""
-		if value==None:
-			self.head = self.head.next
-			return self.head
-		else:
-			prev = None
-			trav = self.head
+        return self.size
 
-			while trav != None:
-				# find the node to which its data == value and give a reference to its previous node
-				if trav.data == value: # value is found
-					if prev == None: # value is in first position
-						self.head = self.head.next
-						return self.head
-					else:
-						prev.next = trav.next
-				prev = trav
-				trav = trav.next
-			return None
+    def insert(self, value):
+        """
+        Inserts the value to the head of the list.
+        """
+        new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+        else:
+            trav = self.head
+            while trav.next is not None:
+                trav = trav.next
+            trav.next = new_node
+        self.size += 1
+        return
 
-	def print_list(self):
-		trav = self.head
-		while trav != None:
-			print "%d" % trav.data,
-			trav = trav.next
-		print "\n"
+    def delete(self, value=None):
+        """
+        Deletes the head node if value is None and return the new head ref. Otherwise search and delete the node with data==value.
+        If value not found, return None
+        """
+        if value==None:
+            self.head = self.head.next
+            return self.head
+        else:
+            prev = None
+            trav = self.head
+
+            while trav != None:
+                # find the node to which its data == value and give a reference to its previous node
+                if trav.data == value: # value is found
+                    if prev == None: # value is in first position
+                        self.head = self.head.next
+                        return self.head
+                    else:
+                        prev.next = trav.next
+                prev = trav
+                trav = trav.next
+            return None
+
+    def print_list(self):
+        trav = self.head
+        while trav != None:
+            print "%d" % trav.data,
+            trav = trav.next
+        print "\n"
 
 """
 if __name__ == "__main__":
