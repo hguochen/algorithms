@@ -68,8 +68,7 @@ class SetOfStacks(object):
         Remove and return the topmost element from the stack at index.
         Return none if the stack is empty.
         """
-        # index offset
-        index -= 1
+        index -= 1  # index offset
 
         if len(self.stack_set) is 0:
             return
