@@ -30,7 +30,7 @@ def solve_tower(number):
 	for i in range(number):
 		stack = Stack_array()
 		towers.append(stack)
-	# put all pegs to starting tower
+	# put all pegs to starting tower in ascending order from top to bottom
 	for i in range(number-1, -1, -1):
 		towers[0].push(i)
 	# recursive solution
