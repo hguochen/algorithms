@@ -54,7 +54,7 @@ class Stack_array:
         """
         if self.empty():
             return None
-        return return self.stack[len(self.stack)-1]
+        return self.stack[len(self.stack)-1]
 
     def size(self):
         """
