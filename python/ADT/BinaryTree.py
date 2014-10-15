@@ -54,15 +54,15 @@ class BinaryTree(object):
 
         # tree is empty
         if root is None:
-            root.add_node(data)
+            return self.add_node(data)
         else:  # tree is not empty
             new_node = self.add_node(data)
             if new_node.data <= root.data:
                 # process left sub-tree
-                root.left = self.insert(root, data)
+                root.left = self.insert(root.left, data)
             else:
                 # process right sub-tree
-                root.right = self.insert(root, data)
+                root.right = self.insert(root.right, data)
         return root
 
     def delete(self, data):
@@ -71,48 +71,101 @@ class BinaryTree(object):
         """
         pass
 
-    def lookup(self, root, target):
+    def lookup(self, root, data):
         """
-        Looks for a value into the tree.
+        Looks for a value into the tree and return True if value exists,
+        false otherwise.
         """
-        pass
 
-    def min(self):
+        if root is None:
+            return False
+        else:
+            if root.data is data:
+                return True
+            else:
+                if data <= root.data:
+                    return self.lookup(root.left, data)
+                else:
+                    return self.lookup(root.right, data)
+
+    def min(self, root):
         """
         Looks for the minimum value in the tree.
         """
-        pass
 
-    def max(self):
+        while root.left is not None:
+            root = root.left
+        return root.data
+
+    def max(self, root):
         """
         Look for the maximum value in the tree.
         """
-        pass
 
-    def max_depth(self):
+        while root.right is not None:
+            root = root.right
+        return root.data
+
+    def max_depth(self, root):
         """
         Return the maximum depth of the tree.
         """
-        pass
+
+        if root is None:
+            return 0
+        else:
+            left_depth = self.max_depth(root.left)
+            right_depth = self.max_depth(root.right)
+            return max(left_depth, right_depth) + 1
 
     def size(self, root):
         """
         Return the size of the tree.
         """
-        pass
 
-    def print_tree(self):
+        if root is None:
+            return 0
+        else:
+            return self.size(root.left) + 1 + self.size(root.right)
+
+    def print_tree(self, root):
         """
         Print the tree path.
         """
-        pass
 
-    def print_rev_tree(self):
+        if root is None:
+            return
+        else:
+            self.print_tree(root.left)
+            print root.data,
+            self.print_tree(root.right)
+
+    def print_rev_tree(self, root):
         """
         Print the tree path in reverse order.
         """
-        pass
+
+        if root is None:
+            return
+        else:
+            self.print_rev_tree(root.right)
+            print root.data,
+            self.print_rev_tree(root.left)
 
 
 if __name__ == "__main__":
-    pass
+    test_tree = BinaryTree()
+    root = test_tree.add_node(0)
+    for i in range(1, 5):
+        test_tree.insert(root, i)
+    test_tree.print_tree(root)
+    print "\n"
+    test_tree.print_rev_tree(root)
+
+    if test_tree.lookup(root, 2):
+        print "Value found."
+    else:
+        print "Value NOT found."
+    print test_tree.min(root)
+    print test_tree.max_depth(root)
+    print test_tree.size(root)
