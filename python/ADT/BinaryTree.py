@@ -152,6 +152,67 @@ class BinaryTree(object):
             print root.data,
             self.print_rev_tree(root.left)
 
+    def print_tree_inorder_iterative(self, root):
+        """
+        Print the data of the tree with root by in order sequence.
+        """
+
+        if root is None:
+            return
+        else:
+            stack = []
+            while len(stack) > 0 or root is not None:
+                if root is not None:
+                    stack.append(root)
+                    root = root.left
+                else:
+                    root = stack.pop()
+                    print root.data,
+                    root = root.right
+            return
+
+    def print_tree_preorder_iterative(self, root):
+        """
+        Print the data of the tree with root by preorder sequence.
+        """
+
+        if root is None:
+            return
+        else:
+            stack = []
+            while len(stack) > 0 or root is not None:
+                if root is not None:
+                    print root.data,
+                    if root.right is not None:
+                        stack.append(root.right)
+                    root = root.left
+                else:
+                    root = stack.pop()
+
+    def print_tree_postorder_iterative(self, root):
+        """
+        Print the data of the tree with root by postorder sequence.
+        """
+
+        if root is None:
+            return
+        else:
+            stack = []
+            last_node_visited = None
+            while len(stack) > 0 or root is not None:
+                if root is not None:
+                    stack.append(root)
+                    root = root.left
+                else:
+                    peek_node = stack[-1]
+                    if peek_node.right is not None and last_node_visited is not peek_node.right:
+                        # if right child exists AND traversing node from left
+                        # child, move right
+                        root = peek_node.right
+                    else:
+                        print peek_node.data,
+                        last_node_visited = stack.pop()
+            return
 
 if __name__ == "__main__":
     test_tree = BinaryTree()
@@ -169,3 +230,6 @@ if __name__ == "__main__":
     print test_tree.min(root)
     print test_tree.max_depth(root)
     print test_tree.size(root)
+    test_tree.print_tree_inorder_iterative(root)
+    test_tree.print_tree_preorder_iterative(root)
+    test_tree.print_tree_postorder_iterative(root)
