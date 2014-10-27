@@ -69,12 +69,45 @@ class BinaryTree(object):
         """
         Delete the node with data in the binary tree.
         """
-        pass
+        # find the node
+        target_node = None
+        parent_target_node = None
+
+        if self.lookup(self.root, data):
+            trav = self.root
+            while trav is not None:
+                if trav.data is data:
+                    target_node = trav
+                    break
+                parent_target_node = trav
+                trav = trav.next
+        else:
+            return
+        # node to delete has no child node
+        if target_node.left is None and target_node.right is None:
+            if parent_target_node.left.data is data:
+                parent_target_node.left = None
+            else:
+                parent_target_node.right = None
+        # node to delete has 1 child left node
+        # target_node is a left child
+        elif target_node.left is not None and target_node.right is None:
+            if parent_target_node.left.data is data:
+                parent_target_node.left = target_node.left
+            else:
+                parent_target_node.right = target_node.left
+        # node to delete has 1 right child or 2 child node
+        # target_node is a right child
+        else:
+            if parent_target_node.left.data is data:
+                parent_target_node.left = target_node.right
+            else:
+                parent_target_node.right = target_node.right
 
     def lookup(self, root, data):
         """
         Looks for a value into the tree and return True if value exists,
-        false otherwise.
+        False otherwise.
         """
 
         if root is None:
@@ -205,7 +238,8 @@ class BinaryTree(object):
                     root = root.left
                 else:
                     peek_node = stack[-1]
-                    if peek_node.right is not None and last_node_visited is not peek_node.right:
+                    if peek_node.right is not None and,
+                    last_node_visited is not peek_node.right:
                         # if right child exists AND traversing node from left
                         # child, move right
                         root = peek_node.right
