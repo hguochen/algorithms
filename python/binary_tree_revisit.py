@@ -74,15 +74,32 @@ class BinaryTree(object):
 
         """
         if direction == 'left':
-            traverse = self.left
-            while traverse is not None:
+            traverse = self.root
+            while traverse.left is not None:
                 traverse = traverse.left
             traverse.left = new_node
         elif direction == 'right':
-            traverse = self.right
-            while traverse is not None:
+            traverse = self.root
+            while traverse.right is not None:
                 traverse = traverse.right
             traverse.right = new_node
+
+    def lookup(self, data):
+        """
+        Looks for a value into the tree and return True if value exists,
+        False otherwise.
+
+        """
+        if self.root is None:
+            return False
+        else:
+            if self.root.data is data:
+                return True
+            else:
+                # this is not a binary tree. so lookup so search for all possible nodes.
+                # # we can use traversal methods to do this.
+                # revise tree traversal methods
+                pass
 
 if __name__ == "__main__":
     tree = BinaryTree(0)
