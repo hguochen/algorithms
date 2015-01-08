@@ -101,9 +101,49 @@ class BinaryTree(object):
                 # revise tree traversal methods
                 pass
 
+    def pre_order_traversal(self, node):
+        """
+        Traverse the tree in pre order sequence.
+
+        """
+        if node is None:
+            return
+        print node.data
+        self.pre_order_traversal(node.left)
+        self.pre_order_traversal(node.right)
+
+
+    def in_order_traversal(self, node):
+        """
+        Traverse the tree in in order sequence.
+
+        """
+        if node is None:
+            return
+        self.in_order_traversal(node.left)
+        print node.data
+        self.in_order_traversal(node.right)
+
+    def post_order_traversal(self, node):
+        """
+        Traverse the tree in post order sequence.
+
+        """
+        if node is None:
+            return
+        self.post_order_traversal(node.left)        
+        self.post_order_traversal(node.right)
+        print node.data
+
 if __name__ == "__main__":
     tree = BinaryTree(0)
     node1 = Node(1)
     node2 = Node(2)
     tree.insert(node1, 'left')
     tree.insert(node2, 'right')
+    root = tree.get_root()
+    tree.pre_order_traversal(root)
+    print "==="
+    tree.in_order_traversal(root)
+    print "==="
+    tree.post_order_traversal(root)
