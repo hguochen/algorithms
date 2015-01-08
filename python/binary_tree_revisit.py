@@ -1,5 +1,7 @@
-# This is a revisit of binary tree algorithm
+# std lib imports
+from collections import deque
 
+# This is a revisit of binary tree algorithm
 # Implement a binary tree with node structure
 
 
@@ -135,12 +137,32 @@ class BinaryTree(object):
         self.post_order_traversal(node.right)
         print node.data
 
+    def level_order_traversal(self, node):
+        """
+        Traverse the tree in level order sequence.
+
+        """
+        if node is None:
+            return
+        queue = deque([node])
+        while len(queue) > 0:
+            trav = queue.popleft()
+            print trav.data
+            if node.left is not None:
+                queue.append(node.left)
+            if node.right is not None:
+                queue.append(node.right)
+
 if __name__ == "__main__":
     tree = BinaryTree(0)
     node1 = Node(1)
     node2 = Node(2)
+    node3 = Node(3)
+    node4 = Node(4)
     tree.insert(node1, 'left')
     tree.insert(node2, 'right')
+    tree.insert(node3, 'left')
+    tree.insert(node4, 'right')
     root = tree.get_root()
     tree.pre_order_traversal(root)
     print "==="
