@@ -88,20 +88,40 @@ class BinaryTree(object):
 
     def lookup(self, data):
         """
-        Looks for a value into the tree and return True if value exists,
-        False otherwise.
+        Looks for a value in the tree and return the node if value exists,
+        None otherwise.
 
         """
         if self.root is None:
-            return False
-        else:
-            if self.root.data is data:
-                return True
+            return None
+        result_node = None
+        traverse = self.root
+        stack = []
+        while traverse is not None or len(stack) > 0:
+            if traverse is not None:
+                stack.append(traverse)
+                traverse = traverse.left
             else:
-                # this is not a binary tree. so lookup so search for all possible nodes.
-                # # we can use traversal methods to do this.
-                # revise tree traversal methods
-                pass
+                traverse = stack.pop()
+                if traverse.data == data:
+                    result_node = traverse
+                    break
+                traverse = traverse.right
+        return result_node
+    
+    def _lookup(self, node, data):
+        """
+        Looks for a node in the tree and return True if node exists,
+        False otherwise.
+
+        """
+        if node is None:
+            return
+        if node.data == data:
+            return True
+        else:
+            self._lookup(node.left, data)
+            self._lookup(node.right, data)
 
     def pre_order_traversal(self, node):
         """
@@ -113,7 +133,6 @@ class BinaryTree(object):
         print node.data
         self.pre_order_traversal(node.left)
         self.pre_order_traversal(node.right)
-
 
     def in_order_traversal(self, node):
         """
@@ -148,10 +167,10 @@ class BinaryTree(object):
         while len(queue) > 0:
             trav = queue.popleft()
             print trav.data
-            if node.left is not None:
-                queue.append(node.left)
-            if node.right is not None:
-                queue.append(node.right)
+            if trav.left is not None:
+                queue.append(trav.left)
+            if trav.right is not None:
+                queue.append(trav.right)
 
 if __name__ == "__main__":
     tree = BinaryTree(0)
@@ -169,3 +188,6 @@ if __name__ == "__main__":
     tree.in_order_traversal(root)
     print "==="
     tree.post_order_traversal(root)
+    print "==="
+    tree.level_order_traversal(root)
+    print tree.lookup(4)
