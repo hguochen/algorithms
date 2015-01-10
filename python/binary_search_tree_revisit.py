@@ -70,6 +70,86 @@ class BinarySearchTree(object):
             self._add_node(self.root, new_node)
         return self.root
 
+    def delete(self, data):
+        """
+        Removes a node in tree with value 'data' and return the data.
+
+        If data is not present, return None.
+        """
+        node = self.lookup(self.root, data)
+        if node is None:
+            return None
+        else:
+            # data value is found in tree
+            if node.left is not None and node.right is not None:
+                # case 1: node has 2 child nodes
+                pass  # MISSING LOGIC HERE
+            elif node.left is not None or node.right is not None:
+                # case 2: node has 1 child node
+                if node.left is not None:
+                    # deleting node has a left child
+                    if node.parent.left.data == data:
+                        # deleting node is a left child of its parent
+                        node.parent.left = node.left
+                        node.left.parent = node.parent
+                        node.left = None
+                    else:
+                        # deleting node is a right child of its parent
+                        node.parent.left = node.right
+                        node.right.parent = node.parent
+                        node.right = None
+                    node.parent = None
+                else:
+                    # deleting node has a right child
+                    if node.parent.left.data == data:
+                        # deleting node is a left child of its parent
+                        node.parent.right = node.left
+                        node.left.parent = node.parent
+                        node.left = None
+                    else:
+                        # deleting node is a right child of its parent
+                        node.parent.right = node.right
+                        node.right.parent = node.parent
+                        node.right = None
+                    node.parent = None
+            else:
+                # case 3: node has 0 child node
+                if node.parent.left.data == data:
+                    # deleting node is a left child
+                    node.parent.left = None
+                    node.parent = None
+                else:
+                    # deleting node is a right child
+                    node.parent.right = None
+                    node.parent = None
+
+    def lookup(self, root, data):
+        """
+        Find the value 'data' in the tree with root node. Return the data node
+        reference if found, else return None
+
+        """
+        if root is None:
+            return None
+        else:
+            if data == root.data:
+                return root
+            else:
+                if data < root.data:
+                    return self.lookup(root.left, data)
+                else:
+                    return self.lookup(root.right, data)
+
+    def has_value(self, root, data):
+        """
+        Check if tree with root as 'root' has data and return True if value
+        exists, otherwise return False.
+
+        """
+        if self.lookup(root, data) is None:
+            return False
+        return True
+
     def print_preorder(self, node):
         """
         Print the tree by pre order traversal method.
@@ -163,3 +243,8 @@ if __name__ == "__main__":
     tree.print_postorder(root)
     print "\n"
     tree.print_levelorder(root)
+    tree.delete(10)
+    print "\n"
+    tree.print_preorder(root)
+    print "\n"
+    tree.print_preorder(root)
