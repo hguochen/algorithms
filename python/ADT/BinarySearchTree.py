@@ -111,7 +111,7 @@ class Node(object):
 
     def __init__(self, data=None, left=None, right=None, parent=None):
         """
-        Initialize data members: data, left, right.
+        Initialize data members: data, left, right, parent.
         """
 
         self.data = data
