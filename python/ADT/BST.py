@@ -210,6 +210,27 @@ class BST(object):
             if trav.right is not None:
                 queue.append(trav.right)
 
+    def breadth_first_search(self, data):
+        """
+        Search for data value in tree using breadth first search traversal
+        algorithm.
+
+        """
+        if self.root is None:
+            return
+        queue = deque([self.root])
+        while len(queue) > 0:
+            node = queue.popleft()
+            print node.data,
+            if node.data == data:
+                print "Data %d found." % data
+                break
+            if node.left is not None:
+                queue.append(node.left)
+            if node.right is not None:
+                queue.append(node.right)
+        return "Data %d not found in tree."
+
 # PRIVATE METHODS
 
     def _add_node(self, root, node):
@@ -271,5 +292,6 @@ if __name__ == "__main__":
     print "\n"
     tree.print_levelorder(root)
     print "\n"
-    tree.delete(1)
-    tree.print_levelorder(root)
+    #tree.delete(1)
+    #tree.print_levelorder(root)
+    tree.breadth_first_search(13)
