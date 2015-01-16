@@ -50,7 +50,7 @@ def dfs_recurs(adj_list, start_index):
     while trav is not None:
         vertex = trav.data
         if not visit[vertex]:
-            dfs_recurs(adj_lsit, vertex)
+            dfs_recurs(adj_list, vertex)
         trav = trav.next
 
 

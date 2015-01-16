@@ -229,8 +229,52 @@ class BST(object):
                 queue.append(node.left)
             if node.right is not None:
                 queue.append(node.right)
-        return "Data %d not found in tree."
+        return "Data %d not found in tree." % data
 
+    def depth_first_search(self, data):
+        """
+        Search for data value in tree using depth first search traversal
+        algorithm.
+        Use a list as a stack.
+
+        """
+        if self.root is None:
+            return
+        # create a stack and push root to it
+        stack = [self.root]
+
+        #Pop all items one by one. Do following for every popped item
+        #a) print it
+        #b) push its right child
+        #c) push its left child
+        #Note that right child is pushed first so that left is processed first
+        while len(stack) > 0:
+            # pop item from stack and print it
+            node = stack[-1]
+            print node.data,
+            stack.pop()
+
+            if node.right is not None:
+                stack.append(node.right)
+            if node.left is not None:
+                stack.append(node.left)
+        """
+        while len(stack) > 0:
+            node = stack[-1]  # last element of stack
+            if not visited[-1]:  # if node is not visited
+                print node.data,
+                visited[-1] = True
+            else:
+                if node.left is None and node.right is None:
+                    stack.pop()
+                    visited.pop()
+                elif node.left is not None:
+                    stack.append(node.left)
+                    visited.append(False)
+                elif node.right is not None:
+                    stack.append(node.right)
+                    visited.append(False)
+        """
 # PRIVATE METHODS
 
     def _add_node(self, root, node):
@@ -294,4 +338,4 @@ if __name__ == "__main__":
     print "\n"
     #tree.delete(1)
     #tree.print_levelorder(root)
-    tree.breadth_first_search(13)
+    tree.depth_first_search(13)
