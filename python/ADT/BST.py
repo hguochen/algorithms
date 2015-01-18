@@ -118,10 +118,8 @@ class BST(object):
         if root is None or root.data == data:
             return self._delete_node(root)
         elif data < root.data:
-            print "this runs left 0"
             root.left = self._rec_delete(root.left, data)
         else:
-            print "this runs right 0"
             root.right = self._rec_delete(root.right, data)
         return root
 
@@ -258,23 +256,35 @@ class BST(object):
                 stack.append(node.right)
             if node.left is not None:
                 stack.append(node.left)
+
+    def max_depth(self, root):
         """
-        while len(stack) > 0:
-            node = stack[-1]  # last element of stack
-            if not visited[-1]:  # if node is not visited
-                print node.data,
-                visited[-1] = True
-            else:
-                if node.left is None and node.right is None:
-                    stack.pop()
-                    visited.pop()
-                elif node.left is not None:
-                    stack.append(node.left)
-                    visited.append(False)
-                elif node.right is not None:
-                    stack.append(node.right)
-                    visited.append(False)
+        Find out the maxiumum depth of the tree.
+
         """
+        if root is None:
+            return 0
+        return 1 + max(self.max_depth(root.left),
+                       self.max_depth(root.right))
+
+    def min_depth(self, root):
+        """
+        Find out the minimum depth of the tree.
+
+        """
+        if root is None:
+            return 0
+        return 1 + min(self.min_depth(root.left),
+                       self.min_depth(root.right))
+
+    def is_balanced(self, root):
+        """
+        Check if tree is a balanced tree.
+
+        """
+        max_height = self.max_depth(root)
+        min_height = self.min_depth(root)
+        return (max_height - min_height <= 1)
 # PRIVATE METHODS
 
     def _add_node(self, root, node):
@@ -339,3 +349,10 @@ if __name__ == "__main__":
     #tree.delete(1)
     #tree.print_levelorder(root)
     tree.depth_first_search(13)
+    print tree.max_depth(root)
+    print tree.min_depth(root)
+    print tree.is_balanced(root)
+    tree.delete(4)
+    tree.delete(7)
+    tree.delete(13)
+    print tree.is_balanced(root)
