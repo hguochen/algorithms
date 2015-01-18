@@ -1,3 +1,5 @@
+from collections import deque
+
 ##################################
 ### Title: Graph Connection ######
 ### Author: GuoChen Hou   ########
