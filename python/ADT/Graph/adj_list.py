@@ -97,6 +97,41 @@ def breadth_first_search(graph, start_key):
                 queue.append(vertex.get_key())
     return path
 
+
+def depth_first_search(graph, start_key):
+    """
+    Search the graph in depth first search traversal method.
+
+    """
+    path = []
+    # create a stack
+    stack = []
+
+    # initiate visited flag
+    visited = []
+    for vertex in graph:
+        visited.append(False)
+    # start from start_key vertex
+    stack.append(start_key)
+    visited[start_key-1] = True
+    path.append(start_key)
+
+    while len(stack) > 0:
+        current = stack[-1]
+        all_visited = False
+        # traverse the neighbouring vertices
+        for vertex in graph.get_vertex(current).get_connections():
+            if not visited[vertex.get_key()-1]:
+                stack.append(vertex.get_key())
+                visited[vertex.get_key()-1] = True
+                path.append(vertex.get_key())
+                break
+            else:
+                all_visited = True
+        if all_visited:
+            stack.pop()
+    return path
+
 if __name__ == "__main__":
     graph = Graph()
     graph.add_edge(1, 2)
@@ -117,3 +152,4 @@ if __name__ == "__main__":
         for connected_vertices in vertex.get_connections():
             print "[%s, %s]" % (vertex.get_key(), connected_vertices.get_key())
     print breadth_first_search(graph, 1)
+    print depth_first_search(graph, 1)
