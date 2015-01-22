@@ -1,3 +1,4 @@
+from collections import deque
 ########################################
 ### Title: Adjacency list ##############
 ### Author: GuoChen Hou   ##############
@@ -15,12 +16,12 @@ class Vertex(object):
         self.key = key
         self.connected_to = {}
 
+    def __str__(self):
+        return str(self.key) + ' connected to: ' + \
+            str([v.key for v in self.connected_to])
+
     def add_neighbour(self, neighbour, weight=0):
         self.connected_to[neighbour] = weight
-
-    def __str__(self):
-        return str(self.key) + ' conntected to: ' + \
-            str([v.key for v in self.connected_to])
 
     def get_connections(self):
         return self.connected_to.keys()
@@ -47,14 +48,13 @@ class Graph(object):
         self.vert_list[key] = new_vertex
         return new_vertex
 
-    def get_vertex(self, neighbour):
-        if neighbour in self.vert_list:
-            return self.vert_list[neighbour]
-        else:
-            return None
+    def get_vertex(self, key):
+        if key in self.vert_list:
+            return self.vert_list[key]
+        return None
 
-    def __contains__(self, neighbour):
-        return neighbour in self.vert_list
+    def __contains__(self, key):
+        return key in self.vert_list
 
     def add_edge(self, vertex1, vertex2, cost=0):
         if vertex1 not in self.vert_list:
@@ -70,12 +70,35 @@ class Graph(object):
         return iter(self.vert_list.values())
 
 
+def breadth_first_search(graph, start_key):
+    """
+    Search the graph in breadth first search traversal method.
+
+    """
+    path = []
+    # create a queue
+    queue = deque()
+    # initiate visited flag
+    visited = []
+    for vertex in graph:
+        visited.append(False)
+    # start from start_key vertex
+    queue.append(start_key)
+    visited[start_key-1] = True
+    path.append(start_key)
+    while len(queue) > 0:
+        current = queue.popleft()
+
+        #traverse the neighbouring vertices
+        for vertex in graph.get_vertex(current).get_connections():
+            if not visited[vertex.get_key() - 1]:
+                path.append(vertex.get_key())
+                visited[vertex.get_key()-1] = True
+                queue.append(vertex.get_key())
+    return path
+
 if __name__ == "__main__":
     graph = Graph()
-    for i in range(6):
-        graph.add_vertex(i)
-    print graph.vert_list
-
     graph.add_edge(1, 2)
     graph.add_edge(1, 5)
     graph.add_edge(2, 1)
@@ -93,3 +116,4 @@ if __name__ == "__main__":
     for vertex in graph:
         for connected_vertices in vertex.get_connections():
             print "[%s, %s]" % (vertex.get_key(), connected_vertices.get_key())
+    print breadth_first_search(graph, 1)

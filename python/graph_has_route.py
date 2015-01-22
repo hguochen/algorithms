@@ -25,24 +25,24 @@ def is_connected(adj_list, start, end):
 
 if __name__ == "__main__":
     graph = Graph()
-    for i in range(6):
-        graph.add_vertex(i)
+    for i in range(5):
+        graph.add_vertex(i+1)
     print graph.vert_list
 
-    graph.add_edge(1, 2)
     graph.add_edge(1, 5)
+    graph.add_edge(1, 2)
     graph.add_edge(2, 1)
     graph.add_edge(2, 5)
-    graph.add_edge(2, 3)
     graph.add_edge(2, 4)
+    graph.add_edge(2, 3)
     graph.add_edge(3, 2)
     graph.add_edge(3, 4)
-    graph.add_edge(4, 2)
     graph.add_edge(4, 3)
+    graph.add_edge(4, 2)
     graph.add_edge(4, 5)
     graph.add_edge(5, 1)
     graph.add_edge(5, 2)
     graph.add_edge(5, 4)
     for vertex in graph:
-        for connected_vertices in vertex.get_connections():
-            print "[%s, %s]" % (vertex.get_key(), connected_vertices.get_key())
+        for neighbour in vertex.get_connections():
+            print "[%s, %s]" % (vertex.get_key(), neighbour.get_key())
