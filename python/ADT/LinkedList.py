@@ -96,7 +96,6 @@ class LinkedList:
         while trav != None:
             print "%d" % trav.data,
             trav = trav.next
-        print "\n"
 
 """
 if __name__ == "__main__":
