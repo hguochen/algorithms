@@ -15,6 +15,7 @@ def insertion_sort(a_list):
         while last_sorted_index >= 0 and value < a_list[last_sorted_index]:
             a_list[last_sorted_index+1] = a_list[last_sorted_index]
             last_sorted_index -= 1
+        print a_list
         a_list[last_sorted_index+1] = value
 
     return a_list
