@@ -133,8 +133,8 @@ if __name__ == "__main__":
     list1 = [4, 10, 15, 24, 26]
     list2 = [0, 9, 12, 20]
     list3 = [5, 18, 22, 30]
-    print smallest_range_trivial(list1, list2)
-    print smallest_range_trivial(list2, list3)
-    print smallest_range_trivial(list1, list3)
+    print smallest_range_trivial(list1, list2)  # [9, 10]
+    print smallest_range_trivial(list2, list3)  # [18, 20]
+    print smallest_range_trivial(list1, list3)  # [5, 4]
     print "===="
-    print smallest_range(list1, list2, list3)
+    print smallest_range(list1, list2, list3)  # [24, 20, 22]
