@@ -73,7 +73,7 @@ def smallest_range(*args):
     find smallest_range for a list of lists
 
     """
-    # unpack arguments
+    # typecast arguments to a list
     lists = list(args)
 
     # the current set of items in question
@@ -82,19 +82,20 @@ def smallest_range(*args):
     indexes = [0 for i in lists]
     # initialize ranges to track the results from each set of currents
     # ranges has the format [[range_num, [item1, item2, item3]], ...]
-    ranges = []
+    range_set = []
 
     # initialize current
-    for i in range(len(lists)):  # O(n)
+    for i in range(len(lists)):  # O(k)
         current.append(lists[i][indexes[i]])
         indexes[i] += 1
 
-    # add the current set into ranges
+    # add the current set into range_set
     # we use deepcopy here to deassociate the copied current with the changing
     # current below
-    ranges.append([abs(max(current)-min(current)), copy.deepcopy(current)])
+    range_set.append([abs(max(current)-min(current)), copy.deepcopy(current)])
 
-    # set a index for reuse in loop
+    # set a index to keep track of currently assessed index
+    # will also be used to detect loop terminating condition
     current_index = 1
     while True:
         # set a current_index somewhere below
@@ -115,18 +116,14 @@ def smallest_range(*args):
         for i in range(len(current)):  # O(n)
             if current[i] == min(current):
                 current_index = i
-        ranges.append([abs(max(current)-min(current)), copy.deepcopy(current)])
+        # if current range is less than stored range, replace with new range
+        # set.
+        if range_set[0][0] > abs(max(current)-min(current)):
+            range_set = [abs(max(current)-min(current)),
+                         copy.deepcopy(current)]
 
-    # find the least range and its corresponding result set
-    # set lesser to store the least range as we iterate through the range list
-    # initialize to first range in ranges
-    lesser = ranges[0][0]
-    result = ranges[1]
-
-    for item in ranges:
-        if item[0] < lesser:
-            lesser = item[0]
-            result = item[1]
+    # range_set has the least range and the corresponding data
+    result = range_set[1]
     return result
 
 if __name__ == "__main__":
