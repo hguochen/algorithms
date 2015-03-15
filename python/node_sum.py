@@ -55,6 +55,7 @@ def find_sum_paths(tree, value):
             node_stack.append(node.left)
     return result
 
+
 if __name__ == "__main__":
     tree = BinarySearchTree(8)
     tree.insert(3)
@@ -68,3 +69,4 @@ if __name__ == "__main__":
     root = tree.get_root()
     tree.print_preorder(root)
     print find_sum_paths(tree, 13)
+    test()
