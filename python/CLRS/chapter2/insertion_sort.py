@@ -1,4 +1,9 @@
 # Insertion sort
+# Avg time complexity: O(n^2)
+# Best time comlexity: O(n^2)
+# Worst time complexity: O(n^2)
+# Space complexity: constant
+# Inefficient for large data collections
 #
 # Takes in a list containing a sequence of length n that is to be sorted.
 # Sorts the input numbers in place
@@ -22,7 +27,7 @@ def insertion_sort(a_list):
     """
     if len(a_list) < 2:
         return a_list
-    for index in range(1, len(a_list)):
+    for index in range(1, len(a_list)):  # O(n)
         key = a_list[index]
         i = index - 1
         while i >= 0 and a_list[i] > key:
@@ -31,6 +36,25 @@ def insertion_sort(a_list):
         a_list[i+1] = key
     return a_list
 
+
+def reverse_insertion_sort(a_list):
+    """
+    Sort a given list in nonincreasing order.
+
+    """
+    if len(a_list) < 2:
+        return a_list
+    for index in range(1, len(a_list)):
+        key = a_list[index]
+        i = index - 1
+        while i >= 0 and a_list[i] < key:
+            a_list[i+1] = a_list[i]
+            i -= 1
+        a_list[i+1] = key
+    return a_list
+
+
 if __name__ == "__main__":
     test_list1 = [5, 2, 4, 6, 1, 3, 0]
     print insertion_sort(test_list1)
+    print reverse_insertion_sort(test_list1)
