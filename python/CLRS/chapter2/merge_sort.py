@@ -32,6 +32,37 @@ def merge(li, start, mid, end):
             j += 1
 
 
+# Qn 2.3.2
+def merge_v2(a_list, start, mid, end):
+    left = a_list[start:mid]
+    right = a_list[mid:end]
+    i = 0
+    j = 0
+    for k in range(start, end):
+        if i >= len(left):
+            # left list has exhausted. we append remaining right list to a_list
+            right = right[j:]
+            a_list = a_list[:end - len(right)]
+            a_list.extend(right)
+            break
+        elif j >= len(right):
+            # right list has exhausted. we append remaining left list to a_list
+            left = left[i:]
+            a_list = a_list[:end - len(left)]
+            a_list.extend(left)
+            break
+
+        if left[i] <= right[j]:
+            # left list has the smaller item, put into result
+            a_list[k] = left[i]
+            i += 1
+        else:
+            # right list has the smaller item, put into result
+            a_list[k] = right[j]
+            j += 1
+    return a_list
+
+
 def merge_sort(li, start, end):
     if start < end:
         mid = (start + end) / 2
