@@ -49,5 +49,7 @@ def find_max_subarray(a_list, low, high):
 if __name__ == "__main__":
     test_list = [13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15,
                  -4, 7]
+    test_list2 = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
     print find_max_crossing_subarray(test_list, 0, 8, len(test_list)-1)
     print find_max_subarray(test_list, 0, len(test_list)-1)
+    print find_max_subarray(test_list2, 0, len(test_list2)-1)
