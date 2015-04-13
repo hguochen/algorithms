@@ -56,3 +56,6 @@ heapify is performed from sub tree index i downwards and guarantees that subtree
 
 6.2.5
 max_heapify_interative(a_list, i)
+
+6.2.6
+For a heap of size n which adopts a tree structure. its worst case running time will be O(lg n).
