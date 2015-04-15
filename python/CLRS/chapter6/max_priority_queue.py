@@ -33,7 +33,7 @@ def build_max_heap(a_list):
     return a_list
 
 
-class MaxPriorityQueue():
+class MaxPriorityQueue(object):
     """
     A max priority queue implemented with a max heap data structure.
 
