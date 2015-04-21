@@ -4,10 +4,12 @@ def countsort(a_list, max_range):
         count[item] += 1
     for i in range(1, len(count)):
         count[i] += count[i-1]
-    result = [0 for i in range(len(a_list))]
+    for i in range(len(count)):  # adjust for 0 index structure
+        count[i] -= 1
 
+    result = [0 for i in range(len(a_list))]
     for i in range(len(result)-1, -1, -1):
-        result[count[a_list[i]]-1] = a_list[i]  # -1 for 0 index structure
+        result[count[a_list[i]]] = a_list[i]  # -1 for 0 index structure
         count[a_list[i]] -= 1
     return result
 
