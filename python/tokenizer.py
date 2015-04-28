@@ -41,11 +41,9 @@ def tokenize(a_string):
                 token += item
     # cater for last input
     if token != "":
-        if closed_quotation:
-            tokens.append(token)
-        else:
+        if not closed_quotation:
             token = token.strip()
-            tokens.append(token)
+        tokens.append(token)
     return tokens
 
 
