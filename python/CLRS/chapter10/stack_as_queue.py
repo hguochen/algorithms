@@ -15,9 +15,9 @@ class Queue(object):
         self.stack1.append(value)
 
     def dequeue(self):
-        while len(self.stack1) > 1:
+        while len(self.stack1) > 0:
             self.stack2.append(self.stack1.pop())
-        result = self.stack1.pop()
+        result = self.stack2.pop()
         while len(self.stack2) > 0:
             self.stack1.append(self.stack2.pop())
         return result
