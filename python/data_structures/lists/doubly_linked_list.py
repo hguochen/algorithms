@@ -13,7 +13,12 @@ class DoubleLinkedList(object):
     """
 
     Double linked list with Node object strucure.
-
+    Double linked list complexity:
+    [method]: [average case], [worst case]
+    access: O(n), O(n)
+    search: O(n), O(n)
+    insertion: O(1), O(1)
+    deletion: O(n), O(n)
     """
     def __init__(self, data=None, prev=None, next=None):
         self.head = Node(data, prev, next)

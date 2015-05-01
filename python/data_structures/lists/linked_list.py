@@ -13,7 +13,12 @@ class LinkedList(object):
     """
 
     Linked list implementation with node object structure.
-
+    Linked list complexity:
+    [method]: [average case], [worst case]
+    access: O(n), O(n)
+    search: O(n), O(n)
+    insertion: O(1), O(1)
+    deletion: O(n), O(n)
     """
     def __init__(self, data):
         self.head = Node(data)
