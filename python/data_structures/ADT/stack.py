@@ -5,6 +5,12 @@ class Stack(object):
     """
 
     Implementing a stack using a list data structure.
+    Stack complexity:
+    [method]: [average case], [worst case]
+    access: O(n), O(n)
+    search: O(n), O(n)
+    insertion: O(1), O(1)
+    deletion: O(1), O(1)
 
     """
     def __init__(self, stack=list()):

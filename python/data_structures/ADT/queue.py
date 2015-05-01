@@ -5,6 +5,12 @@ class Queue(object):
     """
 
     Implmenting a queue with list data structure.
+    Queue complexity:
+    [method]: [average case], [worst case]
+    access: O(n), O(n)
+    search: O(n), O(n)
+    insertion: O(1), O(1)
+    deletion: O(1), O(1)
 
     """
     def __init__(self, queue=list()):
