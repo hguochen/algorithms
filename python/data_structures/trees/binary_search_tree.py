@@ -29,6 +29,18 @@ class BinarySearchTree(object):
     def get_root(self):
         return self.root
 
+    def minimum(self, node):
+        curr = node
+        while curr.left is not None:
+            curr = curr.left
+        return curr.data
+
+    def maximum(self, node):
+        curr = node
+        while curr.right is not None:
+            curr = curr.right
+        return curr.data
+
     def lookup(self, data):
         """
 
@@ -103,6 +115,36 @@ class BinarySearchTree(object):
             self.delete(temp_data)
             node.data = temp_data
         return node
+
+    def successor(self, data):
+        """
+
+        Return the successor of data in the tree.
+
+        """
+        node = self.lookup(data)
+        if node.right is not None:
+            return self.minimum(node.right)
+        parent = node.parent
+        while parent is not None and node is parent.right:
+            node = parent
+            parent = parent.parent
+        return parent.data
+
+    def predecessor(self, data):
+        """
+
+        Return the predecessor of data in the tree.
+
+        """
+        node = self.lookup(data)
+        if node.left is not None:
+            return self.maximum(node.left)
+        parent = node.parent
+        while parent is not None and node is parent.left:
+            node = parent
+            parent = parent.parent
+        return parent.data
 
     def print_preorder(self, node):
         if node is None:
@@ -221,3 +263,8 @@ if __name__ == "__main__":
     print "\n"
     tree.delete(70)
     tree.print_levelorder(root)
+    print "\n"
+    print tree.minimum(root)
+    print tree.maximum(root)
+    print tree.successor(22)
+    print tree.predecessor(18)
