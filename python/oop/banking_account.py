@@ -1,42 +1,33 @@
-class Customer(object):
-    """
+class Account(object):
 
-    A customer of ANC Bank with a checking account. Customers have the
-    following properties:
-
-    Attributes:
-
-    name: a string representing the customer's name
-    balance: a float tracking the current balance of the customer's account.
-
-    """
-    def __init__(self, name, balance=0.0):
-        self.name = name
+    def __init__(self, holder, number, balance, credit_line=1500):
+        self.holder = holder
+        self.number = number
         self.balance = balance
+        self.credit_line = credit_line
 
-    def withdraw(self, amount):
-        """
-
-        Return the balance remaining after withdrawing *amount* dollars.
-
-        """
-        if amount > self.balance:
-            raise RuntimeError('Amount greater than available balance')
+    def transfer(self, target, amount):
+        if(amount > self.balance + self.credit_line):
+            # coverage insufficient
+            return False
         self.balance -= amount
-        return self.balance
+        target.balance += amount
+        return True
 
     def deposit(self, amount):
-        """
-
-        Return the balance remaining after depositing *amount* dollars.
-
-        """
         self.balance += amount
+
+    def withdraw(self, amount):
+        if(amount > self.balance + self.credit_line):
+            # coverage insufficient
+            return False
+        else:
+            self.balance -= amount
+            return True
+
+    def balance(self):
         return self.balance
 
 
 if __name__ == "__main__":
-    cust = Customer('roger', 500)
-    print cust.deposit(2000)
-    print cust.withdraw(5000)
-    print cust.withdraw(200)
+    pass

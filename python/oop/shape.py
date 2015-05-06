@@ -24,12 +24,15 @@ class Circle(Point):
         super().__init__(x, y)
         self.radius = radius
 
+    @property
     def edge_distance_from_origin(self):
         return abs(self.distance_from_origin() - self.radius)
 
+    @property
     def area(self):
         return math.pi * (self.radius ** 2)
 
+    @property
     def circumference(self):
         return 2 * math.pi * self.radius
 
