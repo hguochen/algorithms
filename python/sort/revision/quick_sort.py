@@ -6,6 +6,12 @@ def quick_sort(a_list):
 
     Sort *a_list* using quicksort technique.
 
+    Time Complexity:
+    Best: O(n log(n))
+    Average: O(n log(n))
+    Worst: O(n^2)
+
+    Space Complexity: O(log(n))
     """
     # check list has at least 2 elements
     if len(a_list) < 2:
