@@ -6,6 +6,12 @@ def selection_sort(a_list):
 
     Sort *a_list* by selection sort technique
 
+    Time Complexity:
+    Best: O(n^2)
+    Average: O(n^2)
+    Worst: O(n^2)
+
+    Space Complexity: O(1)
     """
     # check list has at least 2 elements
     if len(a_list) < 2:
