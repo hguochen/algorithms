@@ -33,7 +33,7 @@ def find_max_subarray(a_list, low, high):
     # only 1 element in list
     if high == low:
         return (low, high, a_list[low])
-    
+
     mid = (low + high)/2
     # return tuples with data (low index, high index, sum)
     left = find_max_subarray(a_list, low, mid)
