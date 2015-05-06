@@ -1,4 +1,17 @@
 def radix_sort(a_list):
+    """
+
+    Sort *a_list* using radix sort technique.
+
+    Time Complexity:
+    n is num of elements and k is the range of input
+    Best: O(nk)
+    Average: O(nk)
+    Worst: O(nk)
+
+    Space Complexity: O(n+k)
+
+    """
     RADIX = 10
     max_length = False
     temp, placement = -1, 1
