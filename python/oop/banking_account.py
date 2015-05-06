@@ -1,10 +1,16 @@
 class Account(object):
 
+    counter = 0
+
     def __init__(self, holder, number, balance, credit_line=1500):
         self.holder = holder
         self.number = number
         self.balance = balance
         self.credit_line = credit_line
+        Account.counter += 1
+
+    def __del__(self):
+        Account.counter -= 1
 
     def transfer(self, target, amount):
         if(amount > self.balance + self.credit_line):
@@ -30,4 +36,8 @@ class Account(object):
 
 
 if __name__ == "__main__":
-    pass
+    print Account.counter
+    apple = Account('a', 1234, 5000)
+    print Account.counter
+    del apple
+    print Account.counter
