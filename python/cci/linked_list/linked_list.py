@@ -21,6 +21,9 @@ class LinkedList(object):
     def __init__(self, data):
         self.head = Node(data)
 
+    def get_head(self):
+        return self.head
+
     def insert(self, data):
         node = Node(data)
         curr = self.head
@@ -44,6 +47,22 @@ class LinkedList(object):
             raise AttributeError('Data node not found.')
         prev.next = curr.next
         curr = None
+        return
+
+    def delete_node(self, node):
+        """
+
+        Delete node from linked list. Return None if node is not in linked
+        list.
+
+        """
+        curr = self.head
+        while curr.next is not None:
+            if curr.next == node:
+                break
+            curr = curr.next
+        curr.next = node.next
+        node = None
         return
 
     def lookup(self, data):
