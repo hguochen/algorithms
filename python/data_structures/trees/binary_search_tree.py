@@ -83,7 +83,7 @@ class BinarySearchTree(object):
         # case 1: 0 child node
         if left_child is None and right_child is None:
             # node is left child
-            if parent.left.data == data:
+            if parent.left == node:
                 parent.left = None
             else:  # node is right child
                 parent.right = None
