@@ -31,6 +31,13 @@ class Edge(object):
         self.weight = weight
         self.next = None
 
+    def get_info(self):
+        return self.info
+
+    def set_info(self, info):
+        self.info = info
+        return
+
 
 class Graph(object):
     """
@@ -49,8 +56,32 @@ class Graph(object):
             self.edges.append(Edge())
             self.degree.append(0)
 
+    def insert_edge(self, vertice, dest):
+        """
 
-# ADD METHOD TO INSERT GRAPH
+        Add an edge to *vertice*.
+
+        """
+        vertice -= 1  # 0 indexing
+        if self.edges[vertice].get_info() is None:
+            self.edges[vertice].set_info(dest)
+            self.degree[vertice] += 1
+            return
+        curr = self.edges[vertice]
+        while curr.next is not None:
+            curr = curr.next
+        curr.next = Edge(info=dest)
+        self.degree[vertice] += 1
+        return
+
+    def print_graph(self):
+        for edges in self.edges:
+            while edges is not None:
+                print edges.get_info(),
+                edges = edges.next
+            print ""
+        print "Degree of each vertex: %s" % self.degree
+        return
 
 
 def init_graph():
@@ -61,15 +92,12 @@ def init_graph():
     """
     with open('data_structures/graphs/graph1.txt') as f:
         n_vertices, n_edges = map(int, f.readline().split())
+        graph = Graph(n_vertices, n_edges)
         print n_vertices, n_edges
         for line in f:
             edge = map(int, line.split())
-            print edge  # add edge
-    graph = Graph(n_vertices, n_edges)
-
-    #  insert edges
-    for i in range(n_edges):
-        pass
+            graph.insert_edge(edge[0], edge[1])
+        graph.print_graph()
 
 if __name__ == "__main__":
     init_graph()
