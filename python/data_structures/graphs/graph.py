@@ -83,6 +83,34 @@ class Graph(object):
         print "Degree of each vertex: %s" % self.degree
         return
 
+    def breadth_first_search(self, start):
+        start -= 1  # 0 indexing
+        # initialize a bool list for vertices
+        visited = [False for _ in range(self.n_vertices)]
+        # initialize queue
+        queue = []
+        visited[start] = True
+        print start+1,
+        curr = self.edges[start]
+        # add edges for start node to queue
+        while curr is not None:
+            queue.append(curr)
+            curr = curr.next
+
+        while len(queue) > 0:
+            node = queue.pop(0)
+            trav = node
+            while trav is not None:
+                if visited[trav.get_info()-1] is False:
+                    visited[trav.get_info()-1] = True
+                    print trav.get_info(),
+                    curr = self.edges[trav.get_info()-1]
+                    while curr is not None:
+                        queue.append(curr)
+                        curr = curr.next
+                trav = trav.next
+        return
+
 
 def init_graph():
     """
@@ -90,7 +118,7 @@ def init_graph():
     Initialize a graph.
 
     """
-    with open('data_structures/graphs/graph1.txt') as f:
+    with open('data_structures/graphs/graph2.txt') as f:
         n_vertices, n_edges = map(int, f.readline().split())
         graph = Graph(n_vertices, n_edges)
         print n_vertices, n_edges
@@ -98,6 +126,7 @@ def init_graph():
             edge = map(int, line.split())
             graph.insert_edge(edge[0], edge[1])
         graph.print_graph()
-
+        return graph
 if __name__ == "__main__":
-    init_graph()
+    graph = init_graph()
+    graph.breadth_first_search(1)
