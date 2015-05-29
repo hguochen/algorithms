@@ -71,6 +71,12 @@ class BinarySearchTree(object):
             curr = curr.left
         return curr.data
 
+    def minimum_recursive(self, node):
+        if node.left is not None:
+            return self.minimum_recursive(node.left)
+        else:
+            return node.data
+
     def maximum(self, node):
         """
 
@@ -81,6 +87,12 @@ class BinarySearchTree(object):
         while curr.right is not None:
             curr = curr.right
         return curr.data
+
+    def maximum_recursive(self, node):
+        if node.right is not None:
+            return self.maximum_recursive(node.right)
+        else:
+            return node.data
 
     def lookup(self, data):
         return self._lookup(self.root, data)
@@ -279,3 +291,5 @@ if __name__ == "__main__":
     print ""
     print tree.successor(90)
     print tree.predecessor(90)
+    print tree.minimum_recursive(tree.root)
+    print tree.maximum_recursive(tree.root)
