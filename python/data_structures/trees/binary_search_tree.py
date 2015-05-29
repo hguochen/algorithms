@@ -122,6 +122,8 @@ class BinarySearchTree(object):
         Return the successor of data in the tree.
 
         """
+        if data == self.maximum(self.root):
+            return None
         node = self.lookup(data)
         if node.right is not None:
             return self.minimum(node.right)
@@ -139,7 +141,7 @@ class BinarySearchTree(object):
         """
         node = self.lookup(data)
         if node.left is not None:
-            return self.maximum(node.left)
+            return node.left.data
         parent = node.parent
         while parent is not None and node is parent.left:
             node = parent
@@ -266,5 +268,5 @@ if __name__ == "__main__":
     print "\n"
     print tree.minimum(root)
     print tree.maximum(root)
-    print tree.successor(22)
-    print tree.predecessor(18)
+    print tree.successor(90)
+    print tree.predecessor(15)

@@ -31,24 +31,53 @@ class BinarySearchTree(object):
     def get_root(self):
         return self.root
 
-    def minimum(self):
+    def successor(self, data):
+        """
+
+        Get the next largest data after given *data* by in-order traversal.
+
+        """
+        if data == self.maximum(self.root):
+            return None
+        node = self.lookup(data)
+        if node.right is not None:
+            return self.minimum(node.right)
+        parent = node.parent
+        while parent is not None and node is parent.right:
+            node = parent
+            parent = parent.parent
+        return parent.data
+
+    def predecessor(self, data):
+        if data == self.minimum(self.root):
+            return None
+        node = self.lookup(data)
+        if node.left is not None:
+            return self.maximum(node.left)
+        parent = node.parent
+        while parent is not None and node is parent.left:
+            node = parent
+            parent = parent.parent
+        return parent.data
+
+    def minimum(self, node):
         """
 
         Retrieve the minimum data in the tree.
 
         """
-        curr = self.root
+        curr = node
         while curr.left is not None:
             curr = curr.left
         return curr.data
 
-    def maximum(self):
+    def maximum(self, node):
         """
 
         Retrieve the maximum data in the tree.
 
         """
-        curr = self.root
+        curr = node
         while curr.right is not None:
             curr = curr.right
         return curr.data
@@ -141,6 +170,19 @@ class BinarySearchTree(object):
         callback(node)
         self.inorder(node.right, callback)
 
+    def inorder_iterative(self):
+        stack = []
+        curr = self.root
+        while curr is not None or len(stack) > 0:
+            if curr is not None:
+                stack.append(curr)
+                curr = curr.left
+            else:
+                curr = stack.pop()
+                print curr.data,
+                curr = curr.right
+        return
+
     def postorder(self, node, callback):
         if node is None:
             return
@@ -223,6 +265,8 @@ if __name__ == "__main__":
     print ""
     tree.inorder(root, tree.print_data)
     print ""
+    tree.inorder_iterative()
+    print ""
     tree.postorder(root, tree.print_data)
     print ""
     tree.levelorder(root, tree.print_data)
@@ -231,9 +275,7 @@ if __name__ == "__main__":
     print tree.lookup(12)
     print tree.lookup(18)
     print tree.lookup(90)
-    tree.delete(90)
-    tree.delete(66)
-    tree.delete(4)
-    tree.delete(12)
     tree.preorder(root, tree.print_data)
     print ""
+    print tree.successor(90)
+    print tree.predecessor(90)
