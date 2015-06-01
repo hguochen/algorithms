@@ -141,7 +141,7 @@ class BinarySearchTree(object):
         """
         node = self.lookup(data)
         if node.left is not None:
-            return node.left.data
+            return self.maximum(node.left)
         parent = node.parent
         while parent is not None and node is parent.left:
             node = parent
