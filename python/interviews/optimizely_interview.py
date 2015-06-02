@@ -54,9 +54,12 @@ def largest_palindrome_substring(a_string):
     size = len(a_string)
     while size > 2:
         off = 0
+        print a_string[:size]
         while off + size <= len(a_string):
             temp = a_string[off:off+size]
+            print "temp is %s" % temp
             left = temp[:size/2]
+            print left
             # determine odd or even
             if size % 2:
                 right = temp[size - size/2:]
@@ -73,7 +76,7 @@ if __name__ == "__main__":
     test2 = "abacabde"  # bacab
     test3 = "raca"  # aca
     test4 = "abfad"  # a
-    print longest_palindrome(test1)
-    print longest_palindrome(test2)
+    #print longest_palindrome(test1)
+    #print longest_palindrome(test2)
     print longest_palindrome(test3)
-    print longest_palindrome(test4)
+    #print longest_palindrome(test4)
