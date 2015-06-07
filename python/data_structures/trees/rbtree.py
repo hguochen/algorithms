@@ -123,6 +123,12 @@ class RBTree(object):
         self.root.black = True
         return
 
+    def delete(self, data):
+        pass
+
+    def delete_fix_tree(self, node):
+        pass
+
     def print_tree(self, node):
         print (node.data, node.black)
         return
