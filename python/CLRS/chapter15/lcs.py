@@ -1,6 +1,8 @@
 # Given 2 strings, find the longest common subsequence of the 2 strings.
 # https://www.youtube.com/watch?v=RUckZMzqUcw
 
+# time complexity: O(m*n)
+
 
 def lcs_sequence(string1, string2):
     m = len(string1)

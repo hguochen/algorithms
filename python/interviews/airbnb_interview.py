@@ -24,6 +24,30 @@ Some examples:
 every index will generate n-2
 '''
 
+import copy
+
+
+def max_nights(array):
+    if len(array) < 1:
+        return 0
+    elif len(array) <= 2:
+        return max(array)
+    else:
+        compare = [[array[0]], array[0]]
+        if array[1] > array[0]:
+            gap = [[array[1]], array[1]]
+        else:
+            gap = copy.deepcopy(compare)
+        for i in xrange(2, len(array)):
+            if compare[1] + array[i] > gap[1]:
+                compare[0].append(array[i])
+                compare[1] = compare[1] + array[i]
+
+                compare, gap = gap, compare
+            else:
+                compare = copy.deepcopy(gap)
+    return gap
+
 # assumptions
 # min 0 size
 # max infinite
@@ -73,11 +97,11 @@ def maximum_nights3(array):
     return largest
 
 if __name__ == "__main__":
-    test1 = [5, 1, 2, 6]
+    test1 = [5, 1, 2, 6, 20, 2]
     test2 = [4, 9, 6]
     test3 = [4, 11, 6]
     test4 = [4, 10, 3, 1, 5]
-    print maximum_nights3(test1)  # 11
-    print maximum_nights3(test2)  # 10
-    print maximum_nights3(test3)  # 11
-    print maximum_nights3(test4)  # 15
+    print maximum_nights3(test1), max_nights(test1)  # 11
+    print maximum_nights3(test2), max_nights(test2)  # 10
+    print maximum_nights3(test3), max_nights(test3)  # 11
+    print maximum_nights3(test4), max_nights(test4)  # 15
