@@ -7,22 +7,21 @@
 
 def zero_one_knapsack(items, knapsack):
     items.sort(key=lambda items: items[0])
-    value = []
-    weight = []
+    value = [0]
+    weight = [0]
     for item in items:
         value.append(item[1])
         weight.append(item[0])
 
     table = [[0 for _ in xrange(knapsack+1)] for _ in xrange(len(items)+1)]
-    print table
     # populate table
     for i in xrange(1, len(table)):
         for j in xrange(1, knapsack+1):
             if i == 1:
-                table[i][j] = value[i-1]
+                table[i][j] = value[i]
                 continue
-            if j >= value[i-1]:
-                table[i][j] = max(table[i-1][j], table[i-1][j-weight[i-1]]+value[i-1])
+            if j >= weight[i]:
+                table[i][j] = max(table[i-1][j], table[i-1][j-weight[i]]+value[i])
             else:
                 table[i][j] = table[i-1][j]
     return table[-1][-1]
