@@ -187,6 +187,31 @@ class BinarySearchTree(object):
                 queue.append(curr.right)
         return
 
+    def max_depth(self, node):
+        if node is None:
+            return 0
+        return 1 + max(self.max_depth(node.left), self.max_depth(node.right))
+
+    def min_depth(self, node):
+        if node is None:
+            return 0
+        return 1 + min(self.min_depth(node.left), self.min_depth(node.right))
+
+    def print_root_to_leaf_paths(self, node):
+        path = [None for _ in xrange(self.max_depth(self.root))]
+        self.print_path_recurs(node, path, 0)
+
+    def print_path_recurs(self, node, path, height):
+        if node is None:
+            return
+        path[height] = node.data
+        height += 1
+        if node.left is None and node.right is None:
+            print path
+        else:
+            self.print_path_recurs(node.left, path, height)
+            self.print_path_recurs(node.right, path, height)
+
 # PRIVATE METHODS
 
     def _lookup(self, node, data):
@@ -263,10 +288,10 @@ if __name__ == "__main__":
     print "\n"
     print tree.lookup(31).data
     print "\n"
-    tree.delete(70)
     tree.print_levelorder(root)
     print "\n"
     print tree.minimum(root)
     print tree.maximum(root)
     print tree.successor(90)
     print tree.predecessor(15)
+    tree.print_root_to_leaf_paths(root)
