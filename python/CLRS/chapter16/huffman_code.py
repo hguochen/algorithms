@@ -28,21 +28,19 @@ def huffman_table(array, tree):
     result = {}
     for item in array:
         print item[1]
-        path = build_path(tree, item[1], "")
-        result[item[1]] = path
+        path = build_path(tree, item[1], [], "")
+        result[item[1]] = path[0]
     return result
 
 
-def build_path(node, alphabet, path):
-    if type(node.left) is not str:
-        path += "0"
-        return build_path(node.left, alphabet, path)
-    if type(node.right) is not str:
-        path += "1"
-        return build_path(node.right, alphabet, path)
-    if type(node) is str:
-        print "HHAAH"
-        return path
+def build_path(node, alphabet, paths, path):
+    if node is None:
+        return
+    build_path(node.left, alphabet, paths, path+"0")
+    build_path(node.right, alphabet, paths, path+"1")
+    if node.data == alphabet:
+        paths.append(path)
+    return paths
 
 
 def generate_huffman_tree(array):
@@ -90,4 +88,4 @@ if __name__ == "__main__":
     test2 = [(45, 'a'), (13, 'b'), (12, 'c'), (16, 'd'), (9, 'e'), (5, 'f')]
     code = '001011101'
     print huffman_decode(test, code)
-    #print huffman_table(test2, generate_huffman_tree(test))
+    print huffman_table(test2, generate_huffman_tree(test))
