@@ -42,6 +42,73 @@ class BinarySearchTree(object):
                 self._insert_node(root.right, node)
         return
 
+    def search(self, data):
+        trav = self.root
+        while trav is not None:
+            if trav.data == data:
+                return trav
+            elif data < trav.data:
+                trav = trav.left
+            else:
+                trav = trav.right
+        return
+
+    def delete(self, data):
+        if self.root is None:
+            return
+        parent, node = self._parent_child_set(data)
+        if node is None:
+            return
+        # case 1: 0 child
+        if node.left is None and node.right is None:
+            if parent.left is node:
+                parent.left = None
+            else:
+                parent.right = None
+            node = None
+        # case 2: node has left child
+        elif node.right is None:
+            if parent.left is node:
+                parent.left = node.left
+            else:
+                parent.right = node.left
+            node = None
+        # case 2: node has right child
+        elif node.left is None:
+            if parent.left is node:
+                parent.left = node.right
+            else:
+                parent.right = node.right
+            node = None
+        # case 3: node has 2 children
+        else:
+            leaf_node = self._min_node(node.right)
+            temp = leaf_node.data
+            self.delete(leaf_node.data)
+            node.data = temp
+        return
+
+    def _min_node(self, node):
+        while node.left is not None:
+            node = node.left
+        return node
+
+    def _parent_child_set(self, data):
+        if self.root.data == data:
+            return None, self.root
+        parent = None
+        trav = self.root
+        while trav is not None:
+            if trav.data == data:
+                return parent, trav
+            else:
+                parent = trav
+                if data < trav.data:
+                    trav = trav.left
+                else:
+                    trav = trav.right
+        return None, None
+
     def print_tree(self, node):
         print node.data,
         return
@@ -89,8 +156,6 @@ if __name__ == "__main__":
     root = tree.get_root()
     tree.insert(15)
     tree.insert(50)
-    tree.insert(15)
-    tree.insert(50)
     tree.insert(10)
     tree.insert(22)
     tree.insert(35)
@@ -112,6 +177,23 @@ if __name__ == "__main__":
     print "postorder: ",
     tree.postorder(root, tree.print_tree)
     print ""
+    print "levelorder: ",
+    tree.levelorder(root, tree.print_tree)
+    print ""
+    print tree.search(15).data
+    print tree.search(25).data
+    print tree.search(4).data
+    print tree.search(90).data
+    print tree.search(243)
+    tree.delete(4)
+    print "levelorder: ",
+    tree.levelorder(root, tree.print_tree)
+    print ""
+    tree.delete(24)
+    print "levelorder: ",
+    tree.levelorder(root, tree.print_tree)
+    print ""
+    tree.delete(35)
     print "levelorder: ",
     tree.levelorder(root, tree.print_tree)
     print ""
