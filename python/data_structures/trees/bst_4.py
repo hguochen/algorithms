@@ -97,6 +97,11 @@ class BinarySearchTree(object):
             node = node.left
         return node
 
+    def _max_node(self, node):
+        while node.right is not None:
+            node = node.right
+        return node
+
     def _parent_child_set(self, data):
         if self.root.data == data:
             return None, self.root
@@ -150,6 +155,41 @@ class BinarySearchTree(object):
                 queue.append(trav.right)
         return
 
+    def successor(self, data):
+        node = self.search(data)
+        if node is None:
+            return
+        if node.right is not None:
+            return self._min_node(node.right).data
+        else:
+            trav_data = data
+            while True:
+                parent, node = self._parent_child_set(trav_data)
+                if parent is None:
+                    break
+                if parent.left is node:
+                    return parent.data
+                else:
+                    trav_data = parent.data
+        return
+
+    def predecessor(self, data):
+        node = self.search(data)
+        if node is None:
+            return
+        if node.left is not None:
+            return self._max_node(node.left).data
+        else:
+            trav_data = data
+            while True:
+                parent, node = self._parent_child_set(trav_data)
+                if parent is None:
+                    break
+                if parent.right is node:
+                    return parent.data
+                else:
+                    trav_data = parent.data
+        return
 
 if __name__ == "__main__":
     tree = BinarySearchTree(25)
@@ -185,6 +225,37 @@ if __name__ == "__main__":
     print tree.search(4).data
     print tree.search(90).data
     print tree.search(243)
+    print tree.successor(4)
+    print tree.successor(10)
+    print tree.successor(12)
+    print tree.successor(15)
+    print tree.successor(18)
+    print tree.successor(22)
+    print tree.successor(24)
+    print tree.successor(25)
+    print tree.successor(31)
+    print tree.successor(35)
+    print tree.successor(44)
+    print tree.successor(50)
+    print tree.successor(66)
+    print tree.successor(70)
+    print tree.successor(90)
+    print "predecessors: "
+    print tree.predecessor(90)
+    print tree.predecessor(70)
+    print tree.predecessor(66)
+    print tree.predecessor(50)
+    print tree.predecessor(44)
+    print tree.predecessor(35)
+    print tree.predecessor(31)
+    print tree.predecessor(25)
+    print tree.predecessor(24)
+    print tree.predecessor(22)
+    print tree.predecessor(18)
+    print tree.predecessor(15)
+    print tree.predecessor(12)
+    print tree.predecessor(10)
+    print tree.predecessor(4)
     tree.delete(4)
     print "levelorder: ",
     tree.levelorder(root, tree.print_tree)
