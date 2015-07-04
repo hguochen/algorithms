@@ -200,6 +200,17 @@ class BinarySearchTree(object):
         self.get_leaf_nodes(node.left, nodes)
         return nodes
 
+    def print_leaf_path(self, node, path):
+        if node is None:
+            return
+        path.append(node.data)
+        if node.left is None and node.right is None:
+            print path
+        else:
+            self.print_leaf_path(node.left, path[:])
+            self.print_leaf_path(node.right, path[:])
+        return
+
 if __name__ == "__main__":
     tree = BinarySearchTree(25)
     root = tree.get_root()
@@ -265,6 +276,7 @@ if __name__ == "__main__":
     print tree.predecessor(12)
     print tree.predecessor(10)
     print tree.predecessor(4)
+    tree.print_leaf_path(root, [])
     tree.delete(4)
     print "levelorder: ",
     tree.levelorder(root, tree.print_tree)
