@@ -192,6 +192,15 @@ class BinarySearchTree(object):
                     trav_data = parent.data
         return
 
+    def get_leaf_nodes(self, node, nodes):
+        if node is None:
+            return
+        self.get_leaf_nodes(node.left, nodes)
+        if node.left is None and node.right is None:
+            nodes.append(node.data)
+        self.get_leaf_nodes(node.left, nodes)
+        return nodes
+
 if __name__ == "__main__":
     tree = BinarySearchTree(25)
     root = tree.get_root()
