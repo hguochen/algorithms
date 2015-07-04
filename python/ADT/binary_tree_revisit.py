@@ -108,7 +108,7 @@ class BinaryTree(object):
                     break
                 traverse = traverse.right
         return result_node
-    
+
     def _lookup(self, node, data):
         """
         Looks for a node in the tree and return True if node exists,
@@ -152,7 +152,7 @@ class BinaryTree(object):
         """
         if node is None:
             return
-        self.post_order_traversal(node.left)        
+        self.post_order_traversal(node.left)
         self.post_order_traversal(node.right)
         print node.data
 
