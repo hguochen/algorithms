@@ -144,6 +144,31 @@ class Graph(object):
             print dist
         return dist, result
 
+    def topo_sort_recurs(self, vertex_index, visited, stack):
+
+        visited[vertex_index] = True
+
+        trav = self.graph[vertex_index]
+        while trav is not None:
+            if not visited[trav.data]:
+                self.topo_sort_recurs(trav.data, visited, stack)
+        stack.append(vertex_index)
+        return
+
+    def topological_sort(self):
+        # init reverse stack for topo sort
+        reverse_stack = []
+        # init visited bool list
+        visited = [False for _ in xrange(self.n_vertices)]
+
+        for i in xrange(self.n_vertices):
+            if not visited[i]:
+                topo_sort_recurs(i, visited, stack)
+
+        while len(stack) > 0:
+            print stack.pop(),
+        return
+
 
 def init_graph():
     with open('data_structures/graphs/graph4.txt') as f:
