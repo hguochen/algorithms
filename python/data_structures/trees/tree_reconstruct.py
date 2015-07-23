@@ -25,6 +25,22 @@ class Solution(object):
         node.right = self.build_tree_rec(preorder, inorder, pre_i+left_elements_count+1, in_i+left_elements_count+1, num_elements-left_elements_count-1)
         return node
 
+    def build_tree2(self, postorder, inorder):
+        if len(postorder) == 0:
+            return
+        node = Node(postorder[-1])
+        if len(postorder) == 1:
+            return node
+        node_index = inorder.index(postorder[-1])
+        left_inorder = inorder[:node_index]
+        right_inorder = inorder[node_index+1:]
+        left_postorder = postorder[:len(left_inorder)]
+        right_postorder = postorder[len(left_inorder):-1]
+
+        node.left = self.build_tree2(left_postorder, left_inorder)
+        node.right = self.build_tree2(right_postorder, right_inorder)
+        return node
+
 
 def search(new_list, data):
     for i in xrange(len(new_list)):
@@ -44,5 +60,8 @@ def print_inorder(root):
 if __name__ == "__main__":
     in_list = "DBEAFC"
     pre_list = "ABDECF"
+    post_list = "DEBFCA"
     soln = Solution()
     print_inorder(soln.build_tree(pre_list, in_list))
+    print ""
+    print_inorder(soln.build_tree2(post_list, in_list))
