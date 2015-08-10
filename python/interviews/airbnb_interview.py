@@ -28,6 +28,11 @@ import copy
 
 
 def max_nights(array):
+    """
+    Dynamic programming solution.
+    O(n)
+
+    """
     if len(array) < 1:
         return 0
     elif len(array) <= 2:

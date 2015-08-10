@@ -8,9 +8,8 @@ def bubble_sort(sort_list):
     """
     Sorts a list of numbered elements in a list in ascending order using the
     bubble sort method.
-    """
 
-    swapped = False
+    """
     size = len(sort_list)
     while True:
         swapped = False
