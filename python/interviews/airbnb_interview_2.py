@@ -19,6 +19,7 @@
 # Alexandra "Alex"|Menendez|alex.menendez@gmail.com|Miami|1
 # one|two||four|five
 
+
 def read_line(line):
     # return a list of fields
     if len(line) < 1:
