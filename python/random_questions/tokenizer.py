@@ -3,6 +3,7 @@
 # output = ['ab', 'cd', 'ef gh']
 
 import unittest
+import re
 
 
 def tokenize(a_string):
@@ -47,6 +48,17 @@ def tokenize(a_string):
     return tokens
 
 
+def tokenize2(a_string):
+    pattern = re.compile(r'(\w+)|"(.+?)"')
+    matches = pattern.findall(a_string)
+    tokens = []
+    for item in matches:
+        for part in item:
+            if part != '':
+                tokens.append(part)
+    return tokens
+
+
 class TokenizeTestCase(unittest.TestCase):
     """
 
@@ -57,8 +69,8 @@ class TokenizeTestCase(unittest.TestCase):
         pass
 
     def test_tokenize(self):
-        self.assertEqual(tokenize('ab  cd  "ef gh"'), ['ab', 'cd', 'ef gh'])
-        self.assertEqual(tokenize('"a""b"" c'), ['a', 'b', 'c'])
+        self.assertEqual(tokenize2('ab  cd  "ef gh"'), ['ab', 'cd', 'ef gh'])
+        self.assertEqual(tokenize2('"a""b"" c'), ['a', 'b', 'c'])
 
 if __name__ == "__main__":
     unittest.main()
