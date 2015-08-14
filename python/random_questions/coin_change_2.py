@@ -27,6 +27,24 @@ def change_2(number, coins_available):
 
     return result
 
+
+def change_3(value):
+    least_coins = [0 for i in xrange(value)]
+    coin_type = [[] for i in xrange(value)]
+    coin_type[0] = [0]
+    least_coins[0] = 0
+    coin_value = [5, 3, 1]
+    for i in xrange(1, value):
+        temp = i
+        for coin in coin_value:
+            while temp > 0 and coin <= temp:
+                least_coins[i] += 1
+                temp -= coin
+                coin_type[i].append(coin)
+    print least_coins
+    print coin_type
+
+
 if __name__ == "__main__":
     num = 15
     coins = [1, 5, 10, 25]
@@ -36,3 +54,4 @@ if __name__ == "__main__":
 
     print 'optimal solution', min(solutions, key=len)
     print change_2(num, coins)
+    change_3(12)
