@@ -35,6 +35,32 @@ def longest_common_substring2(string1, string2):
     all substrings of both strings and store these lengths in a table.
 
     """
+    # init DP table
+    table = [[0 for _ in xrange(len(string1)+1)] for _ in xrange(len(string2)+1)]
+
+    for i in xrange(1, len(string2)+1):
+        for j in xrange(1, len(string1)+1):
+            if string2[i-1] == string1[j-1]:
+                table[i][j] = table[i-1][j-1] + 1
+            else:
+                table[i][j] = 0
+    for i in table:
+        print i
+    largest = 0
+    largest_indice = []
+    # find largest
+    for i in xrange(1, len(string2)+1):
+        for j in xrange(1, len(string1)+1):
+            if table[i][j] > largest:
+                largest = table[i][j]
+                largest_indice = [i, j]
+    result = ""
+    while table[largest_indice[0]][largest_indice[1]] != 0:
+        result += string1[largest_indice[0]-1]
+        for i in xrange(len(largest_indice)):
+            largest_indice[i] -= 1
+    return result[::-1]
+
 if __name__ == "__main__":
     test1 = "GeeksforGeeks"
     test2 = "GeeksQuiz"
@@ -44,3 +70,4 @@ if __name__ == "__main__":
     test4 = "BABCA"
     print longest_common_substring(test1, test2)  # Geeks
     print longest_common_substring(test3, test4)  # Geeks
+    print longest_common_substring2(test1, test2)
