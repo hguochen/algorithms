@@ -1,6 +1,7 @@
 <?php
 /**
- * Exhaustive list of all array methods
+ * Exhaustive list of all array methods 
+ * http://php.net/manual/en/ref.array.php
  */
 // is_array - Finds whether a variable is an array
 // bool is_array ( mixed $var )
@@ -56,14 +57,119 @@ foo();
 echo "unset ----" . PHP_EOL;
 
 // array_change_key_case — Changes the case of all keys in an array
+// array array_change_key_case ( array $array [, int $case = CASE_LOWER ] )
+$a = [
+    'name' => 'gary',
+    'age'  => 20,
+];
+$b = array_change_key_case($a, CASE_UPPER);
+var_dump($b);
+echo "array_change_key_case ----" . PHP_EOL;
+
 // array_chunk — Split an array into chunks
+
+$input_array = array('a', 'b', 'c', 'd', 'e');
+print_r(array_chunk($input_array, 2));
+print_r(array_chunk($input_array, 2, true));
+echo "array_chunk ----" . PHP_EOL;
+
 // array_column — Return the values from a single column in the input array
+// array array_column ( array $input , mixed $column_key [, mixed $index_key = null ] )
+// Array representing a possible record set returned from a database
+$records = array(
+    array(
+        'id' => 2135,
+        'first_name' => 'John',
+        'last_name' => 'Doe',
+    ),
+    array(
+        'id' => 3245,
+        'first_name' => 'Sally',
+        'last_name' => 'Smith',
+    ),
+    array(
+        'id' => 5342,
+        'first_name' => 'Jane',
+        'last_name' => 'Jones',
+    ),
+    array(
+        'id' => 5623,
+        'first_name' => 'Peter',
+        'last_name' => 'Doe',
+    )
+);
+ 
+$first_names = array_column($records, 'first_name');
+print_r($first_names);
+echo "array_column ----" . PHP_EOL;
+
 // array_combine — Creates an array by using one array for keys and another for its values
+// array array_combine ( array $keys , array $values )
+$a = array('green', 'red', 'yellow');
+$b = array('avocado', 'apple', 'banana');
+$c = array_combine($a, $b);
+
+print_r($c);
+echo "array_combine ----" . PHP_EOL;
+
 // array_count_values — Counts all the values of an array
+// returns an array using the values of array as keys and their frequency in array as values.
+// array array_count_values ( array $array )
+$array = array(1, "hello", 1, "world", "hello");
+print_r(array_count_values($array));
+echo "array_count_values ----" . PHP_EOL;
+
 // array_diff_assoc — Computes the difference of arrays with additional index check
+// array array_diff_assoc ( array $array1 , array $array2 [, array $... ] )
+$array1 = array("a" => "green", "b" => "brown", "c" => "blue", "red");
+$array2 = array("a" => "green", "yellow", "red");
+$result = array_diff_assoc($array1, $array2);
+print_r($result);
+echo "array_diff_assoc ----" . PHP_EOL;
+
 // array_diff_key — Computes the difference of arrays using keys for comparison
+// array array_diff_key ( array $array1 , array $array2 [, array $... ] )
+$array1 = array('blue'  => 1, 'red'  => 2, 'green'  => 3, 'purple' => 4);
+$array2 = array('green' => 5, 'blue' => 6, 'yellow' => 7, 'cyan'   => 8);
+
+var_dump(array_diff_key($array1, $array2));
+echo "array_diff_key ----" . PHP_EOL;
+
 // array_diff_uassoc — Computes the difference of arrays with additional index check which is performed by a user supplied callback function
+// array array_diff_uassoc ( array $array1 , array $array2 [, array $... ], callable $key_compare_func )
+function key_compare_func($a, $b)
+{
+    if ($a === $b) {
+        return 0;
+    }
+    return ($a > $b)? 1:-1;
+}
+
+$array1 = array("a" => "green", "b" => "brown", "c" => "blue", "red");
+$array2 = array("a" => "green", "yellow", "red");
+$result = array_diff_uassoc($array1, $array2, "key_compare_func");
+print_r($result);
+echo "array_diff_uassoc(array1, array2) ----" . PHP_EOL;
+
+
 // array_diff_ukey — Computes the difference of arrays using a callback function on the keys for comparison
+// array array_diff_ukey ( array $array1 , array $array2 [, array $... ], callable $key_compare_func )
+function key_compare_func($key1, $key2)
+{
+    if ($key1 == $key2)
+        return 0;
+    else if ($key1 > $key2)
+        return 1;
+    else
+        return -1;
+}
+
+$array1 = array('blue'  => 1, 'red'  => 2, 'green'  => 3, 'purple' => 4);
+$array2 = array('green' => 5, 'blue' => 6, 'yellow' => 7, 'cyan'   => 8);
+
+var_dump(array_diff_ukey($array1, $array2, 'key_compare_func'));
+echo "array_diff_ukey(array1, array2) ----" . PHP_EOL;
+
 // array_diff — Computes the difference of arrays
 // array_fill_keys — Fill an array with values, specifying keys
 // array_fill — Fill an array with values
