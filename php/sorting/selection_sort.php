@@ -5,6 +5,9 @@
  * Given an array of unsorted integers, splitting the array into sorted and
  * unsorted portion, repeatedly find the smallest remaining unsorted element
  * and puts it at the end of the sorted portion of the array.
+ *
+ * Worst time complexity: O(n^2)
+ * Worst space complexity: O(1)
  */
 
 $input1 = [14, 33, 27, 10, 35, 19, 42, 44];
@@ -33,5 +36,22 @@ function selectionSort_v1($input) {
     return $result;
 }
 
+function selectionSort_v2($input) {    
+    for ($i=0; $i < sizeof($input); $i++) {
+        $minIndex = $i;
+        for ($j=$i+1; $j < sizeof($input); $j++) {
+            if ($input[$j] < $input[$minIndex]) {
+                $minIndex = $j;
+            }
+        }
+        $temp = $input[$i];
+        $input[$i] = $input[$minIndex];
+        $input[$minIndex] = $temp;
+    }
+    return $input;
+}
+
 print_r(selectionSort_v1($input1));
 print_r(selectionSort_v1($input2));
+print_r(selectionSort_v2($input1));
+print_r(selectionSort_v2($input2));
