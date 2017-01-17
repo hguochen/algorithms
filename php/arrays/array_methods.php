@@ -154,7 +154,7 @@ echo "array_diff_uassoc(array1, array2) ----" . PHP_EOL;
 
 // array_diff_ukey — Computes the difference of arrays using a callback function on the keys for comparison
 // array array_diff_ukey ( array $array1 , array $array2 [, array $... ], callable $key_compare_func )
-function key_compare_func($key1, $key2)
+function key_compare_func2($key1, $key2)
 {
     if ($key1 == $key2)
         return 0;
@@ -251,15 +251,15 @@ echo "array_intersect_uassoc(array1, array2) ---- " . PHP_EOL;
 
 // array_intersect_ukey — Computes the intersection of arrays using a callback function on the keys for comparison
 // array array_intersect_ukey ( array $array1 , array $array2 [, array $... ], callable $key_compare_func )
-function key_compare_func($key1, $key2)
-{
-    if ($key1 == $key2)
-        return 0;
-    else if ($key1 > $key2)
-        return 1;
-    else
-        return -1;
-}
+// function key_compare_func($key1, $key2)
+// {
+//     if ($key1 == $key2)
+//         return 0;
+//     else if ($key1 > $key2)
+//         return 1;
+//     else
+//         return -1;
+// }
 
 $array1 = array('blue'  => 1, 'red'  => 2, 'green'  => 3, 'purple' => 4);
 $array2 = array('green' => 5, 'blue' => 6, 'yellow' => 7, 'cyan'   => 8);
@@ -445,7 +445,12 @@ $fruit = array_shift($stack);
 print_r($stack);
 echo "array_shift(array) ----" . PHP_EOL;
 
+$a = file_get_contents('array.php', 'r');
+if ($a) {
+    echo $a;
+}
 // array_slice — Extract a slice of the array
+// array array_slice ( array $array , int $offset [, int $length = NULL [, bool $preserve_keys = false ]] )
 // array_splice — Remove a portion of the array and replace it with something else
 // array_sum — Calculate the sum of values in an array
 // array_udiff_assoc — Computes the difference of arrays with additional index check, compares data by a callback function
