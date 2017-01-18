@@ -36,11 +36,11 @@ function merge($left, $right) {
             $result[] = array_shift($right);
         }
     }
-    while (!empty($left)) {
-        $result[] = array_shift($left);
+    if (!empty($left)) {
+        $result = array_merge($result, $left);
     }
-    while (!empty($right)) {
-        $result[] = array_shift($right);
+    if (!empty($right)) {
+        $result = array_merge($result, $right);
     }
     return $result;
 }
