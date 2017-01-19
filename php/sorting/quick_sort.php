@@ -37,11 +37,10 @@ function _quicksort(&$input, $start, $end) {
     return $input;
 }
 
+// use last index as pivot
 function partition(&$input, $start, $end) {
     $resultIndex = $start;
     $nextIndex = $start;
-    // echo $nextIndex.PHP_EOL;
-    // echo $end.PHP_EOL;
 
     while ($nextIndex < $end) {
         if ($input[$nextIndex] > $input[$end]) {
@@ -60,5 +59,28 @@ function partition(&$input, $start, $end) {
     return $resultIndex;
 }
 
-// echo partition($input1, 0, sizeof($input1)-3) . PHP_EOL;
+// quicksort php style
+function quicksortV3($input) {
+    if (sizeof($input) < 2) {
+        return $input;
+    }
+    $left = $right = [];
+    reset($input);
+    $pivotKey = key($input);
+    $pivot = array_shift($input);
+
+    foreach ($input as $key => $value) {
+        if ($value <= $pivot) {
+            $left[$key] = $value;
+        } else {
+            $right[$key] = $value;
+        }
+    }
+    return array_merge(quicksortV3($left), [$pivotKey => $pivot], quicksortV3($right));
+}
+
 print_r(quicksort($input1));
+print_r(quicksort($input2));
+
+print_r(quicksortV3($input1));
+print_r(quicksortV3($input2));
