@@ -32,6 +32,108 @@ class BinarySearchTree {
         return $this->root;
     }
 
+    protected function insertNode($parentNode, $newNode) {
+        if ($newNode->data <= $parentNode->data) {
+            if (empty($parentNode->left)) {
+                $parentNode->left = $newNode;
+            } else {
+                $this->insertNode($parentNode->left, $newNode);
+            }
+        } else {
+            if (empty($parentNode->right)) {
+                $parentNode->right = $newNode;
+            } else {
+                $this->insertNode($parentNode->right, $newNode);
+            }
+        }
+    }
+
+    public function delete($data) {
+        if (empty($this->root)) {
+            return false;
+        }
+        $node = $this->findNode($data);
+        $parent = $this->findParentNode($node);
+        echo "parent node is: " . $parent->data . PHP_EOL;
+        // case 1: 0 children
+        if (empty($node->left) && empty($node->right)) {
+            if ($parent->left == $node) {
+                $parent->left = NULL;
+            } else {
+                $parent->right = NULL;
+            }
+            return true;
+        }
+        // case 2: 1 children
+        // case 3: 2 children
+    }
+
+    private function findParentNode(&$node) {
+        if (empty($node)) {
+            return NULL;
+        }
+        $prev = NULL;
+        $curr = $this->root;
+        while ($curr != NULL) {
+            if ($curr == $node) {
+                return $prev;
+            } 
+            $prev = $curr;
+            if ($node->data < $curr->data) {
+                $curr = $curr->left;
+            } else {
+                $curr = $curr->right;
+            }
+        }
+    }
+    public function find($data) {
+        if (empty($this->root)) {
+            return false;
+        }
+        $found = false;
+        $curr = $this->root;
+        while ($curr != NULL) {
+            if ($curr->data == $data) {
+                $found = true;
+                break;
+            } else {
+                if ($data < $curr->data) {
+                    if ($curr->left != NULL) {
+                        $curr = $curr->left;
+                    } else {
+                        $found = false;
+                        break;
+                    }
+                } else {
+                    if ($curr->right != NULL) {
+                        $curr = $curr->right;
+                    } else {
+                        $found = false;
+                        break;
+                    }
+                }
+            }
+        }
+        return $found;
+    }
+
+    public function findNode($data) {
+        return $this->_findNode($this->root, $data);
+    }
+
+    private function _findNode($node, $data) {
+        if (empty($node)) {
+            return NULL;
+        }
+        if ($node->data == $data) {
+            return $node;
+        } else if ($data < $node->data) {
+            return $this->_findNode($node->left, $data);
+        } else {
+            return $this->_findNode($node->right, $data);
+        }
+    }
+
     public function getRoot() {
         return $this->root;
     }
@@ -62,36 +164,37 @@ class BinarySearchTree {
         $this->postorder($node->right);
         echo $node->data . " ";
     }
-
-    protected function insertNode($parentNode, $newNode) {
-        if ($newNode->data <= $parentNode->data) {
-            if (empty($parentNode->left)) {
-                $parentNode->left = $newNode;
-            } else {
-                $this->insertNode($parentNode->left, $newNode);
-            }
-        } else {
-            if (empty($parentNode->right)) {
-                $parentNode->right = $newNode;
-            } else {
-                $this->insertNode($parentNode->right, $newNode);
-            }
-        }
-    }
 }
 
-$bst = new BinarySearchTree(7);
+$bst = new BinarySearchTree(40);
 $root = $bst->getRoot();
-$bst->insert(1);
-$bst->insert(9);
-$bst->insert(0);
-$bst->insert(3);
-$bst->insert(8);
-$bst->insert(10);
-$bst->insert(2);
-$bst->insert(5);
-$bst->insert(4);
-$bst->insert(6);
+$bst->insert(13);
+$bst->insert(57);
+$bst->insert(7);
+$bst->insert(37);
+$bst->insert(49);
+$bst->insert(67);
+$bst->insert(34);
+$bst->insert(39);
+$bst->insert(63);
+$bst->insert(28);
+$bst->insert(38);
+$bst->insert(60);
+$bst->insert(65);
+$bst->insert(30);
+$bst->insert(29);
+$bst->insert(32);
+
+$bst->preorder($root);
+echo PHP_EOL;
+$bst->inorder($root);
+echo PHP_EOL;
+$bst->postorder($root);
+echo PHP_EOL;
+$bst->find(29);
+$bst->find(32);
+
+$bst->delete(65);
 $bst->preorder($root);
 echo PHP_EOL;
 $bst->inorder($root);
