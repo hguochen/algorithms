@@ -53,60 +53,113 @@ class BinarySearchTree {
             return false;
         }
         $node = $this->findNode($data);
-        $parent = $this->findParentNode($node);
-        echo "parent node is: " . $parent->data . PHP_EOL;
         // case 1: 0 children
         if (empty($node->left) && empty($node->right)) {
-            if ($node == $this->root) {
-                $this->root = NULL;
-                return $this->root;
-            } else if ($parent->left == $node) {
-                $parent->left = NULL;
-            } else {
-                $parent->right = NULL;
-            }
-            return true;
+            return $this->deleteLeafNode($node, $this->root);
         } else if (empty($node->left) || empty($node->right)) { // case 2: 1 children
-            if ($node == $this->root) {
-                if (!empty($node->left)) {
-                    $this->root = $node->left;
-                    return $this->root;
-                } else{
-                    $this->root = $node->right;
-                    return $this->root;
-                }
-            } else if ($parent->left == $node) {
-                if (!empty($node->left)) {
-                    $parent->left = $node->left;
-                    return $this->root;
+            return $this->deleteSingleChildNode($node, $this->root);
+        } else { // case 3: 2 children
+            // get right child's smallest node 
+            $deleteNode = $this->findSmallestNode($node->right);
+            // swap right child smallest node with $node.
+            $this->swap($node, $deleteNode);
+            echo "after swap: {$node->data} : {$deleteNode->data}" . PHP_EOL;
+            // delete the $deleteNode which has 0 or 1 child only.
+            if ($this->isLeafNode($deleteNode)) {
+                if ($node->right == $deleteNode) {
+                    $node->right = NULL;
                 } else {
-                    $parent->left = $node->right;
-                    return $this->root;
+                    return $this->deleteLeafNode($deleteNode, $node->right);
                 }
-            } else if ($parent->right == $node) {
-                if (!empty($node->left)) {
-                    $parent->right = $node->left;
-                    return $this->root;
-                } else {
-                    $parent->right = $node->right;
-                    return $this->root;
-                }
+            } else {
+                return $this->deleteSingleChildNode($deleteNode, $node->right);
             }
-            return true;
         }
-        // case 3: 2 children
     }
 
-    private function findParentNode(&$node) {
+    private function swap(&$node1, &$node2) {
+        $temp = $node1->data;
+        $node1->data = $node2->data;
+        $node2->data = $temp;
+        return;
+    }
+
+    private function isLeafNode(&$node) {
+        if (empty($node->left) && empty($node->right)) {
+            return true;
+        }
+        return false;
+    }
+
+    private function deleteSingleChildNode(&$node, &$ancestorNode) {
+        if (empty($node) ||
+            (empty($node->left) && empty($node->right)) ||
+            (!empty($node->left && !empty($node->right)))) {
+            return false;
+        }
+        $parent = $this->_findParentNode($ancestorNode, $node);
+        if ($node == $this->root) {
+            if (!empty($node->left)) {
+                $this->root = $node->left;
+            } else{
+                $this->root = $node->right;
+            }
+        } else if ($parent->left == $node) {
+            if (!empty($node->left)) {
+                $parent->left = $node->left;
+            } else {
+                $parent->left = $node->right;
+            }
+        } else if ($parent->right == $node) {
+            if (!empty($node->left)) {
+                $parent->right = $node->left;
+            } else {
+                $parent->right = $node->right;
+            }
+        }
+        return true;
+    }
+
+    private function deleteLeafNode(&$node, &$ancestorNode) {
+        if (!empty($node->left) || !empty($node->right) || empty($node)) {
+            return false;
+        }
+
+        $parent = $this->_findParentNode($ancestorNode, $node);
+        if ($node == $this->root) {
+            $this->root = NULL;
+        } else if($parent->left == $node) {
+            $parent->left = NULL;
+        } else {
+            $parent->right = NULL;
+        }
+        return true;
+    }    
+
+    private function findSmallestNode(&$node) {
         if (empty($node)) {
             return NULL;
         }
+        $curr = $node;
+        while (!empty($curr->left)) {
+            $curr = $curr->left;
+        }
+        return $curr;
+    }
+
+    private function _findParentNode($startNode, $node) {
+        if (empty($startNode) || empty($node)) {
+            return NULL;
+        } else if ($startNode == $node) {
+
+        }
         $prev = NULL;
-        $curr = $this->root;
+        $curr = $startNode;
+
         while ($curr != NULL) {
-            if ($curr == $node) {
+            if ($curr->data == $node->data) {
                 return $prev;
-            } 
+            }
             $prev = $curr;
             if ($node->data < $curr->data) {
                 $curr = $curr->left;
@@ -115,6 +168,7 @@ class BinarySearchTree {
             }
         }
     }
+
     public function find($data) {
         if (empty($this->root)) {
             return false;
@@ -223,10 +277,10 @@ echo PHP_EOL;
 $bst->find(29);
 $bst->find(32);
 
-$bst->delete(39);
-$bst->preorder($root);
-echo PHP_EOL;
-$bst->inorder($root);
-echo PHP_EOL;
-$bst->postorder($root);
-echo PHP_EOL;
+// $bst->delete(32);
+// $bst->preorder($root);
+// echo PHP_EOL;
+// $bst->inorder($root);
+// echo PHP_EOL;
+// $bst->postorder($root);
+// echo PHP_EOL;
