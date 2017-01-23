@@ -57,14 +57,43 @@ class BinarySearchTree {
         echo "parent node is: " . $parent->data . PHP_EOL;
         // case 1: 0 children
         if (empty($node->left) && empty($node->right)) {
-            if ($parent->left == $node) {
+            if ($node == $this->root) {
+                $this->root = NULL;
+                return $this->root;
+            } else if ($parent->left == $node) {
                 $parent->left = NULL;
             } else {
                 $parent->right = NULL;
             }
             return true;
+        } else if (empty($node->left) || empty($node->right)) { // case 2: 1 children
+            if ($node == $this->root) {
+                if (!empty($node->left)) {
+                    $this->root = $node->left;
+                    return $this->root;
+                } else{
+                    $this->root = $node->right;
+                    return $this->root;
+                }
+            } else if ($parent->left == $node) {
+                if (!empty($node->left)) {
+                    $parent->left = $node->left;
+                    return $this->root;
+                } else {
+                    $parent->left = $node->right;
+                    return $this->root;
+                }
+            } else if ($parent->right == $node) {
+                if (!empty($node->left)) {
+                    $parent->right = $node->left;
+                    return $this->root;
+                } else {
+                    $parent->right = $node->right;
+                    return $this->root;
+                }
+            }
+            return true;
         }
-        // case 2: 1 children
         // case 3: 2 children
     }
 
@@ -194,7 +223,7 @@ echo PHP_EOL;
 $bst->find(29);
 $bst->find(32);
 
-$bst->delete(65);
+$bst->delete(39);
 $bst->preorder($root);
 echo PHP_EOL;
 $bst->inorder($root);
