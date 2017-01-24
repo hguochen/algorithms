@@ -52,6 +52,87 @@ class BinarySearchTree {
         }
     }
 
+    public function delete($data) {
+        // check for null root
+        if (empty($this->root)) {
+            return false;
+        }
+        // find the data, if data not found, exit
+        list($parent, $cue, $deleteNode) = $this->findNodeAndParent($data);
+
+        // case 0: 0 child
+        // case 1: 1 child
+        if (empty($deleteNode->left) || empty($deleteNode->right)) {
+            $this->replace($parent, $cue, $deleteNode);
+        } else {
+            // case 2: 2 child
+        }        
+    }
+
+    /**
+     * Replace the given node with its only child or NULL if its leaf node.
+     */
+    private function replace(&$parent, $cue, &$deleteNode) {
+        // set child node
+        if (empty($deleteNode->left)) {
+            $child = $deleteNode->right;
+        } else {
+            $child = $deleteNode->left;
+        }
+
+        // delete root node
+        if ($deleteNode == $this->root) {
+            $this->root = $child;
+            return $this->root;
+        }
+        // handle the case for non-root nodes
+        if ($cue == 'left') {
+            $parent->left = $child;
+        } else if ($cue == 'right') {
+            $parent->right = $child;
+        }
+        return $this->root;
+    }
+
+    /**
+     * Find and return the parent node, left/right flag and data node.
+     */
+    private function findNodeAndParent($data) {
+        $parent = NULL;
+        if ($this->root->data == $data) {
+            return [$parent, '', $this->root];
+        }
+        $curr = $this->root;
+        while (!empty($curr)) {
+            if ($curr->data == $data) {
+                if ($parent->left == $curr) {
+                    return [$parent, 'left', $curr];
+                } else {
+                    return [$parent, 'right', $curr];
+                }
+            } 
+            $parent = $curr;
+            if ($data < $curr->data) {
+                $curr = $curr->left;
+            } else {
+                $curr = $curr->right;
+            }
+        }
+    }
+
+    private function findNode($node, $data) {
+        if (empty($node)) {
+            return NULL;
+        }
+        if ($node->data == $data) {
+            return $node;
+        } else if ($data < $node->data) {
+            return $this->findNode($node->left, $data);
+        } else {
+            return $this->findNode($node->right, $data);
+        }
+    }
+
     public function printData($node) {
         echo "{$node->data} ";
     }
@@ -102,6 +183,13 @@ $bst->insert(65);
 $bst->insert(30);
 $bst->insert(29);
 $bst->insert(32);
+$bst->preorder($root, 'printData');
+echo PHP_EOL;
+$bst->inorder($root, 'printData');
+echo PHP_EOL;
+$bst->postorder($root, 'printData');
+echo PHP_EOL;
+$bst->delete(67);
 $bst->preorder($root, 'printData');
 echo PHP_EOL;
 $bst->inorder($root, 'printData');
