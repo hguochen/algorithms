@@ -57,22 +57,33 @@ class BinarySearchTree {
         if (empty($this->root)) {
             return false;
         }
-        // find the data, if data not found, exit
-        list($parent, $cue, $deleteNode) = $this->findNodeAndParent($data);
+
+        list($parent, $deleteNode) = $this->findNodeAndParent($data);
 
         // case 0: 0 child
         // case 1: 1 child
         if (empty($deleteNode->left) || empty($deleteNode->right)) {
-            $this->replace($parent, $cue, $deleteNode);
+            $this->replace($parent, $deleteNode);
         } else {
             // case 2: 2 child
-        }        
+            // find smallest node that's on the deleteNode's right subtree
+            $successor = $deleteNode->right;
+            $prev = $deleteNode;
+
+            while (!empty($successor->left)) {
+                $prev = $successor;
+                $successor = $successor->left;
+            }
+            // replace the next smallest node data with the node data that is supposed to be deleted
+            $deleteNode->data = $successor->data;
+            $this->replace($prev, $successor);
+        }
     }
 
     /**
      * Replace the given node with its only child or NULL if its leaf node.
      */
-    private function replace(&$parent, $cue, &$deleteNode) {
+    private function replace(&$parent, &$deleteNode) {
         // set child node
         if (empty($deleteNode->left)) {
             $child = $deleteNode->right;
@@ -86,9 +97,9 @@ class BinarySearchTree {
             return $this->root;
         }
         // handle the case for non-root nodes
-        if ($cue == 'left') {
+        if ($parent->left == $deleteNode) {
             $parent->left = $child;
-        } else if ($cue == 'right') {
+        } else {
             $parent->right = $child;
         }
         return $this->root;
@@ -100,15 +111,15 @@ class BinarySearchTree {
     private function findNodeAndParent($data) {
         $parent = NULL;
         if ($this->root->data == $data) {
-            return [$parent, '', $this->root];
+            return [$parent, $this->root];
         }
         $curr = $this->root;
         while (!empty($curr)) {
             if ($curr->data == $data) {
                 if ($parent->left == $curr) {
-                    return [$parent, 'left', $curr];
+                    return [$parent, $curr];
                 } else {
-                    return [$parent, 'right', $curr];
+                    return [$parent, $curr];
                 }
             } 
             $parent = $curr;
@@ -189,7 +200,7 @@ $bst->inorder($root, 'printData');
 echo PHP_EOL;
 $bst->postorder($root, 'printData');
 echo PHP_EOL;
-$bst->delete(67);
+$bst->delete(63);
 $bst->preorder($root, 'printData');
 echo PHP_EOL;
 $bst->inorder($root, 'printData');
