@@ -247,6 +247,24 @@ class BinarySearchTree {
         $this->postorder($node->right);
         echo $node->data . " ";
     }
+
+    public function levelorder($node) {
+        if (empty($node)) {
+            return;
+        }
+        $queue = [$node];
+        while (!empty($queue)) {
+            $curr = array_shift($queue);
+            echo $curr->data . " ";
+
+            if (!empty($curr->left)) {
+                $queue[] = $curr->left;
+            }
+            if (!empty($curr->right)) {
+                $queue[] = $curr->right;
+            }
+        }
+    }
 }
 
 $bst = new BinarySearchTree(40);
@@ -273,6 +291,8 @@ echo PHP_EOL;
 $bst->inorder($root);
 echo PHP_EOL;
 $bst->postorder($root);
+echo PHP_EOL;
+$bst->levelorder($root);
 echo PHP_EOL;
 $bst->find(29);
 $bst->find(32);
