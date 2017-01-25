@@ -6,8 +6,12 @@
  * and $value2. You need to return the lowest common ancestor of both values in the
  * binary search tree.
  * Return the node representing the lowest common ancestor.
+ * O(n^2)
  */
-
+/**
+ * Get path for each value. then compare each set of value to find the common node from
+ * bottom up. 
+ */
 function lowestCommonAncestor($root, $value1, $value2) {
     if (empty($root)) {
         return;
@@ -22,6 +26,42 @@ function lowestCommonAncestor($root, $value1, $value2) {
             if ($value2Path[$j] == $value1Path[$i]) {
                 return $value2Path[$j];
             }
+        }
+    }
+    return;
+}
+
+/**
+ * Traverse through each node of the binary tree. For every node, assuming $value1 < $value2 of the following
+ * condition can happen.
+ * 1. $dataValue < $value1 < $value2
+ *     move to the left node and repeat process
+ * 2. $value1 < $value2 < $dataValue
+ *     move to right node and repeat process
+ * 3. $value1 < $dataValue < $value2
+ *     $dataValue node is the lowest common ancestor.
+ * Time complexity: O(lgn)
+ */
+function lowestCommonAncestorV2 ($root, $value1, $value2) {
+    if (empty($root)) {
+        return;
+    }
+    if ($value < $value2) {
+        $smallerValue = $value1;
+        $biggerValue = $value2;
+    } else {
+        $smallerValue = $value2;
+        $biggerValue = $value1;
+    }
+    $curr = $root;
+    while (!empty($curr)) {
+        if ($curr->data < $biggerValue &&
+            $curr->data > $smallerValue) {
+            return $curr;
+        } else if ($curr->data < $smallerValue) {
+            $curr = $curr->left;
+        } else if ($curr->data > $biggerValue) {
+            $curr = $curr->right;
         }
     }
     return;
