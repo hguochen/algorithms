@@ -36,6 +36,31 @@ class BinarySearchTree {
         return $this->root;
     }
 
+    public function insertNonRecursive($data) {
+        $newNode = new Node($data);
+        if (empty($this->root)) {
+            $this->root = $newNode;
+            return $this->root;
+        }
+        $curr = $this->root;
+        while (!empty($curr)) {
+            if ($data < $curr->data) {
+                if (empty($curr->left)) {
+                    $curr->left = $newNode;
+                } else {
+                    $curr = $curr->left;
+                }
+            } else {
+                if (empty($curr->right)) {
+                    $curr->right = $newNode;
+                } else {
+                    $curr = $curr->right;
+                }
+            }
+        }
+        return $this->root;
+    }
+
     private function insertNode($parentNode, $newNode) {
         if ($newNode->data < $parentNode->data) {
             if (empty($parentNode->left)) {
