@@ -21,9 +21,9 @@ function lowestCommonAncestor($root, $value1, $value2) {
     $value1Path = getValuePath($root, $value1);
     $value2Path = getValuePath($root, $value2);
 
-    for ($i=sizeof($value1Path)-1; $i <= 0; $i--) {
-        for ($j=sizeof($value2Path)-1; $j <= 0; $j--) {
-            if ($value2Path[$j] == $value1Path[$i]) {
+    for ($i=sizeof($value1Path)-1; $i >= 0; $i--) {
+        for ($j=sizeof($value2Path)-1; $j >= 0; $j--) {
+            if ($value2Path[$j]->data == $value1Path[$i]->data) {
                 return $value2Path[$j];
             }
         }
@@ -46,7 +46,7 @@ function lowestCommonAncestorV2 ($root, $value1, $value2) {
     if (empty($root)) {
         return;
     }
-    if ($value < $value2) {
+    if ($value1 < $value2) {
         $smallerValue = $value1;
         $biggerValue = $value2;
     } else {
@@ -55,12 +55,13 @@ function lowestCommonAncestorV2 ($root, $value1, $value2) {
     }
     $curr = $root;
     while (!empty($curr)) {
+        echo "value in question: " . $curr->data . PHP_EOL;
         if ($curr->data < $biggerValue &&
             $curr->data > $smallerValue) {
             return $curr;
-        } else if ($curr->data < $smallerValue) {
+        } else if ($biggerValue < $curr->data) {
             $curr = $curr->left;
-        } else if ($curr->data > $biggerValue) {
+        } else if ($smallerValue > $curr->data) {
             $curr = $curr->right;
         }
     }
@@ -74,12 +75,12 @@ function getValuePath(&$node, $value) {
     $valuePath = [];
     $curr = $node;
     while (!empty($curr)) {
-        if ($curr->data == $value1) {
+        if ($curr->data == $value) {
             break;
         } else {
-            $value1Path[] = $curr;
+            $valuePath[] = $curr;
         }
-        if ($value1 < $curr->data) {
+        if ($value < $curr->data) {
             $curr = $curr->left;
         } else {
             $curr = $curr->right;
