@@ -10,10 +10,21 @@ class Queue {
         $this->arr = [];
     }
 
+    /**
+     * Queue an element to the end of the queue.
+     * Time: O(1)
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public function enqueue($data) {
         $this->arr[] = $data;
     }
 
+    /**
+     * Remove an element from the start of the queue.
+     * Time: O(1)
+     * @return [type] [description]
+     */
     public function dequeue() {
         if ($this->isEmpty()) {
             echo "Queue is empty." . PHP_EOL;
