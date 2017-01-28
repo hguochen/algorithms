@@ -11,10 +11,23 @@ class Dictionary {
         $this->container = $dict;
     }
 
+    /**
+     * Insert an element into dictionary
+     * Time: O(1)
+     * @param  [type] $key   [description]
+     * @param  [type] $value [description]
+     * @return [type]        [description]
+     */
     public function insert($key, $value) {
         $this->container[$key] = $value;
     }
 
+    /**
+     * Delete an element into dictionary
+     * Time: O(1)
+     * @param  [type] $key [description]
+     * @return [type]      [description]
+     */
     public function delete($key) {
         if (isset($this->container[$key])) {
             unset($this->container[$key]);
