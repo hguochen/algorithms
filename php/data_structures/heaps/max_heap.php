@@ -29,7 +29,7 @@ class MaxHeap {
         if (!empty($this->heap)) {
             $this->siftDown(0);
         }
-        return $result;
+        return $largest;
     }
 
     private function swap(&$value1, &$value2) {
@@ -42,7 +42,36 @@ class MaxHeap {
      * Sift down value at given index repeatedly so the max heap structure is maintained.
      */
     private function siftDown($siftIndex) {
-        return NULL;
+        if ($siftIndex >= sizeof($this->heap)) {
+            return;
+        }
+        // set temp for sift index value
+        $temp = $this->heap[$siftIndex];
+
+        $i = $siftIndex;
+        $childIndex = $this->getLeftChildIndex($i);
+
+        // while loop on there is a left child
+        while ($childIndex < sizeof($this->heap)) {
+            // right child bigger than left child
+            if ($childIndex+1 < sizeof($this->heap) &&
+                $this->heap[$childIndex+1] > $this->heap[$childIndex]) {
+                $childIndex++;
+            }
+            if ($temp < $this->heap[$childIndex]) {
+                $this->heap[$i] = $this->heap[$childIndex];
+            } else {
+                break;
+            }
+            $i = $childIndex;
+            //  set i to be the new moved child
+            $childIndex = $this->getLeftChildIndex($i);
+        }
+        //  in while loop check if there's a right child
+        //  compare left or right chidl which is bigger than index child
+        //  move the bigger value to sift index
+        // insert temp into the correct spot
+        $this->heap[$i] = $temp;
     }
 
     /**
@@ -89,6 +118,8 @@ $maxHeap->insert(32);
 $maxHeap->insert(25);
 $maxHeap->insert(18);
 $maxHeap->insert(22);
+print_r($maxHeap->getHeap());
+echo $maxHeap->delete();
 print_r($maxHeap->getHeap());
 echo $maxHeap->delete();
 print_r($maxHeap->getHeap());
