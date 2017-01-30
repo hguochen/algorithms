@@ -13,8 +13,29 @@ class MaxHeap {
 
     public function insert($data) {
         $this->heap[] = $data;
+        $i = sizeof($this->heap) - 1;
+        $parentIndex = $this->getParentIndex($i);
+
+        while ($parentIndex >= 0) {
+            if ($this->heap[$parentIndex] < $data) {
+                $this->heap[$i] = $this->heap[$parentIndex];
+            } else {
+                break;
+            }
+            $i = $parentIndex;
+            // root node check
+            if ($i == 0) {
+                break;
+            }
+            $parentIndex = $this->getParentIndex($i);
+        }
+        $this->heap[$i] = $data;
     }
 
+    /**
+     * Delete the largest element from the heap.
+     * Time: O(lg n). where n is size of the heap
+     */
     public function delete() {
         // check empty heap
         if (empty($this->heap)) {
@@ -40,6 +61,7 @@ class MaxHeap {
 
     /**
      * Sift down value at given index repeatedly so the max heap structure is maintained.
+     * Time: O(lg n). where n is size of the heap
      */
     private function siftDown($siftIndex) {
         if ($siftIndex >= sizeof($this->heap)) {
@@ -64,12 +86,8 @@ class MaxHeap {
                 break;
             }
             $i = $childIndex;
-            //  set i to be the new moved child
             $childIndex = $this->getLeftChildIndex($i);
         }
-        //  in while loop check if there's a right child
-        //  compare left or right chidl which is bigger than index child
-        //  move the bigger value to sift index
         // insert temp into the correct spot
         $this->heap[$i] = $temp;
     }
@@ -105,21 +123,18 @@ class MaxHeap {
     }
 }
 
-$maxHeap = new MaxHeap();
-$maxHeap->insert(104);
-$maxHeap->insert(71);
-$maxHeap->insert(24);
-$maxHeap->insert(66);
-$maxHeap->insert(27);
-$maxHeap->insert(23);
-$maxHeap->insert(8);
-$maxHeap->insert(5);
-$maxHeap->insert(32);
-$maxHeap->insert(25);
-$maxHeap->insert(18);
-$maxHeap->insert(22);
+$presetArray = [104,71,24,66,27,23,8,5,32,25,18,22];
+$maxHeap = new MaxHeap($presetArray);
+
+// print_r($maxHeap->getHeap());
+// echo $maxHeap->delete();
+// print_r($maxHeap->getHeap());
+// echo $maxHeap->delete();
+// print_r($maxHeap->getHeap());
+
+$maxHeap->insert(50);
 print_r($maxHeap->getHeap());
-echo $maxHeap->delete();
+$maxHeap->insert(91);
 print_r($maxHeap->getHeap());
-echo $maxHeap->delete();
+$maxHeap->insert(150);
 print_r($maxHeap->getHeap());
