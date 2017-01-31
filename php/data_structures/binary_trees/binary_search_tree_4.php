@@ -1,0 +1,127 @@
+<?php
+
+class Node {
+    public $data;
+    public $left;
+    public $right;
+
+    public function __construct($data, $left=NULL, $right=NULL) {
+        $this->data = $data;
+        $this->left = $left;
+        $this->right = $right;
+    }
+}
+
+class BinarySearchTree {
+    private $root;
+
+    public function __construct($data, $left=NULL, $right=NULL) {
+        $this->root = new Node($data, $left, $right);
+    }
+
+    public function getRoot() {
+        return $this->root;
+    }
+
+    public function insert($data) {
+        $newNode = new Node($data);
+        if (empty($this->root)) {
+            $this->root = $newNode;
+            return $this->root;
+        }
+        $this->insertNode($this->root, $newNode);
+        return $this->root;
+    }
+
+    private function insertNode(&$node, $newNode) {
+        if ($newNode->data < $node->data) {
+            if (empty($node->left)) {
+                $node->left = $newNode;
+            } else {
+                $this->insertNode($node->left, $newNode);
+            }
+        } else {
+            if (empty($node->right)) {
+                $node->right = $newNode;
+            } else {
+                $this->insertNode($node->right, $newNode);
+            }
+        }
+    }
+
+    private function printData($node) {
+        echo "{$node->data} ";
+    }
+
+    public function preorder($node, $callback) {
+        if (empty($node)) {
+            return;
+        }
+        $this->$callback($node);
+        $this->preorder($node->left, $callback);
+        $this->preorder($node->right, $callback);
+    }
+
+    public function inorder($node, $callback) {
+        if (empty($node)) {
+            return;
+        }
+        $this->inorder($node->left, $callback);
+        $this->$callback($node);
+        $this->inorder($node->right, $callback);
+    }
+
+    public function postorder($node, $callback) {
+        if (empty($node)) {
+            return;
+        }
+        $this->postorder($node->left, $callback);
+        $this->postorder($node->right, $callback);
+        $this->$callback($node);
+    }
+
+    public function levelorder($node, $callback) {
+        if (empty($node)) {
+            return;
+        }
+        $queue = [$node];
+
+        while (!empty($queue)) {
+            $curr = array_shift($queue);
+            $this->$callback($curr);
+            if (!empty($curr->left)) {
+                $queue[] = $curr->left;
+            }
+            if (!empty($curr->right)) {
+                $queue[] = $curr->right;
+            }
+        }
+    }
+}
+
+$bst = new BinarySearchTree(40);
+$root = $bst->getRoot();
+$bst->insert(13);
+$bst->insert(57);
+$bst->insert(7);
+$bst->insert(37);
+$bst->insert(49);
+$bst->insert(67);
+$bst->insert(34);
+$bst->insert(39);
+$bst->insert(63);
+$bst->insert(28);
+$bst->insert(38);
+$bst->insert(60);
+$bst->insert(65);
+$bst->insert(30);
+$bst->insert(29);
+$bst->insert(32);
+$bst->preorder($root, 'printData');
+echo PHP_EOL;
+$bst->inorder($root, 'printData');
+echo PHP_EOL;
+$bst->postorder($root, 'printData');
+echo PHP_EOL;
+$bst->levelorder($root, 'printData');
+echo PHP_EOL;
