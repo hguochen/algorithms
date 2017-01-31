@@ -2,7 +2,10 @@
 
 /**
  * Heapsort.
- * 
+ * Alter the input into a heap structure. Then repeatedly remove the largest element
+ * from the heap and put them in non decreasing sorted order.
+ * Time complexity: O(n lgn)
+ * Space complexity: O(n)
  */
 
 $input1 = [4,12,30,16,5,15];

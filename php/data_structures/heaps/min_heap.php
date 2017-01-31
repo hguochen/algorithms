@@ -17,7 +17,7 @@ class MinHeap {
         $parentIndex = $this->getParentIndex($i);
 
         while ($parentIndex >= 0 && $i > 0) {
-            if ($this->heap[$parentIndex] > $this->heap[$i]) {
+            if ($this->heap[$parentIndex] > $data) {
                 $this->heap[$i] = $this->heap[$parentIndex];
             } else {
                 break;
