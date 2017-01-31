@@ -81,9 +81,9 @@ class BinarySearchTree {
     private function replace(&$parent, &$node) {
         // set child node to replace with
         if (empty($node->left)) {
-            $child = $node->left;
-        } else {
             $child = $node->right;
+        } else {
+            $child = $node->left;
         }
         if ($node == $this->root) {
             $this->root = $child;

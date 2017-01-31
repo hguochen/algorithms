@@ -49,6 +49,66 @@ class BinarySearchTree {
         }
     }
 
+    public function delete($data) {
+        list($node, $parent) = $this->findNodeAndParent($data);
+        if (empty($this->root) || empty($node)) {
+            return false;
+        }
+        // case 0: 0 child
+        // case 1: 1 child
+        if (empty($node->left) || empty($node->right)) {
+            $this->replace($parent, $node);
+        } else { // case 2: 2 child
+            $currParent = $node;
+            $curr = $node->right;
+            while (!empty($curr->left)) {
+                $currParent = $curr;
+                $curr = $curr->left;
+            }
+            $node->data = $curr->data;
+            $this->replace($currParent, $curr);
+        }
+    }
+
+    private function findNodeAndParent($data) {
+        if (empty($this->root)) {
+            return [NULL, NULL];
+        }
+        $parent = NULL;
+        $curr = $this->root;
+
+        while (!empty($curr)) {
+            if ($curr->data == $data) {
+                return [$curr, $parent];
+            } 
+            $parent = $curr;
+            if ($data < $curr->data) {
+                $curr = $curr->left;
+            } else {
+                $curr = $curr->right;
+            }
+        }
+    }
+
+    private function replace(&$parent, &$node) {
+        if (empty($node->left)) {
+            $child = $node->right;
+        } else {
+            $child = $node->left;
+        }
+        if ($node == $this->root) {
+            $this->root = $child;
+            return $this->root;
+        } else {
+            if ($parent->left == $node) {
+                $parent->left = $child;
+            } else {
+                $parent->right = $child;
+            }
+        }
+        return $this->root;
+    }
+
     private function printData($node) {
         echo "{$node->data} ";
     }
@@ -124,4 +184,11 @@ echo PHP_EOL;
 $bst->postorder($root, 'printData');
 echo PHP_EOL;
 $bst->levelorder($root, 'printData');
+echo PHP_EOL;
+$bst->delete(63);
+$bst->preorder($root, 'printData');
+echo PHP_EOL;
+$bst->inorder($root, 'printData');
+echo PHP_EOL;
+$bst->postorder($root, 'printData');
 echo PHP_EOL;
