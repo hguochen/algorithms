@@ -122,6 +122,23 @@ class BinarySearchTree {
         $this->preorder($node->right, $callback);
     }
 
+    public function preorder_iterative($node, $callback) {
+        if (empty($node)) {
+            return;
+        }
+        $stack = [$node];
+        while (!empty($stack)) {
+            $curr = array_pop($stack);
+            $this->$callback($curr);
+            if (!empty($curr->right)) {
+                $stack[] = $curr->right;
+            }
+            if (!empty($curr->left)) {
+                $stack[] = $curr->left;
+            } 
+        }
+    }
+
     public function inorder($node, $callback) {
         if (empty($node)) {
             return;
@@ -131,6 +148,28 @@ class BinarySearchTree {
         $this->inorder($node->right, $callback);
     }
 
+    public function inorder_iterative($node, $callback) {
+        if (empty($node)) {
+            return;
+        }
+        $stack = [NULL];
+        $curr = $node;
+        while (!empty($stack)) {
+            if (!empty($curr)) {
+                $stack[] = $curr;
+            }
+            if (!empty($curr->left)) {
+                $curr = $curr->left;
+            } else {
+                $curr = array_pop($stack);
+                if (!empty($curr)) {
+                    $this->$callback($curr);
+                    $curr = $curr->right;
+                }
+            }
+        }
+    }
+
     public function postorder($node, $callback) {
         if (empty($node)) {
             return;
@@ -138,6 +177,33 @@ class BinarySearchTree {
         $this->postorder($node->left, $callback);
         $this->postorder($node->right, $callback);
         $this->$callback($node);
+    }
+
+    public function postorder_iterative($node, $callback) {
+        if (empty($node)) {
+            return;
+        }
+        $stack = [NULL];
+        $curr = $node;
+        while (!empty($stack)) {
+            while (!empty($curr)) {
+                if (!empty($curr->right)) {
+                    $stack[] = $curr->right;
+                }
+                $stack[] = $curr;
+                $curr = $curr->left;
+            }
+            $curr = array_pop($stack);
+            if (!empty($curr->right) && end($stack) == $curr->right) {
+                array_pop($stack);
+                $stack[] = $curr;
+                $curr = $curr->right;
+            } else {
+                $this->$callback($curr);
+                $curr = NULL;
+            }
+
+        }
     }
 
     public function levelorder($node, $callback) {
@@ -179,7 +245,11 @@ $bst->insert(29);
 $bst->insert(32);
 $bst->preorder($root, 'printData');
 echo PHP_EOL;
+$bst->preorder_iterative($root, 'printData');
+echo PHP_EOL;
 $bst->inorder($root, 'printData');
+echo PHP_EOL;
+$bst->inorder_iterative($root, 'printData');
 echo PHP_EOL;
 $bst->postorder($root, 'printData');
 echo PHP_EOL;
@@ -191,4 +261,6 @@ echo PHP_EOL;
 $bst->inorder($root, 'printData');
 echo PHP_EOL;
 $bst->postorder($root, 'printData');
+echo PHP_EOL;
+$bst->postorder_iterative($root, 'printData');
 echo PHP_EOL;
