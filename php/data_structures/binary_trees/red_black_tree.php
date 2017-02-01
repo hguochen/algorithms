@@ -106,6 +106,7 @@ class RedBlackTree {
                 $this->leftRotate($grandParent);
             }
         }
+        $this->root->isRed = false;
     }
 
     private function leftRotate(&$node) {
