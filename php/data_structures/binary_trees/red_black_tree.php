@@ -109,6 +109,105 @@ class RedBlackTree {
         $this->root->isRed = false;
     }
 
+    public function delete($data) {
+        if (empty($this->root)) {
+            return false;
+        }
+
+        $node = $this->findNode($this->root, $data);
+        if (empty($node->left)) {
+            $childNode = $node->right;
+            $this->transplant($node, $node->right);
+        } elseif (empty($node->right)) {
+            $childNode = $node->left;
+            $this->transplant($node, $node->left);
+        } else {
+            $minNode = $this->minNode($node->right);
+            $childNode = $node->right;
+            $childNodeParent = $this->getParentNode($childNode);
+            if ($chidlNodeParent == $node) {
+                $childNode = $node;
+            } else {
+                $this->transplant($node, $node->right);
+                // ...
+            }
+            // $this->transplant()
+            // ... INCOMPLETE
+        }
+        if ($node->isRed == false) {
+            $this->deleteFixUp(childNode);
+        }
+
+    }
+
+    private function deleteFixUp($node) {
+        $parent = $this->getParentNode($node);
+        while ($node !== $this->root && $node->isRed == false) {
+            if ($parent->left == $node) {
+                $sibling = $parent->right;
+
+                if ($sibling->isRed) {
+                    $sibling->isRed = false;
+                    $parent->isRed = true;
+                    $this->leftRotate($parent);
+                    $sibling = $parent->right;
+                }
+                if ($sibling->left->isRed == false && $sibling->right->isRed == false) {
+                    $sibling->isRed = true;
+                    $node = $parent;
+                } elseif ($sibling->right->isRed == false) {
+                    $sibling->left->isRed = false;
+                    $sibling->isRed = true;
+                    $this->rightRotate($sibling);
+                    $sibling = $parent->right;
+                }
+                $sibling->isRed = $parent->isRed;
+                $parent->isred = false;
+                $sibling->right->isred = false;
+                $this->leftRotate($parent);
+                $node = $this->root;
+            } else {
+                // handle case for $parent->right == node
+            }
+        }
+        $node->isRed = false;
+    }
+
+    /**
+     * Get the smallest node below node
+     */
+    private function minNode($node) {
+        $curr = $node;
+        while (!empty($curr->left)) {
+            $curr = $curr->left;
+        }
+        return $curr;
+    }
+
+    private function findNode($node, $data) {
+        if (empty($node)) {
+            return NULL;
+        }
+        if ($node->data == $data) {
+            return $node;
+        } else if ($data < $node->data) {
+            return $this->findNode($node->left, $data);
+        } else {
+            return $this->findNode($node->right, $data);
+        }
+    }
+
+    private function transplant($deleteNode, $childNode) {
+        $parent = $this->getParentNode($deleteNode);
+        if ($deleteNode == $this->root) {
+            $this->root = $childNode;
+        } elseif ($deleteNode == $parent->left) {
+            $parent->left = $childNode;
+        } else {
+            $parent->right = $childNode;
+        }
+    }
+
     private function leftRotate(&$node) {
         // set y reference to node's right child
         $rightNode = $node->right;
