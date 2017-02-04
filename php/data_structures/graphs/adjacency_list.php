@@ -88,6 +88,10 @@ class Graph {
         }
     }
 
+    public function getVerticeCount() {
+        return $this->nVertices;
+    }
+
     public function getEdges() {
         return $this->edges;
     }
@@ -118,30 +122,30 @@ class Graph {
     }
 }
 
-$graph = new Graph(5);
+// $graph = new Graph(5);
 
-$edgeList0 = new EdgeList(1);
-$edgeList0->insert(4);
+// $edgeList0 = new EdgeList(1);
+// $edgeList0->insert(4);
 
-$edgeList1 = new EdgeList(0);
-$edgeList1->insert(4);
-$edgeList1->insert(2);
-$edgeList1->insert(3);
+// $edgeList1 = new EdgeList(0);
+// $edgeList1->insert(4);
+// $edgeList1->insert(2);
+// $edgeList1->insert(3);
 
-$edgeList2 = new EdgeList(1);
-$edgeList2->insert(3);
+// $edgeList2 = new EdgeList(1);
+// $edgeList2->insert(3);
 
-$edgeList3 = new EdgeList(1);
-$edgeList3->insert(4);
-$edgeList3->insert(2);
+// $edgeList3 = new EdgeList(1);
+// $edgeList3->insert(4);
+// $edgeList3->insert(2);
 
-$edgeList4 = new EdgeList(3);
-$edgeList4->insert(0);
-$edgeList4->insert(1);
+// $edgeList4 = new EdgeList(3);
+// $edgeList4->insert(0);
+// $edgeList4->insert(1);
 
-$graph->insertEdge($edgeList0);
-$graph->insertEdge($edgeList1);
-$graph->insertEdge($edgeList2);
-$graph->insertEdge($edgeList3);
-$graph->insertEdge($edgeList4);
-$graph->printGraph();
+// $graph->insertEdge($edgeList0);
+// $graph->insertEdge($edgeList1);
+// $graph->insertEdge($edgeList2);
+// $graph->insertEdge($edgeList3);
+// $graph->insertEdge($edgeList4);
+// $graph->printGraph();
