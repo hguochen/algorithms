@@ -17,14 +17,15 @@ class EdgeList {
 
     public function __construct($data, $weight=0, $next=NULL) {
         $this->head = new EdgeNode($data, $weight, $next);
+        $this->count = 1;
     }
 
     /**
      * Insert to the end of the node.
-     * @return [type] [description]
      */
     public function insert($data, $weight=0, $next=NULL) {
         $newEdgeNode = new EdgeNode($data, $weight, $next);
+        $this->count++;
         if (empty($this->head)) {
             $this->head = $newEdgeNode;
         }
@@ -40,10 +41,15 @@ class EdgeList {
         return $this->head;
     }
 
+    public function getSize() {
+        return $this->count;
+    }
+
     public function printList() {
         if (empty($this->head)) {
             return;
         }
+        echo "Node count: " . $this->count . PHP_EOL;
         $curr = $this->head;
         while (!empty($curr)) {
             echo "{$curr->data} ";
@@ -68,7 +74,20 @@ class Graph {
         $this->directed = $directed;
     }
 
-    // public function insert
+    public function insertEdge(EdgeList $edgeList) {
+        if (empty($edgeList)) {
+            return false;
+        }
+        foreach ($this->edges as $key=> $ptr) {
+            if (empty($ptr)) {
+                $this->edges[$key] = $edgeList->getHead();
+                $this->degrees[$key] = $edgeList->getSize();
+                $this->nEdges += $edgeList->getSize();
+                break;
+            }
+        }
+    }
+
     public function getEdges() {
         return $this->edges;
     }
@@ -120,4 +139,9 @@ $edgeList4 = new EdgeList(3);
 $edgeList4->insert(0);
 $edgeList4->insert(1);
 
+$graph->insertEdge($edgeList0);
+$graph->insertEdge($edgeList1);
+$graph->insertEdge($edgeList2);
+$graph->insertEdge($edgeList3);
+$graph->insertEdge($edgeList4);
 $graph->printGraph();
