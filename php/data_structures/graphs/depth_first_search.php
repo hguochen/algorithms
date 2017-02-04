@@ -25,13 +25,18 @@ function depthFirstSearchIterative(Graph $graph, $startIndex, $callback) {
         $index = array_pop($stack);
         $callback($index);
         $curr = $graph->getEdges()[$index];
+        $tempQueue = [];
         while (!empty($curr)) {
             if (!$visited[$curr->data]) {
                 $parents[$curr->data] = $index;
                 $visited[$curr->data] = True;
-                $stack[] = $curr->data;
+                // $stack[] = $curr->data;
+                $tempQueue[] = $curr->data;
             }
             $curr = $curr->next;
+        }
+        while (!empty($tempQueue)) { // using this here so the order of visiting is in sequential order with the input edges 
+            $stack[] = array_pop($tempQueue);
         }
     }
 }
