@@ -41,6 +41,37 @@ function breadthFirstSearch(Graph $graph, $startIndex, $callback) {
     print_r($parent);
 }
 
+function breadthFirstSearchV2(Graph $graph, $startIndex, $callback) {
+    // init visited reference array
+    // mark start index as visited
+    // init queue and enqueue start index
+    // while queue is not empty
+    //     pop first 'item' in queue
+    //     callback visit 'item'
+    //     get 'item's edges
+    //     while traverse the edges
+    //         if curr edge vertice not visited
+    //             mark as visited
+    //             enqueue vertice
+    //         move to next edge
+    $visited = array_fill(0, $graph->getVerticeCount(), False);
+    $visited[$startIndex] = True;
+    $queue = [$startIndex];
+
+    while (!empty($queue)) {
+        $index = array_shift($queue);
+        $callback($index);
+        $curr = $graph->getEdges()[$index];
+        while(!empty($curr)) {
+            if (!$visited[$curr->data]) {
+                $visited[$curr->data] = True;
+                $queue[] = $curr->data;
+            }
+            $curr = $curr->next;
+        }
+    }
+}
+
 function printData($data) {
     echo "{$data} ";
 }
@@ -75,4 +106,6 @@ $graph->insertEdge($edgeList11);
 $graph->printGraph();
 
 breadthFirstSearch($graph, 0, 'printData');
+echo PHP_EOL;
+breadthFirstSearchV2($graph, 0, 'printData');
 echo PHP_EOL;
