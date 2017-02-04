@@ -52,6 +52,8 @@ function breadthFirstSearchV2(Graph $graph, $startIndex, $callback) {
     //             enqueue vertice
     //         move to next edge
     $visited = array_fill(0, $graph->getVerticeCount(), False);
+    $parent = array_fill(0, $graph->getVerticeCount(), NULL);
+
     $visited[$startIndex] = True;
     $queue = [$startIndex];
 
@@ -62,10 +64,32 @@ function breadthFirstSearchV2(Graph $graph, $startIndex, $callback) {
         while(!empty($curr)) {
             if (!$visited[$curr->data]) {
                 $visited[$curr->data] = True;
+                $parent[$curr->data] = $index;
                 $queue[] = $curr->data;
             }
             $curr = $curr->next;
         }
+    }
+    print_r($parent);
+    findPath(0, 11, $parent);
+    echo PHP_EOL;
+    findPathIterative(0, 11, $parent);
+}
+
+function findPath($start, $end, $parents) {
+    if ($start == $end || $end < 0) {
+        echo "{$start} ";
+    } else {
+        findPath($start, $parents[$end], $parents);
+        echo "{$end} ";
+    }
+}
+
+function findPathIterative($start, $end, $parents) {
+    $curr = $end;
+    while (!is_null($parents[$curr])) {
+        echo "{$curr} ";
+        $curr = $parents[$curr];
     }
 }
 
