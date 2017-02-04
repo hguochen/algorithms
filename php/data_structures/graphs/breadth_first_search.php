@@ -36,9 +36,6 @@ function breadthFirstSearch(Graph $graph, $startIndex, $callback) {
         }
         $processed[$index] = True;
     }
-    print_r($discovered);
-    print_r($processed);
-    print_r($parent);
 }
 
 function breadthFirstSearchV2(Graph $graph, $startIndex, $callback) {
