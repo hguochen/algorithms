@@ -36,6 +36,36 @@ function depthFirstSearchIterative(Graph $graph, $startIndex, $callback) {
     }
 }
 
+function depthFirstSearchRecursive(Graph $graph, $startIndex, $callback) {
+    // init visited ref array
+    $visited = array_fill(0, $graph->getVerticeCount(), False);
+    $parents = array_fill(0, $graph->getVerticeCount(), NULL);
+    // recursive call dfs
+    _depthFirstSearchRecursive($graph, $startIndex, $visited, $parents, $callback);
+}
+
+function _depthFirstSearchRecursive(Graph $graph, $startIndex, &$visited, &$parents, $callback) {
+    // mark startindex as visited
+    // 'visit' startindex
+    // get startindex's edge vertices
+    // while traversal of edge vertices
+    //     if  curr vertice is not visited
+    //         mark as visited
+    //         set parents index
+    //         recursive call dfs with curr->data
+    $visited[$startIndex] = True;
+    $callback($startIndex);
+    $curr = $graph->getEdges()[$startIndex];
+    while (!empty($curr)) {
+        if (!$visited[$curr->data]) {
+            $visited[$curr->data] = True;
+            $parents[$curr->data] = $startIndex;
+            _depthFirstSearchRecursive($graph, $curr->data, $visited, $parents, $callback);
+        }
+        $curr = $curr->next;
+    }
+}
+
 function findPath($start, $end, $parents) {
     if ($start == $end || $end < $start) {
         echo "{$start} ";
@@ -79,4 +109,6 @@ $graph->insertEdge($edgeList11);
 $graph->printGraph();
 
 depthFirstSearchIterative($graph, 0, 'printData');
+echo PHP_EOL;
+depthFirstSearchRecursive($graph, 0, 'printData');
 echo PHP_EOL;
