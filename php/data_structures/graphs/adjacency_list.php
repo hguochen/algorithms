@@ -19,8 +19,11 @@ class EdgeList {
         if (empty($edgeArray)) {
             return;
         }
-        $this->head = new EdgeNode(array_shift($edgeArray));
-        $this->count = 1;
+        $value = array_shift($edgeArray);
+        $this->head = new EdgeNode($value);
+        if (!is_null($value)) {
+            $this->count = 1;
+        }
         while (!empty($edgeArray)) {
             $newNode = new EdgeNode(array_shift($edgeArray));
             $curr = $this->head;
