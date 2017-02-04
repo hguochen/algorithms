@@ -45,32 +45,33 @@ function printData($data) {
     echo "{$data} ";
 }
 
-$graph = new Graph(5);
+$graph = new Graph(12);
 
-$edgeList0 = new EdgeList(1);
-$edgeList0->insert(4);
-
-$edgeList1 = new EdgeList(0);
-$edgeList1->insert(4);
-$edgeList1->insert(2);
-$edgeList1->insert(3);
-
-$edgeList2 = new EdgeList(1);
-$edgeList2->insert(3);
-
-$edgeList3 = new EdgeList(1);
-$edgeList3->insert(4);
-$edgeList3->insert(2);
-
-$edgeList4 = new EdgeList(3);
-$edgeList4->insert(0);
-$edgeList4->insert(1);
+$edgeList0 = new EdgeList([1,2,3]);
+$edgeList1 = new EdgeList([0,4,5]);
+$edgeList2 = new EdgeList([0]);
+$edgeList3 = new EdgeList([0,6,7]);
+$edgeList4 = new EdgeList([1,8,9]);
+$edgeList5 = new EdgeList([1]);
+$edgeList6 = new EdgeList([3,10,11]);
+$edgeList7 = new EdgeList([3]);
+$edgeList8 = new EdgeList([4]);
+$edgeList9 = new EdgeList([4]);
+$edgeList10 = new EdgeList([6]);
+$edgeList11 = new EdgeList([6]);
 
 $graph->insertEdge($edgeList0);
 $graph->insertEdge($edgeList1);
 $graph->insertEdge($edgeList2);
 $graph->insertEdge($edgeList3);
 $graph->insertEdge($edgeList4);
+$graph->insertEdge($edgeList5);
+$graph->insertEdge($edgeList6);
+$graph->insertEdge($edgeList7);
+$graph->insertEdge($edgeList8);
+$graph->insertEdge($edgeList9);
+$graph->insertEdge($edgeList10);
+$graph->insertEdge($edgeList11);
 $graph->printGraph();
 
 breadthFirstSearch($graph, 0, 'printData');

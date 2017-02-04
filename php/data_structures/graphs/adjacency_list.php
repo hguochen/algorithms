@@ -15,9 +15,21 @@ class EdgeNode {
 class EdgeList {
     private $head;
 
-    public function __construct($data, $weight=0, $next=NULL) {
-        $this->head = new EdgeNode($data, $weight, $next);
+    public function __construct($edgeArray) {
+        if (empty($edgeArray)) {
+            return;
+        }
+        $this->head = new EdgeNode(array_shift($edgeArray));
         $this->count = 1;
+        while (!empty($edgeArray)) {
+            $newNode = new EdgeNode(array_shift($edgeArray));
+            $curr = $this->head;
+            while (!empty($curr->next)) {
+                $curr = $curr->next;
+            }
+            $curr->next = $newNode;
+            $this->count++;
+        }
     }
 
     /**
@@ -78,7 +90,7 @@ class Graph {
         if (empty($edgeList)) {
             return false;
         }
-        foreach ($this->edges as $key=> $ptr) {
+        foreach ($this->edges as $key => $ptr) {
             if (empty($ptr)) {
                 $this->edges[$key] = $edgeList->getHead();
                 $this->degrees[$key] = $edgeList->getSize();
@@ -124,24 +136,11 @@ class Graph {
 
 // $graph = new Graph(5);
 
-// $edgeList0 = new EdgeList(1);
-// $edgeList0->insert(4);
-
-// $edgeList1 = new EdgeList(0);
-// $edgeList1->insert(4);
-// $edgeList1->insert(2);
-// $edgeList1->insert(3);
-
-// $edgeList2 = new EdgeList(1);
-// $edgeList2->insert(3);
-
-// $edgeList3 = new EdgeList(1);
-// $edgeList3->insert(4);
-// $edgeList3->insert(2);
-
-// $edgeList4 = new EdgeList(3);
-// $edgeList4->insert(0);
-// $edgeList4->insert(1);
+// $edgeList0 = new EdgeList([1,4]);
+// $edgeList1 = new EdgeList([0,4,2,3]);
+// $edgeList2 = new EdgeList([1,3]);
+// $edgeList3 = new EdgeList([1,4,2]);
+// $edgeList4 = new EdgeList([3,0,1]);
 
 // $graph->insertEdge($edgeList0);
 // $graph->insertEdge($edgeList1);
