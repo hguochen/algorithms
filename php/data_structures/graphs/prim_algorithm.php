@@ -48,6 +48,43 @@ function getMinWeightIndex(Graph $graph, $mst, $keys) {
     return $index;
 }
 
+function primMSTV2(Graph $graph, $startIndex) {
+    // init mst bool array to keep track of visited vertices
+    // init weights array to keep track of vertice traversal weights
+    // init parents array to keep track of vertice traversal parent
+    $mst = array_fill(0, $graph->getVerticeCount(), False);
+    $weights = array_fill(0, $graph->getVerticeCount(), PHP_INT_MAX);
+    $parents = array_fill(0, $graph->getVerticeCount(), -1);
+
+    // set startIndex weight to 0
+    $weight[$startIndex] = 0;
+    $index = $startIndex;
+
+    // while not all vertices are visited
+    //     set index vertice to visited
+    //     get edges of index vertice
+    //     traversal through edges
+    //         if current edge vertex is not visited and index weight is bigger than current weight
+    //             set index weight to current weight
+    //             set current edge vertex parent to index
+    //         move to next edge
+    //     find the smallest weight vertex and use that as index for next iteration
+    while (in_array(False, $mst)) {
+        $mst[$index] = True;
+        $curr = $graph->getEdges()[$index];
+        while (!empty($curr)) {
+            if (!$mst[$curr->data] && $weights[$curr->data] > $curr->weight) {
+                $weights[$curr->data] = $curr->weight;
+                $parents[$curr->data] = $index;
+            }
+            $curr = $curr->next;
+        }
+        $index = getMinWeightIndex($graph, $mst, $weights);
+    }
+    // return parents array
+    return $parents;
+}
+
 $graph = new Graph(9, 0, False);
 $graph->insertEdge(0, 1, 4);
 $graph->insertEdge(0, 7, 8);
@@ -87,3 +124,4 @@ $graph->insertEdge(8, 7, 7);
 $graph->printGraph();
 
 echo implode(" ", primMST($graph, 0)) . PHP_EOL;
+echo implode(" ", primMSTV2($graph, 0)) . PHP_EOL;
