@@ -1,6 +1,7 @@
 <?php
 
 include "adjacency_list_2.php";
+include "set_union.php";
 
 function kruskalMST(Graph $graph) {
     // put all edges in a queue ordered by weight
