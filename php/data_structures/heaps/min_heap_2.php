@@ -43,7 +43,20 @@ class MinHeap {
     }
 
     public function delete() {
-
+        // handle empty heap
+        if (empty($this->heap)) {
+            return NULL;
+        }
+        // swap root node element with last element
+        $this->swap($this->heap[0], $this->heap[sizeof($this->heap)-1]);
+        // pop the last element
+        $smallest = array_pop($this->heap);
+        // if heap is not empty, siftdown
+        if (!empty($this->heap)) {
+            $this->siftDown(0);
+        }
+        // return smallest
+        return $smallest;
     }
 
     private function swap(&$value1,&$value2) {
@@ -53,7 +66,32 @@ class MinHeap {
     }
 
     public function siftDown($index) {
+        if ($index > sizeof($this->heap)) {
+            return;
+        }
+        // set temp value to compare with
+        $temp = $this->heap[$index];
+        $i = $index;
+        $childIndex = $this->getLeftChildIndex($index);
 
+        while ($childIndex < sizeof($this->heap)) {
+            // check if right child is smaller than left child and set child index correctly
+            if ($childIndex+1 < sizeof($this->heap) &&
+                $this->heap[$childIndex+1]->key < $this->heap[childIndex]->key) {
+                $childIndex++;
+            }
+            // if child is smaller than temp, set current index value to child value, else break
+            if ($temp->key > $this->heap[$childIndex]->key) {
+                $this->heap[$i] = $this->heap[$childIndex];
+            } else {
+                break;
+            }
+            // progress current index downward, progress child index downward
+            $i = $childIndex;
+            $childIndex = $this->getLeftChildIndex($i);
+        }
+        // set temp value to index value
+        $this->heap[$i] = $temp;
     }
 
     private function getParentIndex($index) {
@@ -76,7 +114,15 @@ class MinHeap {
     }
 
     public function heapify() {
+        if (empty($this->heap)) {
+            return;
+        }
+        $parentIndex = $this->getParentIndex(sizeof($this->heap)-1);
 
+        while ($parentIndex >= 0) {
+            $this->siftDown($parentIndex);
+            $parentIndex--;
+        }
     }
 
     public function printHeap() {
