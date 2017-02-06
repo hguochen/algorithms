@@ -5,6 +5,12 @@ include "set_union.php";
 
 /**
  * Kruskal's algorithm.
+ * This algorithm is a greedy algorithm,
+ * - put all edges into a min heap ordered by edge weight.
+ * - loop through all edges
+ * -     for each edge, check if 2 vertices can form a cycle
+ * -        if not, add edges to result
+ * - result are all the edges required to create a minimum spanning tree.
  * 
  * Time Complexity: O(E lgE)
  * MinHeap + UnionFind structure

@@ -4,14 +4,23 @@ include "adjacency_list_2.php";
 
 /**
  * Prim's algorithm finds the minimum spanning tree of a Directed Acyclic Graph(DAG)
+ * This algorithm is a greedy algorithm,
+ * - init mst array to check if all vertices are visited
+ * - init weight array to store min weight between vertices. initally infinite distance.
+ * - init parents array to store parent of a vertice
+ * - from starting vertice, visit a vertice if its not visited
+ * - for this vertice's edges update the min weight
+ * - loop through the weight array and use the next min weight index to repeat the above
+ * - stop when all vertices are visited.
  * 
- * Time complexity: 
- * When we use array to store support structures for weights, we get O(V^2).
- * We can speed this up to use a priority queue data structure and get O(E+VlogV).
+ * Time Complexity: O(V lgV)
+ * MinHeap: O(V lgV) time for V vertices.
+ * Getting the min weight index is the expensive operation here. this is the dominant time complexity
  *
- * Space complexity:
+ * Space complexity: O(3n)
  * O(n + n + n) = O(3n)
  */
+
 function primMST(Graph $graph, $startIndex) {
     // init mst bool array
     // init keys array to store weight values of all vertices
