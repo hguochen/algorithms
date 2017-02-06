@@ -3,6 +3,20 @@
 include "adjacency_list_2.php";
 include "set_union.php";
 
+/**
+ * Kruskal's algorithm.
+ * 
+ * Time Complexity: O(E lgE)
+ * MinHeap + UnionFind structure
+ * MinHeap: O(E lgE) time for E edges.
+ * UnionFind: O(lgV) // component test for V vertices
+ * Since expensive operation here is sorting the edges via minHeap, its complexity is the dominant worst case complexity
+ *
+ * Space Complexity: O(E + V)
+ * MinHeap: O(E) // for number of E edges
+ * UnionFind: O(2V) // for number of V vertices
+ */
+
 function kruskalMST(Graph $graph) {
     // put all edges in a queue ordered by weight
     $minHeap = new SplMinHeap();
@@ -21,6 +35,7 @@ function kruskalMST(Graph $graph) {
         // extract next min weight edge
         $value = $minHeap->extract();
         // if 2 vertices of this edge is not connected, connect them and store in result
+        // component test here. O(lgn) time.
         if (!$setUnion->sameComponent($value[1], $value[2])) {
             $added = $setUnion->unionSets($value[1], $value[2]);
             // add to result if union operation is performed
