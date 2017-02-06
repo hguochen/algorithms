@@ -6,6 +6,9 @@ include "set_union.php";
 function kruskalMST(Graph $graph) {
     // put all edges in a queue ordered by weight
     $minHeap = new SplMinHeap();
+    $setUnion = new SetUnion($graph->getVerticeCount());
+    $result = [];
+
     for ($i=0; $i < $graph->getVerticeCount(); $i++) {
         $curr = $graph->getEdges()[$i];
         while (!empty($curr)) {
@@ -15,9 +18,19 @@ function kruskalMST(Graph $graph) {
     }
     // loop through all edges
     while (!$minHeap->isEmpty()) {
+        // extract next min weight edge
         $value = $minHeap->extract();
-        echo "{$value[0]}, {$value[1]}, {$value[2]}" . PHP_EOL;
+        // if 2 vertices of this edge is not connected, connect them and store in result
+        if (!$setUnion->sameComponent($value[1], $value[2])) {
+            $added = $setUnion->unionSets($value[1], $value[2]);
+            // add to result if union operation is performed
+            if ($added) {
+                $result[] = [$value[1], $value[2], $value[0]];
+            }
+        }
     }
+
+    return $result;
 }
 
 $graph = new Graph(9, 0, False);
@@ -58,4 +71,7 @@ $graph->insertEdge(8, 6, 6);
 $graph->insertEdge(8, 7, 7);
 $graph->printGraph();
 
-kruskalMST($graph);
+$result = kruskalMST($graph);
+foreach ($result as $key => $value) {
+    echo implode(" ", $value) . PHP_EOL;
+}

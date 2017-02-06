@@ -59,13 +59,15 @@ class SetUnion {
      * return true if same component, false otherwise.
      */
     public function sameComponent($index1, $index2) {
-        echo $this->findRoot($index1) . PHP_EOL;
-        echo $this->findRoot($index2) . PHP_EOL;
-        if ($this->findRoot($index1) == $this->findRoot($index2)) {
-            echo "True" . PHP_EOL;
-        } else {
-            echo "False" . PHP_EOL;
-        }
+        return ($this->findRoot($index1) == $this->findRoot($index2));
+    }
+
+    public function getParents() {
+        return $this->parent;
+    }
+
+    public function getSize() {
+        return $this->elementSize;
     }
 }
 
