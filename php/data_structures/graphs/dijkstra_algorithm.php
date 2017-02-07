@@ -15,9 +15,11 @@ include "adjacency_list_2.php";
  * While Prim only cares about the smallest edge weight for each vertex, Dijkstra cares about
  * both the new edge weight and the distance from starting vertex it is adjacent to.
  *
- * Time Complexity:
+ * Time Complexity: O(E lgV) - using adjacency list
+ * Graph with adjacency matrix: O(V^2)
  * 
- * Space Complexity:
+ * Space Complexity: O(3V + 2E)
+ * O(V + V + V + 2E)
  */
 
 function dijkstra(Graph $graph, $startIndex) {
@@ -63,7 +65,6 @@ function dijkstra(Graph $graph, $startIndex) {
             }
         }
     }
-    print_r($dist);
     return $parent;
 }
 
