@@ -2,6 +2,13 @@
 
 include "adjacency_list.php";
 
+/**
+ * Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of
+ * vertices such that for every directed edge uv, vertex u comes before v in
+ * the ordering. Topological Sorting for a graph is not possible if the graph
+ * is not a DAG.
+ */
+
 function topologicalSortIterative(Graph $graph) {
     // init visited ref array
     // init resultStack
@@ -14,7 +21,7 @@ function topologicalSortIterative(Graph $graph) {
     //         finished visited all vertices adj to this vertex
     //         put vertex into resultStack
     $visited = array_fill(0, $graph->getVerticeCount(), False);
-    $resultStack = [];
+    $stack = [];
     $traverseStack = [];
     $flipStack = [];
     for ($i=0; $i < $graph->getVerticeCount(); $i++) {
