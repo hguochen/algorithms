@@ -6,7 +6,7 @@ include "adjacency_list_2.php";
  * Prim's algorithm finds the minimum spanning tree of a Directed Acyclic Graph(DAG)
  * This algorithm is a greedy algorithm,
  * - init mst array to check if all vertices are visited
- * - init weight array to store min weight between vertices. initally infinite distance.
+ * - init weight array to store min weight between vertices. initially infinite distance.
  * - init parents array to store parent of a vertice
  * - from starting vertice, visit a vertice if its not visited
  * - for this vertice's edges update the min weight
