@@ -40,3 +40,14 @@ $dict = ['are', 'area', 'base', 'cat', 'cater', 'children', 'basement'];
 echo longestPrefixMatching($st, $dict, 'caterer') . PHP_EOL;
 echo longestPrefixMatching($st, $dict, 'basemexy') . PHP_EOL;
 echo longestPrefixMatching($st, $dict, 'child') . PHP_EOL;
+echo longestPrefixMatching($st, $dict, 'are') . PHP_EOL;
+echo longestPrefixMatching($st, $dict, 'arex') . PHP_EOL;
+echo longestPrefixMatching($st, $dict, 'xyz') . PHP_EOL;
+echo longestPrefixMatching($st, $dict, 'basement') . PHP_EOL;
+
+// caterer:   cater
+// basement:   basement
+// are:   are
+// arex:   are
+// basemexz:   base
+// xyz:   
