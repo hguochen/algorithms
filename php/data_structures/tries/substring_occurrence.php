@@ -4,8 +4,8 @@ include "suffix_trie.php";
 
 /**
  * Find and return the number of query string occurrences in base string.
- * Time complexity: O(n^2)
- * construct trie: O(n^2)
+ * Time complexity: O(n+m)
+ * construct trie: O(n)
  * traverse query string: O(m)
  * traverse rest of the nodes below query string: O(n)
  */
