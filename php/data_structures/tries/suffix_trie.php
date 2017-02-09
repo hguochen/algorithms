@@ -88,6 +88,44 @@ class SuffixTrie {
         return True;
     }
 
+    public function deleteRecursive($word) {
+        $this->_deleteRecursive($this->root, $word, 0);
+    }
+
+    private function _deleteRecursive(Node $curr, $word, $index) {
+        // base case: check if index has reached word length - ie. gone past the last index
+        //     if curr->isCompleteWord is false, its not a complete word
+        //         return false
+        //     set curr->isCompleteWord to false
+        //     return true/false if curr->children is empty
+        if ($index >= strlen($word)) {
+            if (!$curr->isCompleteWord) {
+                return False;
+            }
+            $curr->isCompleteWord = False;
+            return empty($curr->children);
+        }
+        // get char at index
+        $char = $word[$index];
+        // get node for char
+        $node = $curr->children[$char];
+        // if node is null, not complete word,
+        //     return false
+        if (empty($node)) {
+            return False;
+        }
+        // shouldDeleteNode = recursive on next index
+        $shouldDeleteNode = $this->_deleteRecursive($node, $word, $index+1);
+        // if should delete node
+        //     unset node->children[char]
+        //     return check if current node child is empty 
+        if ($shouldDeleteNode) {
+            unset($node->children[$char]);
+            return empty($node->children);
+        }
+        return False;
+    }
+
     /**
      * Check if given word is in the suffix trie.
      * True if word is in trie, false otherwise.
