@@ -151,12 +151,12 @@ class SuffixTrie {
     }
 }
 
-$st = new SuffixTrie();
-$st->insert('abc');
-$st->insert('abgl');
-$st->insert('cdf');
-$st->insert('abcd');
-$st->insert('lmn');
-$st->delete('abgl');
-echo $st->search('abc');
-echo $st->search('abcd');
+// $st = new SuffixTrie();
+// $st->insert('abc');
+// $st->insert('abgl');
+// $st->insert('cdf');
+// $st->insert('abcd');
+// $st->insert('lmn');
+// $st->delete('abgl');
+// echo $st->search('abc');
+// echo $st->search('abcd');
