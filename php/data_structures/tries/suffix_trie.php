@@ -21,6 +21,10 @@ class SuffixTrie {
         $this->root = new Node(False);
     }
 
+    public function getRoot() {
+        return $this->root;
+    }
+
     /**
      * Time: O(n) where n is the length of the word.
      */

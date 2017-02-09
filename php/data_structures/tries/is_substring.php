@@ -14,13 +14,23 @@ function isSubstring(SuffixTrie $suffixTrie, $baseString, $queryString) {
     for ($i=0; $i < strlen($baseString) ; $i++) { 
         $suffixTrie->insert(substr($baseString, $i));
     }
-    return $suffixTrie->search($queryString);
+    $curr = $suffixTrie->getRoot();
+    for ($i=0; $i < strlen($queryString); $i++) { 
+        $char = $queryString[$i];
+        if (isset($curr->children[$char])) {
+            $curr = $curr->children[$char];
+        } else {
+            return False;
+        }
+    }
+    return True;
 }
 
 $st = new SuffixTrie();
 echo isSubString($st, 'banana', 'banana') . PHP_EOL;
 echo isSubString($st, 'banana', 'apple') . PHP_EOL;
 echo isSubString($st, 'banana', 'anana') . PHP_EOL;
+echo isSubString($st, 'banana', 'nan') . PHP_EOL;
 echo isSubString($st, 'banana', 'nana') . PHP_EOL;
 echo isSubString($st, 'banana', 'ana') . PHP_EOL;
 echo isSubString($st, 'banana', 'na') . PHP_EOL;
