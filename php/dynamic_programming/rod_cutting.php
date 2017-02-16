@@ -77,17 +77,29 @@ function cutRodV3($price, $rodLength) {
         }
         $revenueTable[$i] = $revenue;
     }
-    // print_r($optimalSize);
+    echo "rod length: " . $rodLength . 
+        " revenue: " . $revenueTable[$rodLength] .
+        " solution : " . implode(" ", getCutRodSolution($rodLength, $optimalSize)) . PHP_EOL;
     return $revenueTable[$rodLength];
 }
 
-echo cutRodV3($price, 1) . PHP_EOL;
-echo cutRodV3($price, 2) . PHP_EOL;
-echo cutRodV3($price, 3) . PHP_EOL;
-echo cutRodV3($price, 4) . PHP_EOL;
-echo cutRodV3($price, 5) . PHP_EOL;
-echo cutRodV3($price, 6) . PHP_EOL;
-echo cutRodV3($price, 7) . PHP_EOL;
-echo cutRodV3($price, 8) . PHP_EOL;
-echo cutRodV3($price, 9) . PHP_EOL;
-echo cutRodV3($price, 10) . PHP_EOL;
+function getCutRodSolution($rodLength, $optimal) {
+    $result = [];
+    $start = $rodLength;
+    while ($start > 0) {
+        $result[] = $optimal[$start];
+        $start -= $optimal[$start];
+    }
+    return $result;
+}
+
+cutRodV3($price, 1);
+cutRodV3($price, 2);
+cutRodV3($price, 3);
+cutRodV3($price, 4);
+cutRodV3($price, 5);
+cutRodV3($price, 6);
+cutRodV3($price, 7);
+cutRodV3($price, 8);
+cutRodV3($price, 9);
+cutRodV3($price, 10);

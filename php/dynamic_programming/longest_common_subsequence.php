@@ -21,6 +21,7 @@ function longestCommonSubsequence($string1, $string2) {
     $temp = array_fill(0, strlen($string1)+1, -1);
     $table = array_fill(0, strlen($string2)+1, $temp);
 
+    // if either of the substring is 0 length, then the common subsequence is 0
     for ($i=0; $i <sizeof($table) ; $i++) { 
         $table[0][$i] = 0;
         $table[$i][0] = 0;
