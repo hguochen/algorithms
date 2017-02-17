@@ -1,0 +1,32 @@
+6.1 O(b). runs from 1,2,3,...,b-1 for a times.
+
+6.2 O(b). b gets decremented once at each call, until it is 0. b, b-1, b-2, ..., 0
+
+6.3 O(1). runs 1 time.
+
+6.4 O(a/b). runs a/b times.
+
+6.5 O(lgn). each time the guess is halved
+
+6.6 O(sqrt(n)). loop runs at most sqrt n times.
+
+6.7 O(n). behaves like searching in a linked list.
+
+6.8 O(n). since there are no correlations between node values, we have to search through all of them in worst case.
+
+6.9 O(n). since we have to loop through all values in the array before appending new value.
+WRONG
+O(n^2). where n is the number of elements in array. first call to AppendToNew takes 1 copy. 2nd call takes 2 copies,
+3rd call takes 3 copies and so on. total time will be the sum of 1 to n. so O(n^2).
+
+6.10 O(m). where m is the length of the digit n.
+WRONG.
+O(lgn) Runtime will be the number of digits in the number. a number with d digits has value 10^d. if n = 10^d, d = logn.
+So runtime is O(lgn)
+
+6.11 O(n). where n is the size of the string.
+WRONG.
+O(kc^k) where k is the length of the string, c is number of chars in the alphabet. it takes O(c^k) time to generate each string.
+Then we need to check that each of these is sorted, which takes O(k) time.
+
+6.12 O(a+m(logm)). mergesort has complexity O(mlgm), binary search on 'a' number of values has a logm.
