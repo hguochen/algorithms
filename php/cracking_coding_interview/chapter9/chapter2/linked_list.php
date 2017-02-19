@@ -90,10 +90,10 @@ class LinkedList {
     }
 }
 
-$list = new LinkedList(1);
-$list->insert(2);
-$list->insert(3);
-$list->insert(4);
-$list->printList();
-$list->delete(3);
-$list->printList();
+// $list = new LinkedList(1);
+// $list->insert(2);
+// $list->insert(3);
+// $list->insert(4);
+// $list->printList();
+// $list->delete(3);
+// $list->printList();
