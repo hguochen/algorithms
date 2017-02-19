@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Implementation of basic linked list
- */
-
 class Node {
     public $data;
     public $next;
@@ -21,32 +17,38 @@ class LinkedList {
         $this->head = new Node($data, $next);
     }
 
-    /**
-     * Insert into linked list.
-     * Time O(n)
-     * @param  [type] $data [description]
-     * @return [type]       [description]
-     */
     public function insert($data) {
-        $newNode = new Node($data);
+        $node = new Node($data);
         if (empty($this->head)) {
-            $this->head = $newNode;
+            $this->head = $node;
             return $this->head;
         }
-        $curr = $this->head;
-        while (!empty($curr->next)) {
-            $curr = $curr->next;
-        }
-        $curr->next = $newNode;
+        $node->next = $this->head;
+        $this->head = $node;
         return $this->head;
+    }
+
+    public function delete($data) {
+        $node = $this->search($data);
+        if (empty($this->head) || empty($node)) {
+            return False;
+        } elseif ($this->head == $node) {
+            $this->head = $node->next;
+            unset($node);
+            return True;
+        }
+        $prev = $this->getPrevNode($node);
+        $prev->next = $node->next;
+        unset($node);
+        return True;
     }
 
     public function search($data) {
         if (empty($this->head)) {
-            return NULL;
+            return;
         }
         $curr = $this->head;
-        while (!empty($curr)) {
+        while ($curr != NULL) {
             if ($curr->data == $data) {
                 return $curr;
             }
@@ -55,34 +57,17 @@ class LinkedList {
         return NULL;
     }
 
-    public function delete($data) {
-        if (empty($this->head)) {
-            return false;
-        }
-        $curr = $this->head;
-        while (!empty($curr)) {
-            if ($curr->data == $data) {
-                break;
-            }
-            $curr = $curr->next;
-        }
-        $prev = $this->getPrevNode($curr);
-        $prev->next = $curr->next;
-        unset($curr);
-        return true;
-    }
-
     public function getHead() {
         return $this->head;
     }
 
     public function printList() {
         if (empty($this->head)) {
-            return NULL;
+            return;
         }
         $curr = $this->head;
-        while (!empty($curr)) {
-            echo "{$curr->data} ";
+        while ($curr != NULL) {
+            echo $curr->data . " ";
             $curr = $curr->next;
         }
         echo PHP_EOL;
@@ -90,11 +75,10 @@ class LinkedList {
 
     public function getPrevNode(&$node) {
         if (empty($this->head)) {
-            return NULL;
+            return;
         }
         $prev = NULL;
         $curr = $this->head;
-
         while (!empty($curr)) {
             if ($curr->data == $node->data) {
                 return $prev;
@@ -105,3 +89,11 @@ class LinkedList {
         return NULL;
     }
 }
+
+$list = new LinkedList(1);
+$list->insert(2);
+$list->insert(3);
+$list->insert(4);
+$list->printList();
+$list->delete(3);
+$list->printList();
