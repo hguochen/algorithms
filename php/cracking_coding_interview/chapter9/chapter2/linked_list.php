@@ -88,6 +88,21 @@ class LinkedList {
         }
         return NULL;
     }
+
+    public function reverse() {
+        if (empty($this->head)) {
+            return;
+        }
+        $prev = NULL;
+        $curr = $this->head;
+        while (!empty($curr)) {
+            $temp = $curr->next;
+            $curr->next = $prev;
+            $prev = $curr;
+            $curr = $temp;
+        }
+        $this->head = $prev;
+    }
 }
 
 // $list = new LinkedList(1);
@@ -95,5 +110,5 @@ class LinkedList {
 // $list->insert(3);
 // $list->insert(4);
 // $list->printList();
-// $list->delete(3);
+// $list->reverse();
 // $list->printList();
