@@ -67,9 +67,9 @@ $arr1 = [1,3,4,5,6,7,8,9];
 constructBst($bst, $arr1);
 $root = $bst->getRoot();
 
-$bst->preorder($root, 'printData');
-echo PHP_EOL;
-$bst->inorder($root, 'printData');
-echo PHP_EOL;
-$bst->postorder($root, 'printData');
-echo PHP_EOL;
+// $bst->preorder($root, 'printData');
+// echo PHP_EOL;
+// $bst->inorder($root, 'printData');
+// echo PHP_EOL;
+// $bst->postorder($root, 'printData');
+// echo PHP_EOL;
