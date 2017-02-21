@@ -2,6 +2,12 @@
 
 include "adjacency_list.php";
 
+/**
+ * BFS.
+ * Time: O(|V| + |E|) where V is the number of vertices, E is the number of edges
+ * Space: O(|V|) since we have to create visited, parent arrays according to the
+ * number of vertices
+ */
 function breadthFirstSearch(Graph $graph, $startIndex, $callback) {
     // mark every vertex as undiscovered and unprocessed and parent to null
     // mark startindex as discovered.
