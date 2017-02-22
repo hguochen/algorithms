@@ -49,6 +49,35 @@ function topologicalSortIterative(Graph $graph) {
     return implode(" ", array_reverse($stack));
 }
 
+function topologicalSortV2(Graph $graph) {
+    $visited = array_fill(0, $graph->getVerticeCount(), False);
+    $result = [];
+    $traverseStack = [];
+
+    for ($i=0; $i < $graph->getVerticeCount(); $i++) { 
+        if (!in_array($i, $traverseStack) && !$visited[$i]) {
+            $traverseStack[] = $i;
+        }
+        while (!empty($traverseStack)) {
+            $index = array_pop($traverseStack);
+            if (!$visited[$index]) {
+                $visited[$index] = True;
+                $curr = $graph->getEdges()[$index];
+
+                while (!empty($curr) && !is_null($curr->data)) {
+                    if (!$visited[$curr->data]) {
+                        $visited[$curr->data] = True;
+                        $traverseStack[] = $curr->data;
+                    }
+                    $curr = $curr->next;
+                }
+            }
+            $result[] = $index;
+        }
+    }
+    return implode(" ", array_reverse($result));
+}
+
 function topologicalSort(Graph $graph) {
     // init visited ref array
     // init stack
@@ -103,4 +132,5 @@ $graph->insertEdge($edgeList5);
 $graph->printGraph();
 
 echo topologicalSort($graph) . PHP_EOL;
+echo topologicalSortV2($graph) . PHP_EOL;
 echo topologicalSortIterative($graph) . PHP_EOL;
