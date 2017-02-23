@@ -12,6 +12,10 @@
  *  significant digits.
  */
 
+/**
+ * Time: O(kn) where n is number of elements and k is number of passes of the sorting algorithm
+ * Space: O(n)
+ */
 function radixSort($input) {
     // find out the max digits among the given input integers
     // loop while not max digit length
