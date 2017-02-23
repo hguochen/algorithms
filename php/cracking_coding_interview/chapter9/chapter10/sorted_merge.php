@@ -50,6 +50,18 @@ function merge($array, $rightIndex) {
     return $temp;
 }
 
+/**
+ * move large array element to flush against the back array.
+ * then iterate through large and small index, placing the smaller of 2 elements
+ * into the front of the array.
+ * when small index has emptied, the array is merge sorted.
+ * Time: O(n) where n is size of large array
+ * Space: O(1)
+ */
+function sortedMergeV2($large, $small) {
+
+}
+
 $input1 = [10, 14, 19, 27, 33, 35, 42, 44, NULL, NULL, NULL, NULL, NULL];
 $input2 = [11, 12, 22, 25, 64];
 
