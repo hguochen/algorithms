@@ -9,6 +9,11 @@
  * n input numbers into the buckets.
  */
 
+/**
+ * Time: O(n+k)
+ * Space: O(n+k)
+ * 
+ */
 function bucketSort($input) {
     // check smaller than 2 elements
     if (sizeof($input) < 2) {
