@@ -8,6 +8,11 @@
  * a series of swaps.
  */
 
+/**
+ * Time: O(nlgn). worst case O(n^2) but less likely if random element is chosen.
+ * Space: O(1)
+ * 
+ */
 function quicksort($input) {
     // check for less than 2 elements
     if (sizeof($input) < 2) {
