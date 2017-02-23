@@ -213,19 +213,19 @@ class BinaryTree {
 
 }
 
-$bt = new BinaryTree(1);
-$bt->insert(2);
-$bt->insert(3);
-$bt->insert(4);
-$bt->insert(5);
-$bt->insert(6);
+// $bt = new BinaryTree(1);
+// $bt->insert(2);
+// $bt->insert(3);
+// $bt->insert(4);
+// $bt->insert(5);
+// $bt->insert(6);
 
-$root = $bt->getRoot();
-$bt->preorder($root, 'printNode');
-echo PHP_EOL;
-$bt->inorder($root, 'printNode');
-echo PHP_EOL;
-$bt->postorder($root, 'printNode');
-echo PHP_EOL;
+// $root = $bt->getRoot();
+// $bt->preorder($root, 'printNode');
+// echo PHP_EOL;
+// $bt->inorder($root, 'printNode');
+// echo PHP_EOL;
+// $bt->postorder($root, 'printNode');
+// echo PHP_EOL;
 
-echo $bt->getRandomNode()->data . PHP_EOL;
+// echo $bt->getRandomNode()->data . PHP_EOL;
