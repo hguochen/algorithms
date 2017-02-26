@@ -89,6 +89,16 @@ function waysTopDownRecur($n, &$memo) {
     return $memo[$n];
 }
 
+function testWays($n) {
+    if ($n < 0) {
+        return 0;
+    } elseif ($n == 0) {
+        return 1;
+    } else {
+        return testWays($n-3) + testWays($n-2) + testWays($n-1);
+    }
+}
+
 $n1 = 1; // 1 way
 $n2 = 2; // 2 ways
 $n3 = 3; // 4 ways
@@ -120,3 +130,10 @@ echo waysTopDown($n3) . PHP_EOL;
 echo waysTopDown($n4) . PHP_EOL;
 echo waysTopDown($n5) . PHP_EOL;
 echo waysTopDown(30) . PHP_EOL;
+echo PHP_EOL;
+echo testWays($n1) . PHP_EOL;
+echo testWays($n2) . PHP_EOL;
+echo testWays($n3) . PHP_EOL;
+echo testWays($n4) . PHP_EOL;
+echo testWays($n5) . PHP_EOL;
+echo testWays(30) . PHP_EOL;
