@@ -28,7 +28,10 @@ function computePermutations($str, $index, &$result) {
         $result = [];
         foreach ($temp as $baseStr) { // O(n-1)
             for ($i=0; $i <= strlen($baseStr) ; $i++) {
-                $result[] = substr_replace($baseStr, $str[$index], $i, 0);
+                $newStr = substr_replace($baseStr, $str[$index], $i, 0);
+                if (!in_array($newStr, $result)) {
+                    $result[] = $newStr;
+                }
             }
         }
     }
