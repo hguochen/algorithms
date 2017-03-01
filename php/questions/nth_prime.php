@@ -9,6 +9,9 @@
  * integer as not prime.
  * 3. once a prime is found, add it into the prime list, if number of prime has 
  * reached $n, return the last prime inserted.
+ *
+ * Time: O(n^2) although the actual runtime will be much faster
+ * Space: O(n)
  */
 function nthPrime($n) {
     // invalid input
