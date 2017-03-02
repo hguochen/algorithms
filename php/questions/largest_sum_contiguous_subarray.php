@@ -46,6 +46,9 @@ function largestContSubarray($arr) {
 $arr1 = [-2,-3,4,-1,-2,1,5,-3];
 $result1 = [4,-1,-2,1,5];
 
+$arr2 = [-2,1,-3,4,-1,2,1,-5,4];
+$result2 = [4,-1,2,1];
+
 function equals($expected, $actual) {
     if ($expected === $actual) {
         echo "Success!" . PHP_EOL;
@@ -61,3 +64,4 @@ function equals($expected, $actual) {
 }
 
 equals($result1, largestContSubarray($arr1));
+equals($result2, largestContSubarray($arr2));
