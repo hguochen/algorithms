@@ -30,6 +30,7 @@ function main() {
             $board->add($player2, $coord);
         }
         $player1Turn = !$player1Turn;
+        echo "=========================" . PHP_EOL;
         $board->printBoard();
     } while (!$board->isFull() || !$choices->isEmpty());
 
