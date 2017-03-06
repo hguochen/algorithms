@@ -8,9 +8,26 @@
 
 // Note: The result may be very large, so you need to return a string instead of an integer.
 
+
+function compareLarger($value1, $value2) {
+    $v1v2 = (string) $value1 . (string) $value2;
+    $v2v1 = (string) $value2 . (string) $value1;
+    if ($v1v2 < $v2v1) {
+        return 1;
+    } else {
+        return -1;
+    }
+
+}
+
+function largestNumber2($arr) {
+    uasort($arr, compareLarger);
+    return implode("", $arr);
+}
+
 /**
  * Time: O(n*k) where is the size of the largest value, n is the size of array
- *
+ * Space: O(n)
  */
 function largestNumber($arr) {
     $bucket = array_fill(0, 10, []);
@@ -87,4 +104,5 @@ function countingSort2($arr, $exp) {
 
 $input3 = [3, 30, 34, 5, 9];
 
-echo largestNumber($input3) . PHP_EOL;
+// echo largestNumber($input3) . PHP_EOL;
+echo largestNumber2($input3);
