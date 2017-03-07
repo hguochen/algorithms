@@ -225,24 +225,24 @@ class BinarySearchTree {
     }
 }
 
-// $bst = new BinarySearchTree(40);
-// $root = $bst->getRoot();
-// $bst->insert(13);
-// $bst->insert(57);
-// $bst->insert(7);
-// $bst->insert(37);
-// $bst->insert(49);
-// $bst->insert(67);
-// $bst->insert(34);
-// $bst->insert(39);
-// $bst->insert(63);
-// $bst->insert(28);
-// $bst->insert(38);
-// $bst->insert(60);
-// $bst->insert(65);
-// $bst->insert(30);
-// $bst->insert(29);
-// $bst->insert(32);
+$bst = new BinarySearchTree(40);
+$root = $bst->getRoot();
+$bst->insert(13);
+$bst->insert(57);
+$bst->insert(7);
+$bst->insert(37);
+$bst->insert(49);
+$bst->insert(67);
+$bst->insert(34);
+$bst->insert(39);
+$bst->insert(63);
+$bst->insert(28);
+$bst->insert(38);
+$bst->insert(60);
+$bst->insert(65);
+$bst->insert(30);
+$bst->insert(29);
+$bst->insert(32);
 // $bst->preorder($root, 'printData');
 // echo PHP_EOL;
 // $bst->preorder_iterative($root, 'printData');
