@@ -139,14 +139,14 @@ $string5 = "forgeeksskeegfor";
 // echo isPalindrome($string3, 0, strlen($string3)-1) . PHP_EOL; // false
 // echo isPalindrome($string4, 0, strlen($string4)-1) . PHP_EOL; // true
 
-// echo longestPalindromeV2($string1) . PHP_EOL;
-// echo longestPalindromeV2($string2) . PHP_EOL;
-// echo longestPalindromeV2($string3) . PHP_EOL;
-// echo longestPalindromeV2($string4) . PHP_EOL;
-// echo longestPalindromeV2($string5) . PHP_EOL;
+echo longestPalindromeV2($string1) . PHP_EOL;
+echo longestPalindromeV2($string2) . PHP_EOL;
+echo longestPalindromeV2($string3) . PHP_EOL;
+echo longestPalindromeV2($string4) . PHP_EOL;
+echo longestPalindromeV2($string5) . PHP_EOL;
 
-echo longestPalindromeV3($string1) . PHP_EOL;
-echo longestPalindromeV3($string2) . PHP_EOL;
-echo longestPalindromeV3($string3) . PHP_EOL;
-echo longestPalindromeV3($string4) . PHP_EOL;
-echo longestPalindromeV3($string5) . PHP_EOL;
+// echo longestPalindromeV3($string1) . PHP_EOL;
+// echo longestPalindromeV3($string2) . PHP_EOL;
+// echo longestPalindromeV3($string3) . PHP_EOL;
+// echo longestPalindromeV3($string4) . PHP_EOL;
+// echo longestPalindromeV3($string5) . PHP_EOL;
