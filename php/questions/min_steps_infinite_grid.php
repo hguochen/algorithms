@@ -11,6 +11,12 @@
 //     (x-1,y+1), 
 //     (x+1,y-1) 
 
+/**
+ * Since we must move to each point accordingly, the min steps required is essentially
+ * the max step between rows moved and col moved.
+ * Time: O(A) where A is size of array A, and assuming B is equal in size to A
+ * Space: O(1)
+ */
 function minStepsInfiniteGrid($A, $B) {
     if (empty($A) || empty($B)) {
         return;
