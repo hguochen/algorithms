@@ -129,11 +129,9 @@ function deleteDeadPaths($visited, &$result, &$wordIndex) {
         } else {
             $prev = $result[sizeof($result)-1];
             list($row, $col) = $prev;
-            if ($visited[$row][$col]) {
-                array_pop($result);
-                $wordIndex--;
-            } else {
-                break;
+            // if this surrounding has match but unvisited
+            if ($visited[$row+1][$col]) {
+              # code...
             }
         }
     }
