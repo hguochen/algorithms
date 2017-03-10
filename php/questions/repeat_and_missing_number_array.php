@@ -14,6 +14,15 @@
 // Output:[3, 4] 
 // A = 3, B = 4
 
+/**
+ * Use index as a flag to mark a specific element as present.
+ * 1. The element that has its index's element already negative is the repeated array
+ * 2. The element that has its index's element still positive after step 1 is the missing
+ * element in array.
+ * 
+ * Time: O(n)
+ * Space: O(1)
+ */
 function findRepeatAndMissing($arr) {
     if (empty($arr)) {
         return;
