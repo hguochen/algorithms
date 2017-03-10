@@ -165,4 +165,4 @@ $start = new Coordinate(0,0);
 $end = new Coordinate(sizeof($grid)-1, sizeof($grid[0])-1);
 
 printGrid(computePath($grid, $start, $end));
-printGrid(computePathV2($grid, $start, $end));
+// printGrid(computePathV2($grid, $start, $end));
