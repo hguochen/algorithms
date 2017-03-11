@@ -83,9 +83,25 @@ function compare($value1, $value2) {
 
 /**
  * OPTIMAL SOLUTION.
- * [maxAbsoluteDiffV3 description]
- * @param  [type] $arr [description]
- * @return [type]      [description]
+ * 
+ * the equation f(i,j) = |A[i] - A[j]| + |i-j| can be rewritten into the following ways
+ * 1. (A[i] + i) - (A[j] + j)
+ * 2. -(A[i] - i) + (A[j] - j) 
+ * 3. (A[i] - i) - (A[j] - j) 
+ * 4. -(A[i] + i) + (A[j] + j)
+ * 
+ * Note that case 1 and 4 are equivalent, as with case 2 and 3.
+ *
+ * Since i and j essentially represent the same things, the 2 cases shorten to
+ * 1. A[i] + i
+ * 2. A[i] - i
+ *
+ * We can construct 2 array based on this 2 expressions.
+ * Once both arrays constructed, we find the max and min value in each of the 2 arrays.
+ * The larger value difference between each of the arrays' max-min diff is the result
+ *
+ * Time: O(n) where n is size of array
+ * Space: O(n) where we create 2 additional arrays of n size each
  */
 function maxAbsoluteDiffV3($arr) {
     if (sizeof($arr) < 2) {
