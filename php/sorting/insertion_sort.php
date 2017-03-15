@@ -18,13 +18,17 @@ function insertionSort_v1($input) {
     for ($i=1; $i < sizeof($input); $i++) {
         $j = $i;
         while ($j > 0 && $input[$j-1] > $input[$j]) {
-            $temp = $input[$j-1];
-            $input[$j-1] = $input[$j];
-            $input[$j] = $temp;
+            swap($input[$j-1], $input[$j]);
             $j--;
         }
     }
     return $input;
+}
+
+function swap(&$value1, &$value2) {
+    $temp = $value1;
+    $value1 = $value2;
+    $value2 = $temp;
 }
 
 print_r(insertionSort_v1($input1));

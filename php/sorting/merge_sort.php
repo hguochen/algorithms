@@ -45,4 +45,57 @@ function merge($left, $right) {
     return $result;
 }
 
+/**
+ * CLRS textbook solution.
+ *
+ */
+function mergeSortV2($arr) {
+    if (sizeof($arr) < 2) {
+        return $arr;
+    }
+    mergeSortRecur($arr, 0, sizeof($arr)-1);
+    return $arr;
+}
+
+function mergeSortRecur(&$arr, $low, $high) {
+    if ($low < $high) {
+        $mid = floor(($low + $high) / 2);
+        mergeSortRecur($arr, $low, $mid);
+        mergeSortRecur($arr, $mid+1, $high);
+        mergeV2($arr, $low, $mid, $high);
+    }
+}
+
+function mergeV2(&$arr, $low, $mid, $high) {
+    list($temp, $leftStart, $rightStart, $current) = [$arr, $low, $mid+1, $low];
+
+    while ($leftStart <= $mid && $rightStart <= $high) {
+        if ($arr[$leftStart] < $arr[$rightStart]) {
+            $temp[$current] = $arr[$leftStart];
+            $leftStart++;
+        } else {
+            $temp[$current] = $arr[$rightStart];
+            $rightStart++;
+        }
+        $current++;
+    }
+    // copy left side remainder into array
+    while ($leftStart <= $mid) {
+        $temp[$current] = $arr[$leftStart];
+        $leftStart++;
+        $current++;
+    }
+    // copy right side remainder into array
+    while ($rightStart <= $high) {
+        $temp[$current] = $arr[$rightStart];
+        $rightStart++;
+        $current++;
+    }
+    // put back into array
+    for ($i=$low; $i <= $high; $i++) { 
+        $arr[$i] = $temp[$i];
+    }
+}
+
 print_r(mergesort($input1));
+print_r(mergesortV2($input1));

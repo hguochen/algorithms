@@ -13,45 +13,28 @@
 $input1 = [14, 33, 27, 10, 35, 19, 42, 44];
 $input2 = [64, 25, 12, 22, 11];
 
-function selectionSort_v1($input) {
-    $result = $input;
-    // set last sorted index, initialized to 0. this splits sorted and unsorted portion
-    $firstUnsortedIndex = 0;
-    // inside the unsorted portion, find the smallest value, and note it's index.
-    // swap the index small value with the next value of last sorted index
-    // increment index.
-    for ($i=$firstUnsortedIndex; $i < sizeof($result); $i++) {
+function selectionSort($arr) {
+    if (sizeof($arr) < 2) {
+        return $arr;
+    }
+    // loop through array, with $i as the last sorted index
+    for ($i=0; $i < sizeof($arr); $i++) { 
         $smallestIndex = $i;
-        for ($j=$i+1; $j < sizeof($result); $j++) {
-            if ($result[$j] < $result[$smallestIndex]) {
+        for ($j=$i+1; $j < sizeof($arr); $j++) { 
+            if ($arr[$j] < $arr[$smallestIndex]) {
                 $smallestIndex = $j;
             }
         }
-        // swap smallest remaining element with first unsorted element
-        $temp = $result[$firstUnsortedIndex];
-        $result[$firstUnsortedIndex] = $result[$smallestIndex];
-        $result[$smallestIndex] = $temp;
-        $firstUnsortedIndex++;
+        swap($arr[$i], $arr[$smallestIndex]);
     }
-    return $result;
+    return $arr;
 }
 
-function selectionSort_v2($input) {    
-    for ($i=0; $i < sizeof($input); $i++) {
-        $minIndex = $i;
-        for ($j=$i+1; $j < sizeof($input); $j++) {
-            if ($input[$j] < $input[$minIndex]) {
-                $minIndex = $j;
-            }
-        }
-        $temp = $input[$i];
-        $input[$i] = $input[$minIndex];
-        $input[$minIndex] = $temp;
-    }
-    return $input;
+function swap(&$value1, &$value2) {
+    $temp = $value1;
+    $value1 = $value2;
+    $value2 = $temp;
 }
 
-print_r(selectionSort_v1($input1));
-print_r(selectionSort_v1($input2));
-print_r(selectionSort_v2($input1));
-print_r(selectionSort_v2($input2));
+print_r(selectionSort($input1));
+print_r(selectionSort($input2));
