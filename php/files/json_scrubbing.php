@@ -34,15 +34,27 @@ $toScrub = [
 ];
 
 $testFile1 = dirname(__FILE__) . '/examples/raw/payment_type_selected.json';
-echo $testFile1;
 $resource1 = fopen($testFile1, 'r');
 $contents = fread($resource1, filesize($testFile1));
 $contents = json_decode($contents, True);
-readArray($contents, $toScrub);
+$iter = new RecursiveIteratorIterator(new RecursiveArrayIterator($contents));
+while ($iter->valid()) {
+    // echo $iter->key() . ' => ' . $iter->current() . PHP_EOL;
+    if (in_array($iter->key(), $toScrub)) {
+        echo "RUNS" . PHP_EOL;
+        $value = $iter->current();
+        $value = preg_replace('/[a-zA-Z0-9]/', '*', $value);
+    }
+    $iter->next();
+}
+
+// readArray($contents, $toScrub);
 var_dump($contents);
+
 $testFile2 = dirname(__FILE__) . '/examples/raw/signup_event_data.json';
 $resource2 = fopen($testFile2, 'r');
 $contents2 = fread($resource2, filesize($testFile2));
 $contents2 = json_decode($contents2, True);
-readArray($contents2, $toScrub);
-var_dump($contents2);
+// readArray($contents2, $toScrub);
+// var_dump($contents2);
+
