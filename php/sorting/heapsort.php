@@ -16,9 +16,7 @@ function heapsort($input) {
 
     while (!empty($input)) {
         // swap
-        $temp = $input[0];
-        $input[0] = $input[sizeof($input)-1];
-        $input[sizeof($input)-1] = $temp;
+        swap($input[0], $input[sizeof($input)-1]);
 
         array_unshift($result, array_pop($input));
         if (!empty($input)) {
@@ -66,6 +64,12 @@ function getLeftChildIndex($index) {
 
 function getParentIndex($index) {
     return floor(($index-1) / 2);
+}
+
+function swap(&$value1, &$value2) {
+    $temp = $value1;
+    $value1 = $value2;
+    $value2 = $temp;
 }
 
 print_r(heapsort($input1));
