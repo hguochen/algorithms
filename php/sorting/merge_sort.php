@@ -97,5 +97,23 @@ function mergeV2(&$arr, $low, $mid, $high) {
     }
 }
 
+function mergeRecur($left, $right) {
+    if (empty($left)) {
+        return $right;
+    }
+    if (empty($right)) {
+        return $left;
+    }
+    if ($left[0] < $right[0]) {
+        $first = array_shift($left);
+        return array_merge([$first], merge($left, $right));
+    } else {
+        $first = array_shift($right);
+        return array_merge([$first], merge($left, $right));
+    }
+}
+$left = [1,5,6,8];
+$right = [2,8,11,17];
+print_r(mergeRecur($left, $right));
 print_r(mergesort($input1));
 print_r(mergesortV2($input1));
