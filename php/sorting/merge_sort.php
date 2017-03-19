@@ -20,8 +20,8 @@ function mergesort($input) {
     }
 
     $mid = (int) (sizeof($input) / 2);
-    $left = array_slice($input, 0, $mid);
-    $right = array_slice($input, $mid);
+    $left = array_slice($input, 0, $mid-0+1);
+    $right = array_slice($input, $mid+1);
     $left = mergesort($left);
     $right = mergesort($right);
     return merge($left, $right);
@@ -106,10 +106,10 @@ function mergeRecur($left, $right) {
     }
     if ($left[0] < $right[0]) {
         $first = array_shift($left);
-        return array_merge([$first], merge($left, $right));
+        return array_merge([$first], mergeRecur($left, $right));
     } else {
         $first = array_shift($right);
-        return array_merge([$first], merge($left, $right));
+        return array_merge([$first], mergeRecur($left, $right));
     }
 }
 $left = [1,5,6,8];

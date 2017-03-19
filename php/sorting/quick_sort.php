@@ -43,20 +43,22 @@ function partition(&$input, $start, $end) {
     $nextIndex = $start;
 
     while ($nextIndex < $end) {
-        if ($input[$nextIndex] > $input[$end]) {
-            $nextIndex++;
-        } else {
-            $temp = $input[$resultIndex];
-            $input[$resultIndex] = $input[$nextIndex];
-            $input[$nextIndex] = $temp;
+        if ($input[$nextIndex] < $input[$end]) {
+            swap($input[$resultIndex], $input[$nextIndex]);
             $resultIndex++;
-            $nextIndex++;
         }
+        $nextIndex++;
     }    
     $temp = $input[$end];
     $input[$end] = $input[$resultIndex];
     $input[$resultIndex] = $temp;
     return $resultIndex;
+}
+
+function swap(&$value1, &$value2) {
+    $temp = $value1;
+    $value1 = $value2;
+    $value2 = $temp;
 }
 
 // quicksort php style
