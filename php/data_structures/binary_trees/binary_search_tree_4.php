@@ -139,6 +139,17 @@ class BinarySearchTree {
         }
     }
 
+    public function getHeight() {
+        return $this->getHeightRecur($this->root);
+    }
+
+    private function getHeightRecur($node) {
+        if (empty($node->left) && empty($node->right)) {
+            return 1;
+        }
+        return max($this->getHeightRecur($node->left), $this->getHeightRecur($node->right)) + 1;
+    } 
+
     public function inorder($node, $callback) {
         if (empty($node)) {
             return;
