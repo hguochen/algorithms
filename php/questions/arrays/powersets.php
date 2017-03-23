@@ -81,20 +81,15 @@ function generatePowersetsRecursionV2($array) {
 
 function generatePowersetHelperV2($array, &$result, $resultIndex, $arrayIndex) {
     // if current result element already has the new char, terminate
-    if (in_array($array[$arrayIndex], $result[$resultIndex])) {
-        if (!in_array([], $result)) {
-            $result[] = [];
-        }
+    if ($array[$arrayIndex] == end($result[$resultIndex])) {
         return;
     }
     // new element is not in current result
     // append new element to end of current result element
     $temp = $result[$resultIndex];
-    $temp[] = $array[$arrayIndex];
-    if (!in_array($temp, $result)) {
-        $result[] = $temp;
-    }
-    
+    $temp[] = $array[$arrayIndex];    
+    $result[] = $temp;
+
     generatePowersetHelperV2($array, $result, ++$resultIndex, $arrayIndex);
 }
 
