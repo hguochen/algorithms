@@ -36,6 +36,45 @@ class Graph {
         return $visitOrder;
     }
 
+    public function dfsIterative($start) {
+        $visited = array_fill(0, sizeof($this->matrix), False);
+        $visitOrder = [];
+        $stack = [$start];
+
+        while (!empty($stack)) {
+            $vertice = array_pop($stack);
+            $visitOrder[] = $vertice;
+            $visited[$vertice] = True;
+            for ($i=0; $i < sizeof($this->matrix[$vertice]); $i++) { 
+                if ($this->matrix[$vertice][$i] != 0) {
+                    if (!$visited[$i] && !in_array($i, $stack)) {
+                        $stack[] = $i;
+                    }
+                }
+            }
+        }
+        return $visitOrder;
+    }
+
+    public function dfsRecursive($start) {
+        $visited = array_fill(0, sizeof($this->matrix), False);
+        $visitOrder = [];
+        $this->dfsRecur($visited, $visitOrder, $start);
+        return $visitOrder;
+    }
+
+    private function dfsRecur(&$visited, &$visitOrder, $start) {
+        $visitOrder[] = $start;
+        $visited[$start] = True;
+        for ($i=0; $i < sizeof($this->matrix[$start]); $i++) { 
+            if ($this->matrix[$start][$i] != 0) {
+                if (!$visited[$i]) {
+                    $this->dfsRecur($visited, $visitOrder, $i);
+                }
+            }
+        }
+    }
+
     public function printMatrix() {
         for ($row=0; $row < sizeof($this->matrix); $row++) { 
             for ($col=0; $col < sizeof($this->matrix[$row]); $col++) { 
@@ -63,3 +102,5 @@ $graph->addEdge(4,0);
 $graph->addEdge(4,1);
 $graph->printMatrix();
 print_r($graph->bfs(0));
+print_r($graph->dfsIterative(0));
+print_r($graph->dfsRecursive(0));
