@@ -62,6 +62,11 @@ function generatePowersetHelper($array, &$result, $index) {
     generatePowersetHelper($array, $result, ++$index);
 }
 
+/**
+ * Recursive approach to generating powersets without using for loop in recursion.
+ * Time: O(2^n * n)
+ * Space: O(2^n * n)
+ */
 function generatePowersetsRecursionV2($array) {
     $result = [[]];
     if (empty($array)) {
