@@ -35,7 +35,7 @@ function friendCircleCount($friendsMap) {
             $myself = array_pop($queue);
             $visited[$myself] = True;
             foreach ($friendsMap[$myself] as $related) {
-                if (!$visited[$related] && !in_array($related, $queue)) {
+                if (!$visited[$related] && !isset($queue[$related])) {
                     $queue[] = $related;
                 }
             }
