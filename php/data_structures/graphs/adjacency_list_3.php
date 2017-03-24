@@ -16,6 +16,14 @@ class Graph {
         return;
     }
 
+    public function getEdges($index) {
+        return $this->adjList[$index];
+    }
+
+    public function getVerticeCount() {
+        return sizeof($this->adjList);
+    }
+
     public function printGraph() {
         foreach ($this->adjList as $key => $value) {
             echo $key . ": " . "[" . implode(" ", $value) . "]" . PHP_EOL;
@@ -79,13 +87,13 @@ class Graph {
     }
 }
 
-$graph = new Graph();
-$graph->addEdge(0, [1,4]);
-$graph->addEdge(1, [0,2,3,4]);
-$graph->addEdge(2, [1,3]);
-$graph->addEdge(3, [1,4,2]);
-$graph->addEdge(4, [3,0,1]);
-$graph->printGraph();
-print_r($graph->bfs(0));
-print_r($graph->dfsIterative(0));
-print_r($graph->dfsRecursive(0));
+// $graph = new Graph();
+// $graph->addEdge(0, [1,4]);
+// $graph->addEdge(1, [0,2,3,4]);
+// $graph->addEdge(2, [1,3]);
+// $graph->addEdge(3, [1,4,2]);
+// $graph->addEdge(4, [3,0,1]);
+// $graph->printGraph();
+// print_r($graph->bfs(0));
+// print_r($graph->dfsIterative(0));
+// print_r($graph->dfsRecursive(0));
