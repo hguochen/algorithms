@@ -93,10 +93,19 @@ function generatePowersetHelperV2($array, &$result, $resultIndex, $arrayIndex) {
     generatePowersetHelperV2($array, $result, ++$resultIndex, $arrayIndex);
 }
 
+// def solve(elements):
+//   result = []
+//   def helper(idx, current, leftover):
+//     if not leftover:
+//       result.append(current)
+//     else:
+//       # include the current element
+//       helper(current[:] + [leftover[0]], leftover[1:])
+//       # exclude the current element
+//       helper(current[:], leftover[1:])
 
 
-
-$arr1 = ['A', 'B', 'C', 'D', 'E'];
+$arr1 = ['A', 'B'];
 
 // print_r(generatePowersets($arr1));
 // print_r(generatePowersetsRecursion($arr1));
