@@ -38,6 +38,48 @@ function dijkstra(Graph $graph, $startIndex) {
     return $parent;
 }
 
+function dijkstraRecursion(Graph $graph, $startIndex) {
+    $visited = array_fill(0, $graph->getVerticeCount(), False);
+    $dist = array_fill(0, $graph->getVerticeCount(), PHP_INT_MAX);
+    $parent = array_fill(0, $graph->getVerticeCount(), -1);
+
+    $dist[$startIndex] = 0;
+    dijkstraRecur($graph, $index, $visited, $dist, $parent);
+    return $parent;
+}
+
+function dijkstraRecur($graph, $index, &$visited, &$dist, &$parent) {
+    if (!in_array(False, $visited)) {
+        return;
+    }
+    $visited[$index] = True;
+    $curr = $graph->getEdges()[$index];
+    updateNeighbourDist($curr, $index, $dist, $parent);
+
+    // find the next min dist
+    $minDist = PHP_INT_MAX;
+    for ($i=0; $i < sizeof($dist); $i++) { 
+        if (!$visited[$i] && $dist[$i] < $minDist) {
+            $minDist = $dist[$i];
+            $index = $i;
+        }
+    }
+    dijkstraRecur($graph, $index, $visited, $dist, $parent);
+}
+
+function updateNeighbourDist($curr, $index, &$dist, &$parent) {
+    if (empty($curr)) {
+        return;
+    }
+    if ($dist[$curr->data] > $dist[$index] + $curr->weight) {
+        $dist[$curr->data] = $dist[$index] + $curr->weight;
+        $parent[$curr->data] = $index;
+    }
+
+    // get to next neighbour
+    updateNeighbourDist($curr->next, $index, $dist, $parent);
+}
+
 $graph = new Graph(9, 0, False);
 $graph->insertEdge(0, 1, 4);
 $graph->insertEdge(0, 7, 8);
@@ -76,4 +118,5 @@ $graph->insertEdge(8, 6, 6);
 $graph->insertEdge(8, 7, 7);
 $graph->printGraph();
 
-print_r(dijkstra($graph, 0));
+// print_r(dijkstra($graph, 0));
+print_r(dijkstraRecursion($graph, 0));
