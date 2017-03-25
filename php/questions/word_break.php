@@ -168,13 +168,32 @@ $dict3 = [
     "string" => 1,    
 ];
 
+$dict4 = [
+    "i" => 1,
+    "like" => 1, 
+    "sam" => 1,
+    "sung" => 1,
+    "samsung" => 1,
+    "mobile"=>1,
+    "ice"=> 1, 
+    "cream" => 1,
+    "icecream" => 1,
+    "man"=> 1,
+    "go" => 1,
+    "mango" => 1
+];
+
 $str1 = "leetcode";
 $str2 = "aaaab";
 $str3 = "thisisastring";
+$str4 = "ilike";
+$str5 = "ilikesamsung";
 
 echo wordBreak($str1, $dict) . PHP_EOL;
 echo wordBreak($str2, $dict2) . PHP_EOL;
 echo wordBreak($str3, $dict3) . PHP_EOL;
+echo wordBreak($str4, $dict4) . PHP_EOL;
+echo wordBreak($str5, $dict4) . PHP_EOL;
 
 
 // $starttime = microtime(true);
