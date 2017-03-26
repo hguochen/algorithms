@@ -176,6 +176,7 @@ function constructWords($str, $dict, &$result, &$table, $index) {
 }
 
 /**
+ * OPTIMAL SOLUTION.
  * Memoized DP solution to constructWords
  * Time: O(n^2)
  * Space: O(n)
@@ -269,13 +270,13 @@ $timediff = $endtime - $starttime;
 echo "execution time: " . $timediff * 1000000 . PHP_EOL;
 
 
-// echo wordBreak($str1, $dict) . PHP_EOL;
-// echo wordBreak($str2, $dict2) . PHP_EOL;
-// echo wordBreak($str3, $dict3) . PHP_EOL;
-// echo wordBreak($str4, $dict4) . PHP_EOL;
-// echo wordBreak($str5, $dict4) . PHP_EOL;
-// echo wordBreak($str6, $dict4) . PHP_EOL;
-// echo wordBreak("icecream", $dict4) . PHP_EOL;
+echo wordBreak($str1, $dict) . PHP_EOL;
+echo wordBreak($str2, $dict2) . PHP_EOL;
+echo wordBreak($str3, $dict3) . PHP_EOL;
+echo wordBreak($str4, $dict4) . PHP_EOL;
+echo wordBreak($str5, $dict4) . PHP_EOL;
+echo wordBreak($str6, $dict4) . PHP_EOL;
+echo wordBreak("icecream", $dict4) . PHP_EOL;
 
 
 // $starttime = microtime(true);
