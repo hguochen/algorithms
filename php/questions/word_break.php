@@ -28,10 +28,10 @@ function validWord($str, $dict) {
 
 /**
  * Recursion on validWord method.
- * Time: O(n^2 * n!)
+ * Time: O(n^2 * 2^n)
  * where n is the size of string
  * n^2 is contributed by looping through the string and constructing a substring in each iteration.
- * n! is contributed by recursively adding to the stack frame for new method calls
+ * 2^n is contributed by recursively adding to the stack frame for new method calls
  */
 function validWordHelper($str, $dict, $index) {
     if ($index == strlen($str)) {
@@ -84,7 +84,7 @@ function validWordHelperDP($str, $dict, &$table, $index) {
 /**
  * Given a string and a dictionary, break the string into its valid words
  * delimited by space. If there are invalid words, return empty string.
- * Time: O(n + constructWord complexity)
+ * Time: O(n + constructWord complexity + mergeWords complexity)
  * Space: O(n)
  * where n is the size of the string
  */
@@ -93,7 +93,8 @@ function wordBreak($str, $dict) {
         return "";
     }
     $result = [];
-    constructWords($str, $dict, $result, 0);
+    $table = [];
+    constructWordsDP($str, $dict, $result, $table, 0);
     if (empty($result)) {
         return "";
     }
@@ -104,10 +105,32 @@ function wordBreak($str, $dict) {
     }
 
     if ($count == strlen($str)) {
-        return implode(" ", $result);
+        // merge into longer words if possible
+        return implode(" ", mergeWords($result, $dict));
     } else {
         return "";
     }    
+}
+
+/**
+ * Merge words in result to give a more optimal answer.
+ * Time: O(n^2) where n is size of the result
+ * Space: O(1)
+ */
+function mergeWords($result, $dict) {
+    do {
+        $merged = False;
+        for ($i=1; $i < sizeof($result); $i++) { 
+            $newWord = $result[$i-1] . $result[$i];
+            if (isset($dict[$newWord])) {
+                $result[$i] = $newWord;
+                unset($result[$i-1]);
+                $merged = True;
+            }
+        }
+    $result = array_values($result);
+    } while ($merged);
+    return $result;
 }
 
 /**
@@ -117,12 +140,53 @@ function wordBreak($str, $dict) {
  * on the rest of the word.
  * - put put valid word in result only once.
  * 
- * Time: O(n^2 * n!)
+ * Time: O(n^2 * 2^n)
  * Space: O(n)
  */
-function constructWords($str, $dict, &$result, $index) {
+function constructWords($str, $dict, &$result, &$table, $index) {
     if ($index == strlen($str)) {
         return;
+    }
+    // if (isset($table[$index])) {
+    //     array_unshift($result, $table[$index]);
+    //     return True;
+    // }
+    $temp = "";
+    for ($i=$index; $i < strlen($str); $i++) { 
+        $sub = substr($str, $index, $i-$index+1);
+        if (isset($dict[$sub])) {
+            if (strlen($temp) < strlen($sub)) {
+                $temp = $sub;
+            }
+            // boolean check to determine if subsequent chars has been used to
+            // construct another valid word.
+            $wordAdded = constructWords($str, $dict, $result, $table, $i+1);
+        }
+        // subsequent chars used to construct another word, do not continue        
+        if ($wordAdded) {
+            break;
+        }
+    }
+    // put current temp into result
+    if (!empty($temp)) {
+        array_unshift($result, $temp);
+        return True;
+    }
+    return False;
+}
+
+/**
+ * Memoized DP solution to constructWords
+ * Time: O(n^2)
+ * Space: O(n)
+ */
+function constructWordsDP($str, $dict, &$result, &$table, $index) {
+    if ($index == strlen($str)) {
+        return;
+    }
+    if (isset($table[$index])) {
+        array_unshift($result, $table[$index]);
+        return True;
     }
     $temp = "";
     for ($i=$index; $i < strlen($str); $i++) { 
@@ -133,7 +197,7 @@ function constructWords($str, $dict, &$result, $index) {
             }
             // boolean check to determine if subsequent chars has been used to
             // construct another valid word.
-            $wordAdded = constructWords($str, $dict, $result, $i+1);
+            $wordAdded = constructWords($str, $dict, $result, $table, $i+1);
         }
         // subsequent chars used to construct another word, do not continue        
         if ($wordAdded) {
@@ -142,6 +206,7 @@ function constructWords($str, $dict, &$result, $index) {
     }
     // put current temp into result
     if (!empty($temp)) {
+        $table[$index] = $temp;
         array_unshift($result, $temp);
         return True;
     }
@@ -180,6 +245,7 @@ $dict4 = [
     "icecream" => 1,
     "man"=> 1,
     "go" => 1,
+    "and" => 1,
     "mango" => 1
 ];
 
@@ -188,12 +254,28 @@ $str2 = "aaaab";
 $str3 = "thisisastring";
 $str4 = "ilike";
 $str5 = "ilikesamsung";
+$str6 = "samsungandmango";
 
-echo wordBreak($str1, $dict) . PHP_EOL;
-echo wordBreak($str2, $dict2) . PHP_EOL;
-echo wordBreak($str3, $dict3) . PHP_EOL;
-echo wordBreak($str4, $dict4) . PHP_EOL;
+$starttime = microtime(true);
 echo wordBreak($str5, $dict4) . PHP_EOL;
+$endtime = microtime(true);
+$timediff = $endtime - $starttime;
+echo "execution time: " . $timediff * 1000000 . PHP_EOL;
+
+$starttime = microtime(true);
+echo wordBreak($str6, $dict4) . PHP_EOL;
+$endtime = microtime(true);
+$timediff = $endtime - $starttime;
+echo "execution time: " . $timediff * 1000000 . PHP_EOL;
+
+
+// echo wordBreak($str1, $dict) . PHP_EOL;
+// echo wordBreak($str2, $dict2) . PHP_EOL;
+// echo wordBreak($str3, $dict3) . PHP_EOL;
+// echo wordBreak($str4, $dict4) . PHP_EOL;
+// echo wordBreak($str5, $dict4) . PHP_EOL;
+// echo wordBreak($str6, $dict4) . PHP_EOL;
+// echo wordBreak("icecream", $dict4) . PHP_EOL;
 
 
 // $starttime = microtime(true);
