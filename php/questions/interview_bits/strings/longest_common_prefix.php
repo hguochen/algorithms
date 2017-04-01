@@ -22,6 +22,10 @@
 // ]
 // The answer would be “a”.
 
+/**
+ * Time: O(n * m) where n is size of array. m is size of longest string.
+ * Space: O(m)
+ */
 function longestCommonPrefix($arr) {
     if (sizeof($arr) < 1) {
         return "";
