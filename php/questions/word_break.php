@@ -198,7 +198,7 @@ function constructWordsDP($str, $dict, &$result, &$table, $index) {
             }
             // boolean check to determine if subsequent chars has been used to
             // construct another valid word.
-            $wordAdded = constructWords($str, $dict, $result, $table, $i+1);
+            $wordAdded = constructWordsDP($str, $dict, $result, $table, $i+1);
         }
         // subsequent chars used to construct another word, do not continue        
         if ($wordAdded) {
