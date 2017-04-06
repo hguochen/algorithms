@@ -38,6 +38,7 @@ function swap(&$v1, &$v2) {
 }
 
 /**
+ * OPTIMAL
  * Time: O(n) where n is size of array
  * Space: O(1)
  *
