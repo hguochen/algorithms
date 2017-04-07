@@ -191,8 +191,10 @@ function swap(&$value1, &$value2) {
     $value2 = $temp;
 }
 
-$arr1 = [3,5,8,7,2,1]; 
+$arr1 = [3,5,8,7,2,1];
+$arr2 = [1,2,2,5,6];
 
 print_r(twoSumBrute($arr1, 5));
 print_r(twoSumsHashtable($arr1, 5));
 print_r(twoSumSorting($arr1, 5));
+print_r(twoSumSorting($arr2, 4));
