@@ -13,4 +13,19 @@ function swapNodePairs($head) {
     if (empty($head) || empty($head->next)) {
         return $head;
     }
+    $prev = NULL;
+    $curr = $head;
+    $next1 = NULL;
+    $next2 = NULL;
+    $newHead = $head->next;
+    while (!empty($curr)) {
+        $next1 = $curr->next;
+        $next2 = $curr->next->next;
+
+        $curr->next = $curr->next->next;
+        $next1->next = $curr;
+
+        $prev = $curr;
+        $curr = $next2;
+    }
 }
