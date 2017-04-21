@@ -1,5 +1,5 @@
 <?php
-
+// http://yucoding.blogspot.com/2013/12/leetcode-question-max-points-on-line.html
 // Given n points on a 2D plane, find the maximum number of points that lie on
 // the same straight line.
 
