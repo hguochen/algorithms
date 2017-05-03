@@ -25,6 +25,11 @@
 // coincidentally equals the dimensions of an ordinary chess board has contributed
 // to the popularity of the problem.
 
+/**
+ * Time: O(n!)
+ * Space: O(n)
+ *
+ */
 function solve($size) {    
     if ($size < 4) {
         echo "No Solution";
