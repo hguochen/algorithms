@@ -1,6 +1,7 @@
 <?php
 
 // http://www.math.utah.edu/~alfeld/queens/queens.html
+// http://algorithms.tutorialhorizon.com/backtracking-n-queens-problem/
 
 // In chess, a queen can move as far as she pleases, horizontally, vertically, or
 // diagonally. A chess board has 8 rows and 8 columns. The standard 8 by 8 Queen's
