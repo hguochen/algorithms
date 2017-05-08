@@ -26,18 +26,21 @@ function wordBreak($str, $dict) {
     }
     $result = [];
     wordBreakUtil($str, $dict, $result);
+    print_r($result);
     return $result;
 }
 
 function wordBreakUtil($str, $dict, &$result) {
-    for ($i=0; $i <= strlen($str); $i++) { 
+    for ($i=0; $i < strlen($str); $i++) { 
         $prefix = substr($str, 0, $i+1);
         if (isset($dict[$prefix])) {
             if ($i == strlen($str)) {
                 echo implode(" ", $result) . PHP_EOL;
                 return;
             }
-            $result[] = $prefix;
+            if (!in_array($prefix, $result)) {
+                $result[] = $prefix;
+            }
             $newStr = substr($str, $i+1);
             wordBreakUtil($newStr, $dict, $result);
         }
@@ -57,6 +60,7 @@ $dict = [
     "man" => 1,
     "go" => 1,
     "mango" => 1,
+    "and" => 1,
 ];
 
 $str1 = "ilikesamsungmobile";
