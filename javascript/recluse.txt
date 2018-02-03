@@ -1,4 +1,4 @@
-% The Book of Programming 
+% The Book of Programming  
 
 %% The Two Aspects
 
