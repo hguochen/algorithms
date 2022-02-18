@@ -55,20 +55,19 @@ import re
 
 
 def parser(line):
-    pattern = re.compile(r'([a-zA-Z0-9@-_.]+)|"(.*?)"', re.DOTALL)
+    pattern = re.compile(r'([a-zA-Z0-9@-_.]+)|"(.*?)",', re.DOTALL)
     matches = pattern.findall(line)
     result = ""
+    # go through each match, replace every pair of double quotes with a single double quote
     for match in matches:
         for item in match:
+            item = item.replace('""', '"')
             if len(item) > 0:
                 result += item + "|"
     return result
 
-if __name__ == "__main__":
-    #print read_line("John,Smith,john.smith@gmail.com,Los Angeles,1")
-    #print read_line('Jane,Roberts,janer@msn.com,"San Francisco, s, CA",0')
-    #print read_line('Alexandra ""Alex""",Menendez,alex.menendez@gmail.com,Miami,1one,two,,four,"five')
+if __name__ == "__main__":    
     print parser("John,Smith,john.smith@gmail.com,Los Angeles,1")
-    print parser('Jane,Roberts,janer@msn.com,"San Francisco, s, CA",0')
-    print parser('Alexandra ""Alex""",Menendez,alex.menendez@gmail.com,Miami,1one,two,,four,"five')
-    # Jane|Roberts|janer@msn.com|San Francisco, s, CA|0
+    print parser('Jane,Roberts,janer@msn.com,"San Francisco, CA",0')
+    print parser('"Alexandra ""Alex""",Menendez,alex.menendez@gmail.com,Miami,1')
+    print parser('one|two||four|five')
